@@ -1,592 +1,177 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GardenX Protein Engineering Platform</title>
-    <script src="https://3Dmol.org/build/3Dmol-min.js"></script>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+// Comparative analysis functions
+async function runComparativeAnalysis() {
+    const selectedSpecies = [];
+    document.querySelectorAll('.species-checkbox input:checked').forEach(cb => {
+        selectedSpecies.push(cb.value);
+    });
+    
+    if (selectedSpecies.length < 2) {
+        alert('Please select at least 2 species for comparison');
+        return;
+    }
+    
+    console.log('Running comparative analysis for:', selectedSpecies);
+    
+    // Show loading state
+    const resultsDiv = document.getElementById('analysis-results');
+    resultsDiv.style.display = 'block';
+    resultsDiv.innerHTML = '<div style="text-align: center; padding: 40px;"><p>Analyzing sequences...</p></div>';
+    
+    try {
+        const response = await fetch('http://localhost:8000/api/analysis/comparative', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                species: selectedSpecies,
+                reference_sequence: document.querySelector('.sequence-input').value || null
+            })
+        });
+        
+        if (!response.ok) {
+            throw new Error('Analysis failed');
         }
+        
+        const data = await response.json();
+        console.log('Analysis results:', data);
+        
+        // Display results
+        displayAnalysisResults(data);
+        
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Analysis failed: ' + error.message);
+    }
+}
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            overflow: hidden;
-        }
-
-        .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 30px;
-            text-align: center;
-        }
-
-        .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
-
-        .header p {
-            opacity: 0.9;
-            font-size: 1.1rem;
-        }
-
-        .tabs {
-            display: flex;
-            background: #f8f9fa;
-            border-bottom: 2px solid #e9ecef;
-        }
-
-        .tab {
-            flex: 1;
-            padding: 20px;
-            text-align: center;
-            cursor: pointer;
-            background: transparent;
-            border: none;
-            font-size: 1rem;
-            font-weight: 500;
-            color: #6c757d;
-            transition: all 0.3s;
-        }
-
-        .tab:hover {
-            background: #e9ecef;
-        }
-
-        .tab.active {
-            background: white;
-            color: #667eea;
-            border-bottom: 3px solid #667eea;
-            margin-bottom: -2px;
-        }
-
-        .tab-content {
-            display: none;
-            padding: 30px;
-            animation: fadeIn 0.3s;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Input Tab Styles */
-        .input-section {
-            margin-bottom: 30px;
-        }
-
-        .input-section h3 {
-            color: #333;
-            margin-bottom: 15px;
-            font-size: 1.3rem;
-        }
-
-        .sequence-input {
-            width: 100%;
-            min-height: 200px;
-            padding: 15px;
-            border: 2px solid #e9ecef;
-            border-radius: 10px;
-            font-family: 'Courier New', monospace;
-            font-size: 14px;
-            resize: vertical;
-        }
-
-        .sequence-input:focus {
-            outline: none;
-            border-color: #667eea;
-        }
-
-        .controls-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .control-group {
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 10px;
-        }
-
-        .control-group label {
-            display: block;
-            margin-bottom: 8px;
-            color: #495057;
-            font-weight: 500;
-        }
-
-        .control-group select,
-        .control-group input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #dee2e6;
-            border-radius: 5px;
-            font-size: 1rem;
-        }
-
-        .locked-residues {
-            background: #fff3cd;
-            border: 1px solid #ffc107;
-            border-radius: 10px;
-            padding: 20px;
-            margin-top: 20px;
-        }
-
-        .locked-residues h4 {
-            color: #856404;
-            margin-bottom: 10px;
-        }
-
-        .locked-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 10px;
-            margin-top: 10px;
-        }
-
-        .locked-item {
-            background: white;
-            padding: 8px;
-            border-radius: 5px;
-            font-size: 0.9rem;
-        }
-
-        .run-button {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 15px 40px;
-            border: none;
-            border-radius: 10px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 30px;
-            transition: transform 0.2s;
-        }
-
-        .run-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
-        }
-
-        .run-button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        /* Monitor Tab */
-        .progress-container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .stage {
-            display: flex;
-            align-items: center;
-            padding: 20px;
-            margin-bottom: 15px;
-            background: #f8f9fa;
-            border-radius: 10px;
-            transition: all 0.3s;
-        }
-
-        .stage.active {
-            background: #d4edda;
-            border: 2px solid #28a745;
-        }
-
-        .stage.completed {
-            background: #d1ecf1;
-            border: 2px solid #17a2b8;
-        }
-
-        .stage-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: #e9ecef;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 20px;
-        }
-
-        .stage.active .stage-icon {
-            background: #28a745;
-            color: white;
-        }
-
-        .stage.completed .stage-icon {
-            background: #17a2b8;
-            color: white;
-        }
-
-        /* Results Tab */
-        .results-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-        }
-
-        .result-card {
-            border: 1px solid #dee2e6;
-            border-radius: 10px;
-            padding: 20px;
-        }
-
-        .result-card h4 {
-            color: #495057;
-            margin-bottom: 15px;
-        }
-
-        .metric {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 0;
-            border-bottom: 1px solid #f8f9fa;
-        }
-
-        .metric-value {
-            font-weight: 600;
-            color: #28a745;
-        }
-
-        /* Structure Tab - Your existing styles */
-        .structure-controls {
-            display: flex;
-            gap: 20px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-
-        .control-section {
-            flex: 1;
-            min-width: 200px;
-        }
-
-        .control-section label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 500;
-            color: #495057;
-        }
-
-        .control-section select {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #dee2e6;
-            border-radius: 5px;
-        }
-
-        .viewer-container {
-            display: flex;
-            gap: 20px;
-            height: 600px;
-        }
-
-        .viewer-panel {
-            flex: 1;
-            border: 2px solid #dee2e6;
-            border-radius: 10px;
-            padding: 10px;
-        }
-
-        .viewer-panel h3 {
-            text-align: center;
-            color: #495057;
-            margin-bottom: 10px;
-        }
-
-        .viewer-3d {
-            width: 100%;
-            height: 500px;
-            position: relative;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="header">
-            <h1>🧬 GardenX Protein Engineering Platform</h1>
-            <p>AI-Powered Thermostability Enhancement for Climate-Resilient Crops</p>
-        </div>
-
-        <div class="tabs">
-            <button class="tab active" onclick="switchTab('input')">📝 Input</button>
-            <button class="tab" onclick="switchTab('monitor')">📊 Monitor</button>
-            <button class="tab" onclick="switchTab('results')">📈 Results</button>
-            <button class="tab" onclick="switchTab('structure')">🔬 Structure</button>
-        </div>
-
-        <!-- Input Tab -->
-        <div id="input-tab" class="tab-content active">
-            <div class="input-section">
-                <h3>D1 Protein Sequence Input</h3>
-                <textarea class="sequence-input" placeholder="Paste your D1 protein sequence here in FASTA format or plain text...
-
-Example:
->Corn_D1_protein
-MTTTLQRRESANLWERFCNWVTSTDNRLYVGWFGVIMIPTLLAAT
-ICFVIAFIAAPPVDIDGIREPVSGSLLYGNNIITGAVVPSSNAIG
-LHFYPIWEAASLDEWLYNGGPYQLIIFHFLLGASCYMGRQWELSY
-RLGMRPWICVAYSAPLASAFAVFLIYPIGQGSFSDGMPLGISGTF
-NFMIVFQAEHNILMHPFHQLGVAGVFGGALFCAMHGSLVTSSLI"></textarea>
-            </div>
-
-            <div class="controls-grid">
-                <div class="control-group">
-                    <label for="crop-type">Target Crop</label>
-                    <select id="crop-type">
-                        <option value="corn">🌽 Corn</option>
-                        <option value="soy">🌱 Soybean</option>
-                        <option value="wheat">🌾 Wheat</option>
-                        <option value="rice">🌾 Rice</option>
-                    </select>
+function displayAnalysisResults(data) {
+    // Restore the results container HTML
+    const resultsHTML = `
+        <div class="analysis-section">
+            <h3>Sequence Conservation Analysis</h3>
+            <div class="conservation-stats">
+                <div class="stat-box">
+                    <span class="stat-label">Average Identity</span>
+                    <span class="stat-value" id="avg-identity">${data.conservation.average_identity}%</span>
                 </div>
-
-                <div class="control-group">
-                    <label for="compute-mode">Compute Mode</label>
-                    <select id="compute-mode">
-                        <option value="hybrid">⚡ Hybrid (Recommended)</option>
-                        <option value="local">💻 Local GPU</option>
-                        <option value="cloud">☁️ Cloud Only</option>
-                    </select>
+                <div class="stat-box">
+                    <span class="stat-label">Conserved Positions</span>
+                    <span class="stat-value" id="conserved-pos">${data.conservation.conserved_positions}</span>
                 </div>
-
-                <div class="control-group">
-                    <label for="n-variants">Number of Variants</label>
-                    <input type="number" id="n-variants" value="500" min="100" max="1000">
-                </div>
-            </div>
-
-            <div class="locked-residues">
-                <h4>🔒 Protected Critical Residues</h4>
-                <p>These positions are locked to preserve photosynthetic function:</p>
-                <div class="locked-list">
-                    <div class="locked-item">QB Pocket: 215, 254, 255, 264, 271</div>
-                    <div class="locked-item">PheoD1: 130, 147</div>
-                    <div class="locked-item">TyrZ: 161, 190</div>
-                    <div class="locked-item">OEC His332: 170, 189, 332, 333, 342, 344</div>
-                </div>
-            </div>
-
-            <button class="run-button" onclick="runPipeline()">
-                🚀 Run D1 Engineering Pipeline
-            </button>
-        </div>
-
-        <!-- Monitor Tab -->
-        <div id="monitor-tab" class="tab-content">
-            <div class="progress-container">
-                <div class="stage" id="stage-1">
-                    <div class="stage-icon">1</div>
-                    <div>
-                        <h4>Fitness Scoring</h4>
-                        <p>Analyzing evolutionary fitness with ESM-IF1...</p>
-                    </div>
-                </div>
-
-                <div class="stage" id="stage-2">
-                    <div class="stage-icon">2</div>
-                    <div>
-                        <h4>Variant Generation</h4>
-                        <p>Creating thermostable variants with ProGen2 & RFdiffusion...</p>
-                    </div>
-                </div>
-
-                <div class="stage" id="stage-3">
-                    <div class="stage-icon">3</div>
-                    <div>
-                        <h4>ThermoScore Calculation</h4>
-                        <p>Scoring variants with anti-target approach...</p>
-                    </div>
-                </div>
-
-                <div class="stage" id="stage-4">
-                    <div class="stage-icon">4</div>
-                    <div>
-                        <h4>Structure Prediction</h4>
-                        <p>Validating structures with AlphaFold2...</p>
-                    </div>
-                </div>
-
-                <div class="stage" id="stage-5">
-                    <div class="stage-icon">5</div>
-                    <div>
-                        <h4>Diverse Selection</h4>
-                        <p>Selecting optimal variants...</p>
-                    </div>
+                <div class="stat-box">
+                    <span class="stat-label">Variable Positions</span>
+                    <span class="stat-value" id="variable-pos">${data.conservation.variable_positions}</span>
                 </div>
             </div>
         </div>
 
-        <!-- Results Tab -->
-        <div id="results-tab" class="tab-content">
-            <div class="results-grid">
-                <div class="result-card">
-                    <h4>Top Variant Performance</h4>
-                    <div class="metric">
-                        <span>ThermoScore</span>
-                        <span class="metric-value">0.91</span>
-                    </div>
-                    <div class="metric">
-                        <span>Predicted ΔTm</span>
-                        <span class="metric-value">+5.2°C</span>
-                    </div>
-                    <div class="metric">
-                        <span>Structure Confidence</span>
-                        <span class="metric-value">92%</span>
-                    </div>
-                </div>
-
-                <div class="result-card">
-                    <h4>Download Results</h4>
-                    <button onclick="downloadResults('fasta')">📄 Download FASTA</button>
-                    <button onclick="downloadResults('csv')">📊 Download CSV</button>
-                    <button onclick="downloadResults('pdb')">🔬 Download Structures</button>
-                </div>
+        <div class="analysis-section">
+            <h3>Thermostability Correlation Analysis</h3>
+            <p class="section-description">
+                Statistical analysis comparing residue patterns in thermophilic vs mesophilic species
+            </p>
+            <div class="correlation-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>R² Value</th>
+                            <th>P-Value</th>
+                            <th>Significance</th>
+                        </tr>
+                    </thead>
+                    <tbody id="correlation-tbody">
+                        ${data.correlations.map(corr => `
+                            <tr>
+                                <td>${corr.feature}</td>
+                                <td>${corr.r_squared.toFixed(4)}</td>
+                                <td>${corr.p_value < 0.001 ? '<0.001' : corr.p_value.toFixed(4)}</td>
+                                <td class="${getSignificanceClass(corr.p_value)}">${getSignificanceLabel(corr.p_value)}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
             </div>
         </div>
 
-        <!-- Structure Tab -->
-        <div id="structure-tab" class="tab-content">
-            <!-- Your existing structure comparison content -->
-            <div class="structure-controls">
-                <!-- Controls here -->
+        <div class="analysis-section">
+            <h3>Evidence-Based Mutation Recommendations</h3>
+            <p class="section-description">
+                Ranked by predicted thermostability impact, conservation score, and statistical significance
+            </p>
+            <div id="recommendations-list">
+                ${data.recommendations.map(rec => createRecommendationCard(rec)).join('')}
             </div>
-            <div class="viewer-container">
-                <div class="viewer-panel">
-                    <h3>Original D1 (Wild Type)</h3>
-                    <div id="viewer-original" class="viewer-3d"></div>
+        </div>
+
+        <div class="analysis-section">
+            <h3>Multiple Sequence Alignment</h3>
+            <div class="alignment-container">
+                ${renderAlignment(data.alignment)}
+            </div>
+        </div>
+    `;
+    
+    document.getElementById('analysis-results').innerHTML = resultsHTML;
+}
+
+function getSignificanceClass(pValue) {
+    if (pValue < 0.01) return 'significance-high';
+    if (pValue < 0.05) return 'significance-medium';
+    return 'significance-low';
+}
+
+function getSignificanceLabel(pValue) {
+    if (pValue < 0.001) return 'Highly Significant ***';
+    if (pValue < 0.01) return 'Significant **';
+    if (pValue < 0.05) return 'Significant *';
+    return 'Not Significant';
+}
+
+function createRecommendationCard(rec) {
+    const confidenceClass = rec.confidence >= 0.8 ? 'high' : rec.confidence >= 0.6 ? 'medium' : 'low';
+    
+    return `
+        <div class="recommendation-card ${confidenceClass}-confidence">
+            <div class="recommendation-header">
+                <span class="mutation-notation">${rec.from}${rec.position}${rec.to}</span>
+                <span class="confidence-badge confidence-${confidenceClass}">
+                    ${(rec.confidence * 100).toFixed(0)}% Confidence
+                </span>
+            </div>
+            <div class="recommendation-details">
+                <strong>Rationale:</strong> ${rec.rationale}
+            </div>
+            <div class="recommendation-stats">
+                <div class="recommendation-stat">
+                    <span>Predicted ΔΔG:</span>
+                    <span><strong>${rec.delta_stability.toFixed(2)} kcal/mol</strong></span>
                 </div>
-                <div class="viewer-panel">
-                    <h3>Engineered Variant #001</h3>
-                    <div id="viewer-variant" class="viewer-3d"></div>
+                <div class="recommendation-stat">
+                    <span>Conservation:</span>
+                    <span><strong>${rec.conservation_score.toFixed(2)}</strong></span>
+                </div>
+                <div class="recommendation-stat">
+                    <span>Found in thermophiles:</span>
+                    <span><strong>${rec.thermophile_prevalence}%</strong></span>
+                </div>
+                <div class="recommendation-stat">
+                    <span>Distance from active site:</span>
+                    <span><strong>${rec.distance_from_active}Å</strong></span>
                 </div>
             </div>
         </div>
-    </div>
+    `;
+}
 
-    <script>
-        function switchTab(tabName) {
-            // Hide all tabs
-            document.querySelectorAll('.tab-content').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            
-            // Remove active from all tab buttons
-            document.querySelectorAll('.tab').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            
-            // Show selected tab
-            document.getElementById(tabName + '-tab').classList.add('active');
-            
-            // Mark button as active
-            event.target.classList.add('active');
-        }
-
-        async function runPipeline() {
-            const sequence = document.querySelector('.sequence-input').value;
-            const cropType = document.getElementById('crop-type').value;
-            const computeMode = document.getElementById('compute-mode').value;
-            const nVariants = document.getElementById('n-variants').value;
-            
-            if (!sequence.trim()) {
-                alert('Please paste a D1 protein sequence');
-                return;
-            }
-            
-            // Switch to monitor tab
-            switchTab('monitor');
-            
-            // Send to backend
-            try {
-                const response = await fetch('http://localhost:8000/api/pipeline/submit', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({
-                        sequences: [sequence],
-                        crop_type: cropType,
-                        compute_mode: computeMode,
-                        n_variants: parseInt(nVariants)
-                    })
-                });
-                
-                const data = await response.json();
-                console.log('Pipeline started:', data);
-                
-                // Start monitoring progress
-                monitorProgress(data.job_id);
-                
-            } catch (error) {
-                alert('Error starting pipeline: ' + error.message);
-            }
-        }
-
-        async function monitorProgress(jobId) {
-            // Poll for status updates
-            const interval = setInterval(async () => {
-                try {
-                    const response = await fetch(`http://localhost:8000/api/pipeline/status/${jobId}`);
-                    const data = await response.json();
-                    
-                    // Update progress stages based on completion
-                    updateStages(data.progress);
-                    
-                    if (data.status === 'complete') {
-                        clearInterval(interval);
-                        // Switch to results tab
-                        switchTab('results');
-                    }
-                } catch (error) {
-                    console.error('Error checking status:', error);
-                }
-            }, 2000);
-        }
-
-        function updateStages(progress) {
-            const stages = 5;
-            const completed = Math.floor(progress * stages);
-            
-            for (let i = 1; i <= stages; i++) {
-                const stage = document.getElementById(`stage-${i}`);
-                if (i <= completed) {
-                    stage.classList.add('completed');
-                } else if (i === completed + 1) {
-                    stage.classList.add('active');
-                } else {
-                    stage.classList.remove('active', 'completed');
-                }
-            }
-        }
-
-        function downloadResults(format) {
-            // Implement download functionality
-            console.log('Downloading results in format:', format);
-        }
-    </script>
-</body>
-</html>
+function renderAlignment(alignmentData) {
+    if (!alignmentData || !alignmentData.sequences) {
+        return '<p>No alignment data available</p>';
+    }
+    
+    return alignmentData.sequences.map(seq => `
+        <div class="alignment-row">
+            <span class="alignment-label">${seq.species}</span>
+            <span class="alignment-sequence">${seq.sequence}</span>
+        </div>
+    `).join('');
+}
