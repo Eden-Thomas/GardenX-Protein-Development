@@ -15,4 +15,5 @@ dist/
 build/
 .DS_Store
 .env
-EOF
+EOFvenv/
+backend/venv/

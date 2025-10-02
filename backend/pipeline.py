@@ -6,7 +6,7 @@ from datetime import datetime
 import json
 
 from config import Config
-from neurosnap_client import NeurosnapClient
+from backend.neurosnap_api import NeurosnapClient
 from models import LocalModels, ThermoScoreCalculator
 
 class D1EngineeringPipeline:
