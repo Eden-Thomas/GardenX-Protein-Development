@@ -17,3 +17,6 @@ build/
 .env
 EOFvenv/
 backend/venv/
+venv/
+backend/venv/
+frontend/venv/
