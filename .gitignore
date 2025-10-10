@@ -20,3 +20,9 @@ backend/venv/
 venv/
 backend/venv/
 frontend/venv/
+.env
+.env.local
+.env.*.local
+backend/.env
+*.key
+*_secrets.py

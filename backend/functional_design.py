@@ -26,18 +26,40 @@ class FunctionalValidator:
     MN_CLUSTER_RADIUS = 10.0
     TYRZ_RADIUS = 8.0
     
+    # Critical positions for D1 function
+    CRITICAL_POSITIONS = {
+        130, 147, 161, 170, 189, 215, 254, 255, 264, 271, 332, 333, 342, 344
+    }
+    
     def __init__(self):
-        from structure_aware_design import CriticalResidueDatabase
-        self.critical_db = CriticalResidueDatabase()
+        try:
+            from structure_aware_design import CriticalResidueDatabase
+            self.critical_db = CriticalResidueDatabase()
+        except:
+            # Fallback if structure module not available
+            self.critical_db = None
     
     def predict_functional_impact(self,
                                   mutation: Dict,
-                                  structural_context: Dict) -> FunctionalScore:
-        """Predict functional impact of mutation"""
+                                  structural_context: Optional[Dict] = None) -> FunctionalScore:
+        """
+        Predict functional impact of mutation
         
-        position = mutation['position']
-        from_aa = mutation['from']
-        to_aa = mutation['to']
+        Args:
+            mutation: Mutation dictionary with position, from, to
+            structural_context: Optional structural information
+        
+        Returns:
+            FunctionalScore object with detailed assessments
+        """
+        
+        position = mutation.get('position', 0)
+        from_aa = mutation.get('from', mutation.get('reference_aa', ''))
+        to_aa = mutation.get('to', mutation.get('mutant_aa', ''))
+        
+        # Provide default structural context if missing
+        if structural_context is None or not isinstance(structural_context, dict):
+            structural_context = {}
         
         # Initialize scores
         qb_score = 1.0
@@ -45,7 +67,10 @@ class FunctionalValidator:
         structure_score = 1.0
         
         # Check QB binding site impact
-        if structural_context['distance_to_active_site'] < self.QB_SITE_RADIUS:
+        # Use .get() with large default distance (far from active site)
+        distance_to_active = structural_context.get('distance_to_active_site', 999.0)
+        
+        if distance_to_active < self.QB_SITE_RADIUS:
             # Near QB site - check if charge/polarity preserved
             charge_preserved = self._check_charge_preservation(from_aa, to_aa)
             if not charge_preserved:
@@ -61,14 +86,22 @@ class FunctionalValidator:
                 et_score *= 0.7
         
         # Check structural integrity
-        if structural_context.get('in_membrane', False):
+        in_membrane = structural_context.get('in_membrane', True)  # Assume membrane if unknown
+        
+        if in_membrane:
             # Membrane region - check hydrophobicity preservation
             hydrophobic_preserved = self._check_hydrophobicity_match(from_aa, to_aa)
             if not hydrophobic_preserved:
                 structure_score *= 0.75
         
         # Check critical residues
-        if self.critical_db.is_critical(position):
+        is_critical = False
+        if self.critical_db and self.critical_db.is_critical(position):
+            is_critical = True
+        elif position in self.CRITICAL_POSITIONS:
+            is_critical = True
+        
+        if is_critical:
             # Any mutation to critical residue is risky
             return FunctionalScore(
                 photosynthesis_activity=0.0,
@@ -117,15 +150,35 @@ class FunctionalValidator:
     def filter_by_function(self,
                           mutations: List[Dict],
                           min_function_score: float = 0.7) -> List[Dict]:
-        """Filter mutations to keep only functional ones"""
+        """
+        Filter mutations to keep only functional ones
+        
+        Args:
+            mutations: List of mutation dictionaries
+            min_function_score: Minimum functional score to keep (0-1)
+        
+        Returns:
+            List of functional mutations with scores added
+        """
         
         functional_mutations = []
         
         for mutation in mutations:
-            structural_context = mutation.get('structural_features', {})
+            # Get structural context if available
+            structural_context = mutation.get('structural_features', None)
             
+            # If no structural context, provide safe defaults
+            if structural_context is None or not isinstance(structural_context, dict):
+                structural_context = {
+                    'distance_to_active_site': 999.0,  # Far from active site
+                    'in_membrane': True,  # Assume membrane region
+                    'secondary_structure': 'unknown'
+                }
+            
+            # Predict functional impact
             func_score = self.predict_functional_impact(mutation, structural_context)
             
+            # Filter by minimum score
             if func_score.overall_function >= min_function_score:
                 mutation['functional_score'] = func_score.overall_function
                 mutation['function_details'] = {
@@ -156,7 +209,7 @@ class CombinatorialDesigner:
         # Filter to top candidates
         top_mutations = sorted(
             single_mutations,
-            key=lambda x: x.get('final_score', 0),
+            key=lambda x: x.get('final_score', x.get('confidence', 0)),
             reverse=True
         )[:20]  # Top 20 only
         
@@ -164,36 +217,52 @@ class CombinatorialDesigner:
         
         # Single mutations (baseline)
         for mut in top_mutations:
+            mutation_id = mut.get('mutation', f"{mut.get('from', '?')}{mut.get('position', 0)}{mut.get('to', '?')}")
             all_variants.append({
                 'mutations': [mut],
                 'n_mutations': 1,
-                'variant_id': f"single_{mut['mutation']}"
+                'variant_id': f"single_{mutation_id}"
             })
         
         # Double combinations
         for mut1, mut2 in combinations(top_mutations, 2):
             # Check spatial spacing
-            if abs(mut1['position'] - mut2['position']) < min_spacing:
+            pos1 = mut1.get('position', 0)
+            pos2 = mut2.get('position', 0)
+            
+            if abs(pos1 - pos2) < min_spacing:
                 continue  # Too close - might interfere
+            
+            mut1_id = mut1.get('mutation', f"{mut1.get('from', '?')}{pos1}{mut1.get('to', '?')}")
+            mut2_id = mut2.get('mutation', f"{mut2.get('from', '?')}{pos2}{mut2.get('to', '?')}")
             
             all_variants.append({
                 'mutations': [mut1, mut2],
                 'n_mutations': 2,
-                'variant_id': f"double_{mut1['mutation']}_{mut2['mutation']}"
+                'variant_id': f"double_{mut1_id}_{mut2_id}"
             })
         
         # Triple combinations (if requested)
         if max_mutations >= 3:
             for mut1, mut2, mut3 in combinations(top_mutations[:10], 3):  # Top 10 only for triples
                 # Check pairwise spacing
-                positions = [mut1['position'], mut2['position'], mut3['position']]
+                positions = [
+                    mut1.get('position', 0),
+                    mut2.get('position', 0),
+                    mut3.get('position', 0)
+                ]
+                
                 if not self._check_spacing(positions, min_spacing):
                     continue
+                
+                mut1_id = mut1.get('mutation', f"{mut1.get('from', '?')}{positions[0]}{mut1.get('to', '?')}")
+                mut2_id = mut2.get('mutation', f"{mut2.get('from', '?')}{positions[1]}{mut2.get('to', '?')}")
+                mut3_id = mut3.get('mutation', f"{mut3.get('from', '?')}{positions[2]}{mut3.get('to', '?')}")
                 
                 all_variants.append({
                     'mutations': [mut1, mut2, mut3],
                     'n_mutations': 3,
-                    'variant_id': f"triple_{mut1['mutation']}_{mut2['mutation']}_{mut3['mutation']}"
+                    'variant_id': f"triple_{mut1_id}_{mut2_id}_{mut3_id}"
                 })
         
         print(f"Generated {len(all_variants)} combinatorial variants")
@@ -217,8 +286,12 @@ class CombinatorialDesigner:
         # Build mutant sequence
         mutant_seq = list(reference_sequence)
         for mut in mutations:
-            pos_idx = mut['position'] - 1
-            mutant_seq[pos_idx] = mut['to']
+            pos_idx = mut.get('position', 0) - 1
+            to_aa = mut.get('to', mut.get('mutant_aa', ''))
+            
+            if 0 <= pos_idx < len(mutant_seq) and to_aa:
+                mutant_seq[pos_idx] = to_aa
+        
         mutant_seq = ''.join(mutant_seq)
         
         # Predict cumulative effects
@@ -228,15 +301,20 @@ class CombinatorialDesigner:
         # Simple model: assume slight positive synergy for well-spaced mutations
         if len(mutations) > 1:
             spacing_bonus = 0
-            positions = [m['position'] for m in mutations]
-            avg_spacing = np.mean([abs(positions[i] - positions[j]) 
-                                  for i in range(len(positions)) 
-                                  for j in range(i+1, len(positions))])
+            positions = [m.get('position', 0) for m in mutations]
             
-            if avg_spacing > 30:  # Well-spaced
-                spacing_bonus = -0.3  # Additional stabilization
+            # Calculate average spacing
+            spacings = [abs(positions[i] - positions[j]) 
+                       for i in range(len(positions)) 
+                       for j in range(i+1, len(positions))]
             
-            cumulative_ddg += spacing_bonus
+            if spacings:  # Avoid division by zero
+                avg_spacing = np.mean(spacings)
+                
+                if avg_spacing > 30:  # Well-spaced
+                    spacing_bonus = -0.3  # Additional stabilization
+                
+                cumulative_ddg += spacing_bonus
         
         # Predict functional retention
         min_function = min(m.get('functional_score', 0.9) for m in mutations)
@@ -353,8 +431,11 @@ class ExperimentalPrioritizer:
                     continue
                 
                 for variant in variants:
-                    f.write(f">{wave}_variant{variant_num}_{variant['variant_id']}\n")
-                    f.write(f"{variant['variant_sequence']}\n")
+                    variant_seq = variant.get('variant_sequence', '')
+                    variant_id = variant.get('variant_id', f'variant{variant_num}')
+                    
+                    f.write(f">{wave}_variant{variant_num}_{variant_id}\n")
+                    f.write(f"{variant_seq}\n")
                     variant_num += 1
         
         print(f"Exported {variant_num-1} sequences to {output_file}")

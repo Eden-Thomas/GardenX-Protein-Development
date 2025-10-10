@@ -377,6 +377,7 @@ class MutationRecommender:
                 'position': pos + 1,  # 1-indexed
                 'from': target_aa,
                 'to': thermo_aa,
+                'mutation': f"{target_aa}{pos+1}{thermo_aa}",
                 'delta_stability': delta_stability,
                 'conservation_score': conservation,
                 'thermophile_prevalence': thermo_prevalence,
@@ -514,3 +515,105 @@ def run_comprehensive_analysis(selected_species: List[str], reference_sequence: 
             'sequences': [{'species': sp, 'sequence': seq} for sp, seq in aligned.items()]
         }
     }
+
+
+# NEW: ComparativeAnalyzer class for master_pipeline_v1.py compatibility
+class ComparativeAnalyzer:
+    """
+    Wrapper class for comparative analysis functionality
+    Makes the module compatible with master_pipeline_v1.py
+    """
+    
+    def __init__(self):
+        """Initialize the comparative analyzer"""
+        self.sequences = REFERENCE_SEQUENCES.copy()
+        self.temperatures = GROWTH_TEMPERATURES.copy()
+        self.results = None
+    
+    def add_sequence(self, name: str, sequence: str, temperature: Optional[float] = None):
+        """Add a new sequence to the analysis"""
+        self.sequences[name] = sequence
+        if temperature:
+            self.temperatures[name] = temperature
+    
+    def run_analysis(self, selected_species: Optional[List[str]] = None, 
+                     reference_sequence: Optional[str] = None) -> Dict:
+        """
+        Run comprehensive comparative analysis
+        
+        Args:
+            selected_species: List of species to include (None = all)
+            reference_sequence: Optional reference sequence to add
+        
+        Returns:
+            Dictionary with analysis results
+        """
+        
+        # Use selected species or all available
+        if selected_species:
+            species_to_analyze = selected_species
+        else:
+            species_to_analyze = list(self.sequences.keys())
+        
+        # Run the comprehensive analysis
+        self.results = run_comprehensive_analysis(species_to_analyze, reference_sequence)
+        
+        return self.results
+    
+    def get_conservation_scores(self) -> np.ndarray:
+        """Get per-position conservation scores"""
+        if not self.results:
+            raise ValueError("Must run analysis first")
+        return np.array(self.results['conservation']['scores'])
+    
+    def get_mutation_recommendations(self, n: int = 10) -> List[Dict]:
+        """Get top N mutation recommendations"""
+        if not self.results:
+            raise ValueError("Must run analysis first")
+        return self.results['recommendations'][:n]
+    
+    def get_feature_correlations(self) -> List[Dict]:
+        """Get feature-temperature correlations"""
+        if not self.results:
+            raise ValueError("Must run analysis first")
+        return self.results['correlations']
+    
+    def predict_thermostability(self, sequence: str) -> float:
+        """Predict optimal growth temperature for a sequence"""
+        predictor = ThermostabilityPredictor()
+        predictor.train(self.sequences, self.temperatures)
+        return predictor.predict(sequence)
+    
+    def get_model_performance(self) -> Dict:
+        """Get ML model performance metrics"""
+        if not self.results:
+            raise ValueError("Must run analysis first")
+        return self.results['model_performance']
+    
+    def export_results(self, filepath: str):
+        """Export analysis results to JSON file"""
+        if not self.results:
+            raise ValueError("Must run analysis first")
+        
+        import json
+        from pathlib import Path
+        
+        Path(filepath).parent.mkdir(parents=True, exist_ok=True)
+        
+        with open(filepath, 'w') as f:
+            json.dump(self.results, f, indent=2)
+        
+        print(f"✅ Results exported to {filepath}")
+
+
+# Test code
+if __name__ == "__main__":
+    print("Testing ComparativeAnalyzer...")
+    
+    analyzer = ComparativeAnalyzer()
+    results = analyzer.run_analysis(['corn', 'wheat', 'rice', 'thermo'])
+    
+    print(f"\n✅ Analysis complete!")
+    print(f"   Conserved positions: {results['conservation']['conserved_positions']}")
+    print(f"   Model R²: {results['model_performance']['r2']:.3f}")
+    print(f"   Top recommendation: {results['recommendations'][0]['mutation']}")

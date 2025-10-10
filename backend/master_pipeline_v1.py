@@ -3,14 +3,26 @@ master_pipeline_v1.py
 Complete V1 D1 Protein Engineering Pipeline
 Integrates all components: Data, Structure, Function, Combinations, and Evo 2
 """
+import os
+from pathlib import Path
+from dotenv import load_dotenv
 
+
+# Loading environment variables from .env file
+env_path = Path(__file__).parent.parent / '.env'
+load_dotenv(dotenv_path=env_path)
+
+# Tag API keys from environment
+NEUROSNAP_API_KEY = os.getenv("NEUROSNAP_API_KEY")
+NVIDIA_API_KEY = os.getenv("NVIDIA_API_KEY")
+
+# Importing all components
 import numpy as np
 from typing import Dict, List, Optional
 import json
 from pathlib import Path
 from datetime import datetime
 
-# Import all components
 from data_collection import ExperimentalDataManager, RealDataMLTrainer
 from structure_aware_design import StructureGuidedMutationDesigner
 from functional_design import FunctionalValidator, CombinatorialDesigner, ExperimentalPrioritizer
@@ -148,7 +160,7 @@ class D1EngineeringPipelineV1:
         
         print(f"\n✓ Stage 1 Complete:")
         print(f"  - Generated {len(comparative_results['recommendations'])} initial candidates")
-        print(f"  - Conservation analysis: {comparative_results['conservation']['highly_conserved']} conserved positions")
+        print(f"  - Conservation analysis: {comparative_results['conservation']['conserved_positions']} conserved positions")
         
         # ===================================================================
         # STAGE 2: RETRAIN ML WITH REAL DATA (if available)
@@ -161,14 +173,48 @@ class D1EngineeringPipelineV1:
         
         if data_stats.get('total_mutations', 0) > 0:
             print(f"Found {data_stats['total_mutations']} experimental data points")
-            training_results = self.data_trainer.train_on_real_data()
-            results['pipeline_stages']['ml_training'] = training_results
-            print(f"✓ Retrained models on real data")
-            print(f"  - Best model: {training_results['best_model']}")
-            print(f"  - R²: {training_results['model_performance'][training_results['best_model']]['r2']:.3f}")
+            
+            if data_stats['total_mutations'] < 10:
+                print(f"⚠️  Warning: Less than 10 data points. Results will be unreliable.")
+                print(f"   Please add more experimental data to improve predictions.")
+            
+            try:
+                training_results = self.data_trainer.train_on_real_data()
+                
+                if training_results and isinstance(training_results, dict):
+                    results['pipeline_stages']['ml_training'] = training_results
+                    print(f"✓ Stage 2 Complete:")
+                    print(f"  - Best model: {training_results.get('best_model', 'N/A')}")
+                    
+                    best_model = training_results.get('best_model')
+                    if best_model and 'model_performance' in training_results:
+                        model_perf = training_results['model_performance'].get(best_model, {})
+                        r2 = model_perf.get('r2', 0)
+                        print(f"  - R²: {r2:.3f}")
+                    else:
+                        print(f"  - R²: N/A (insufficient data)")
+                else:
+                    print(f"⚠️  Insufficient data for reliable model training")
+                    print(f"  - Using comparative genomics predictions only")
+                    results['pipeline_stages']['ml_training'] = {
+                        'mode': 'insufficient_data',
+                        'note': 'Less than minimum required data points'
+                    }
+                    
+            except Exception as e:
+                print(f"⚠️  Model training failed: {str(e)}")
+                print(f"  - Continuing with comparative genomics only")
+                results['pipeline_stages']['ml_training'] = {
+                    'mode': 'failed',
+                    'error': str(e)
+                }
         else:
-            print("No experimental data available - using synthetic training")
-            results['pipeline_stages']['ml_training'] = {'mode': 'synthetic'}
+            print("No experimental data available - using comparative genomics only")
+            print("  Add data to data/experimental_thermostability.csv to improve predictions")
+            results['pipeline_stages']['ml_training'] = {
+                'mode': 'no_data',
+                'note': 'No experimental data found'
+            }
         
         # ===================================================================
         # STAGE 3: STRUCTURE-AWARE FILTERING
@@ -178,34 +224,45 @@ class D1EngineeringPipelineV1:
         print("="*70)
         
         if self.has_neurosnap:
-            print("Predicting structure with AlphaFold2...")
-            structure_result = self.neurosnap_pipeline.neurosnap.predict_structure(
-                reference_sequence,
-                job_name=f"{organism}_d1_reference"
-            )
-            
-            pdb_content = structure_result['pdb_structure']
-            structure_data = self.structure_designer.analyzer.parse_pdb_structure(pdb_content)
-            
-            # Filter mutations
-            structure_filtered = self.structure_designer.filter_mutations_by_structure(
-                comparative_results['recommendations'],
-                structure_data
-            )
-            
-            results['pipeline_stages']['structure_filtering'] = {
-                'n_input': len(comparative_results['recommendations']),
-                'n_output': len(structure_filtered),
-                'n_rejected': len(comparative_results['recommendations']) - len(structure_filtered),
-                'structure_confidence': structure_result['confidence']
-            }
-            
-            print(f"✓ Structure filtering complete:")
-            print(f"  - Filtered {len(comparative_results['recommendations'])} → {len(structure_filtered)} mutations")
-            print(f"  - AlphaFold confidence: {structure_result['confidence']:.2f}")
+            try:
+                print("Predicting structure with AlphaFold2...")
+                structure_result = self.neurosnap_pipeline.neurosnap.predict_structure(
+                    reference_sequence,
+                    job_name=f"{organism}_d1_reference"
+                )
+                
+                pdb_content = structure_result['pdb_structure']
+                structure_data = self.structure_designer.analyzer.parse_pdb_structure(pdb_content)
+                
+                # Filter mutations
+                structure_filtered = self.structure_designer.filter_mutations_by_structure(
+                    comparative_results['recommendations'],
+                    structure_data
+                )
+                
+                results['pipeline_stages']['structure_filtering'] = {
+                    'n_input': len(comparative_results['recommendations']),
+                    'n_output': len(structure_filtered),
+                    'n_rejected': len(comparative_results['recommendations']) - len(structure_filtered),
+                    'structure_confidence': structure_result['confidence']
+                }
+                
+                print(f"✓ Stage 3 Complete:")
+                print(f"  - Filtered {len(comparative_results['recommendations'])} → {len(structure_filtered)} mutations")
+                print(f"  - AlphaFold confidence: {structure_result['confidence']:.2f}")
+                
+            except Exception as e:
+                print(f"⚠️  Structure prediction failed: {str(e)}")
+                print(f"  - Continuing without structure filtering")
+                structure_filtered = comparative_results['recommendations']
+                results['pipeline_stages']['structure_filtering'] = {
+                    'mode': 'failed',
+                    'error': str(e)
+                }
             
         else:
             print("Structure filtering disabled (no NeuroSnap API)")
+            print("  - Continuing with all comparative genomics predictions")
             structure_filtered = comparative_results['recommendations']
             results['pipeline_stages']['structure_filtering'] = {'mode': 'disabled'}
         
@@ -227,7 +284,7 @@ class D1EngineeringPipelineV1:
             'n_rejected_functional': len(structure_filtered) - len(functional_mutations)
         }
         
-        print(f"✓ Functional validation complete:")
+        print(f"✓ Stage 4 Complete:")
         print(f"  - Kept {len(functional_mutations)}/{len(structure_filtered)} functional mutations")
         
         # ===================================================================
@@ -256,7 +313,7 @@ class D1EngineeringPipelineV1:
             'top_variant': ranked_variants[0] if ranked_variants else None
         }
         
-        print(f"✓ Combinatorial design complete:")
+        print(f"✓ Stage 5 Complete:")
         print(f"  - Generated {len(ranked_variants)} total variants")
         print(f"  - Singles: {results['pipeline_stages']['combinatorial']['n_singles']}")
         print(f"  - Doubles: {results['pipeline_stages']['combinatorial']['n_doubles']}")
@@ -270,40 +327,50 @@ class D1EngineeringPipelineV1:
         print("="*70)
         
         if self.has_evo2:
-            print("Running Evo 2 validation on top candidates...")
-            
-            # Take top 20 variants for Evo 2 validation
-            top_variants = ranked_variants[:20]
-            
-            evo2_results = self.evo2_pipeline.engineer_d1_gene(
-                reference_sequence,
-                functional_mutations[:20],  # Top 20 single mutations
-                organism=organism
-            )
-            
-            results['pipeline_stages']['evo2'] = {
-                'n_tested': len(top_variants),
-                'n_approved': evo2_results['n_mutations_applied'],
-                'approval_rate': evo2_results['evo2_validation']['approval_rate'],
-                'gene_construct_ready': evo2_results['ready_for_lab']
-            }
-            
-            print(f"✓ Evo 2 validation complete:")
-            print(f"  - Approved {evo2_results['n_mutations_applied']}/{len(top_variants)} variants")
-            print(f"  - Gene construct ready: {evo2_results['ready_for_lab']}")
-            
-            # Update variants with Evo 2 scores
-            evo2_approved_positions = set(m['position'] for m in evo2_results['mutations'])
-            
-            for variant in ranked_variants:
-                variant_positions = set(m['position'] for m in variant['mutations'])
-                if variant_positions.issubset(evo2_approved_positions):
-                    variant['evo2_validated'] = True
-                else:
-                    variant['evo2_validated'] = False
+            try:
+                print("Running Evo 2 validation on top candidates...")
+                
+                # Take top 20 variants for Evo 2 validation
+                top_variants = ranked_variants[:20]
+                
+                evo2_results = self.evo2_pipeline.engineer_d1_gene(
+                    reference_sequence,
+                    functional_mutations[:20],  # Top 20 single mutations
+                    organism=organism
+                )
+                
+                results['pipeline_stages']['evo2'] = {
+                    'n_tested': len(top_variants),
+                    'n_approved': evo2_results['n_mutations_applied'],
+                    'approval_rate': evo2_results['evo2_validation']['approval_rate'],
+                    'gene_construct_ready': evo2_results['ready_for_lab']
+                }
+                
+                print(f"✓ Stage 6 Complete:")
+                print(f"  - Approved {evo2_results['n_mutations_applied']}/{len(top_variants)} variants")
+                print(f"  - Gene construct ready: {evo2_results['ready_for_lab']}")
+                
+                # Update variants with Evo 2 scores
+                evo2_approved_positions = set(m['position'] for m in evo2_results['mutations'])
+                
+                for variant in ranked_variants:
+                    variant_positions = set(m['position'] for m in variant['mutations'])
+                    if variant_positions.issubset(evo2_approved_positions):
+                        variant['evo2_validated'] = True
+                    else:
+                        variant['evo2_validated'] = False
+                        
+            except Exception as e:
+                print(f"⚠️  Evo 2 validation failed: {str(e)}")
+                print(f"  - Continuing without DNA-level validation")
+                results['pipeline_stages']['evo2'] = {
+                    'mode': 'failed',
+                    'error': str(e)
+                }
             
         else:
             print("Evo 2 validation disabled (no API key)")
+            print("  - Skipping DNA-level validation")
             results['pipeline_stages']['evo2'] = {'mode': 'disabled'}
         
         # ===================================================================
@@ -331,7 +398,7 @@ class D1EngineeringPipelineV1:
             'synthesis_file': synthesis_file
         }
         
-        print(f"✓ Experimental plan created:")
+        print(f"✓ Stage 7 Complete:")
         print(f"  - Wave 1 (singles): {len(experimental_plan['wave_1_singles'])} variants")
         print(f"  - Wave 2 (doubles): {len(experimental_plan['wave_2_doubles'])} variants")
         print(f"  - Wave 3 (triples): {len(experimental_plan['wave_3_triples'])} variants")
@@ -380,18 +447,35 @@ class D1EngineeringPipelineV1:
     
     def _prepare_for_json(self, obj):
         """Convert numpy types to native Python for JSON serialization"""
-        if isinstance(obj, np.integer):
+        # Handle numpy numeric types
+        if isinstance(obj, (np.integer, np.int64, np.int32, np.int16, np.int8)):
             return int(obj)
-        elif isinstance(obj, np.floating):
+        elif isinstance(obj, (np.floating, np.float64, np.float32, np.float16)):
             return float(obj)
+        # Handle numpy boolean types - THIS IS THE KEY FIX
+        elif isinstance(obj, (np.bool_, np.bool)):
+            return bool(obj)
+        # Handle numpy arrays
         elif isinstance(obj, np.ndarray):
             return obj.tolist()
+        # Handle dictionaries recursively
         elif isinstance(obj, dict):
             return {key: self._prepare_for_json(value) for key, value in obj.items()}
+        # Handle lists recursively
         elif isinstance(obj, list):
             return [self._prepare_for_json(item) for item in obj]
-        else:
+        # Handle tuples (convert to list)
+        elif isinstance(obj, tuple):
+            return [self._prepare_for_json(item) for item in obj]
+        # Handle None and basic Python types
+        elif obj is None or isinstance(obj, (str, int, float, bool)):
             return obj
+        # Fallback for unknown types
+        else:
+            try:
+                return str(obj)
+            except:
+                return None
     
     def _generate_summary_report(self, results: Dict, output_file: Path):
         """Generate human-readable summary report"""
