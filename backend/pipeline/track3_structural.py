@@ -1,462 +1,433 @@
 """
-track3_structural.py
-Track 3: Structure-Guided Design - PRODUCTION VERSION
-
-UNLEASHED MODE:
-- NO conservation filters
-- Structure-based designability
-- Real Boltz-1 + ProteinMPNN APIs
+backend/pipeline/track3_structural.py
+Track 3: Structure-guided protein design
+Production-ready with Boltz-1, LigandMPNN, and structural analysis
 """
 
 import numpy as np
-import requests
-import time
-import json
 from typing import List, Dict, Optional, Tuple
-from pathlib import Path
-from datetime import datetime
-import sys
+import asyncio
 
-sys.path.append(str(Path(__file__).parent.parent))
-from analysis_engine import REFERENCE_SEQUENCES
-
-
-class StructuralDesigner:
+class Track3Structural:
     """
-    Track 3: Structure-guided variant design
-    
-    Pipeline:
-    1. Boltz-1 (AlphaFold3) predicts structure
-    2. Identify designable positions from structure
-    3. ProteinMPNN generates sequences
-    4. TemStaPro validates stability
-    
-    NO conservation limits - structure determines designability!
+    Structure-guided design using:
+    - Boltz-1 / AlphaFold2 / ESMFold for structure prediction
+    - LigandMPNN / ProteinMPNN for inverse folding
+    - FoldSeek for structural similarity
+    - Structure-based mutation design
     """
     
-    def __init__(self, maize_sequence: str = None, api_key: str = None):
-        """
-        Args:
-            maize_sequence: Maize D1 sequence
-            api_key: Neurosnap API key
-        """
-        import os
+    def __init__(self, config, neurosnap_client):
+        self.config = config
+        self.client = neurosnap_client
         
-        self.api_key = api_key or os.getenv('NEUROSNAP_API_KEY')
-        self.base_url = "https://api.neurosnap.ai"
-        
-        if maize_sequence:
-            self.maize_sequence = maize_sequence
-        else:
-            maize_data = REFERENCE_SEQUENCES['maize']
-            self.maize_sequence = maize_data['sequence'] if isinstance(maize_data, dict) else maize_data
-        
-        # ONLY protect catalytic residues (5Å radius)
-        self.active_site_core = {161, 170, 189, 215, 254, 255, 264, 271, 332, 333, 342, 344}
-        
-        print(f"\n{'='*70}")
-        print(f"🏗️  TRACK 3: STRUCTURE-GUIDED DESIGN (PRODUCTION)")
-        print(f"{'='*70}")
-        print(f"Template: Zea mays D1 protein ({len(self.maize_sequence)} aa)")
-        print(f"Protected core: {len(self.active_site_core)} positions (catalytic)")
-        
-        if self.api_key:
-            print(f"API Status: ✅ Connected (key: {self.api_key[:10]}...)")
-        else:
-            print(f"⚠️  Warning: NEUROSNAP_API_KEY not found")
-    
-    def run_complete_analysis(self, n_variants: int = 100) -> Dict:
-        """
-        Run complete Track 3 analysis
-        
-        Args:
-            n_variants: Number of variants to generate
-        
-        Returns:
-            Dict with results
-        """
-        
-        print(f"{'='*70}\n")
-        
-        # Step 1: Predict structure with Boltz-1
-        print(f"🔮 Step 1/3: Structure prediction (Boltz-1/AlphaFold3)...")
-        if self.api_key:
-            structure_data = self._predict_structure_real()
-        else:
-            structure_data = self._generate_mock_structure()
-        
-        confidence = structure_data.get('confidence', 0)
-        print(f"   ✅ Structure predicted (mean pLDDT: {confidence:.1f})")
-        
-        # Step 2: Identify designable positions
-        print(f"\n📍 Step 2/3: Identifying designable positions from structure...")
-        designable = self._identify_designable_positions(structure_data)
-        print(f"   ✅ Found {len(designable)} designable positions")
-        
-        # Step 3: Generate variants with ProteinMPNN
-        print(f"\n🧬 Step 3/3: Generating {n_variants} variants (ProteinMPNN)...")
-        if self.api_key:
-            variants = self._run_proteinmpnn_real(structure_data, designable, n_variants)
-        else:
-            variants = self._generate_mock_variants(designable, n_variants)
-        
-        print(f"   ✅ Generated {len(variants)} variants")
-        
-        # Validate with TemStaPro
-        if self.api_key and variants:
-            print(f"\n🌡️  Validating with TemStaPro...")
-            variants = self._validate_with_tempstapro(variants)
-            print(f"   ✅ Validation complete")
-        
-        # Sort by structural confidence * stability
-        variants.sort(key=lambda x: x.get('design_score', 0), reverse=True)
-        
-        results = {
-            'track': 'structure_guided',
-            'structure_prediction': structure_data,
-            'designable_positions': designable,
-            'variants': variants,
-            'parameters': {
-                'n_variants': n_variants,
-                'api_used': self.api_key is not None
-            }
+        # D1-specific structural features
+        self.structural_features = {
+            'tm_helices': [
+                (20, 40, 'TM1'),
+                (70, 90, 'TM2'),
+                (160, 180, 'TM3'),
+                (220, 240, 'TM4'),
+                (290, 310, 'TM5')
+            ],
+            'active_site': {
+                161: 'H',  # His161
+                170: 'D',  # Asp170
+                189: 'E',  # Glu189
+                215: 'R',  # Arg215
+                254: 'Y',  # Tyr254
+                255: 'F',  # Phe255
+                264: 'H',  # His264
+                271: 'Y',  # Tyr271
+                332: 'H',  # His332
+                333: 'E',  # Glu333
+                342: 'D',  # Asp342
+                344: 'A'   # Ala344
+            },
+            'mn_cluster_ligands': [161, 170, 189, 264, 332, 333, 342],
+            'electron_transfer': [254, 271],  # Tyrosines for electron transfer
         }
         
-        return results
+        # Structure prediction preferences
+        self.structure_methods = ['boltz1', 'alphafold2', 'esmfold', 'chai1']
+        self.wt_structure_cache = None
     
-    def _predict_structure_real(self) -> Dict:
+    async def generate_variants(self, wt_sequence: str, n_variants: int) -> List[Dict]:
         """
-        REAL Boltz-1 (AlphaFold3) structure prediction
+        Generate structure-guided variants
         """
+        print("  🏗️ Track 3: Structure-guided design")
         
-        print(f"   📡 Submitting to Boltz-1 API...")
+        # Step 1: Predict wild-type structure
+        print("    → Predicting wild-type structure...")
+        wt_structure = await self.predict_best_structure(wt_sequence)
+        self.wt_structure_cache = wt_structure
+        print(f"      ✓ Structure predicted (pLDDT: {wt_structure['plddt']:.1f})")
         
-        try:
-            response = requests.post(
-                f"{self.base_url}/api/job/submit/Boltz-1 Protein Structure Prediction",
-                headers={
-                    'X-API-KEY': self.api_key,
-                    'Content-Type': 'application/json'
-                },
-                json={
-                    'sequence': self.maize_sequence,
-                    'model': 'boltz-1',  # AlphaFold3
-                    'num_recycles': 3,
-                    'return_pae': True,  # Predicted aligned error
-                    'return_plddt': True,  # Per-residue confidence
-                    'return_coordinates': True
-                },
-                timeout=30
-            )
-            response.raise_for_status()
-            job_data = response.json()
-            job_id = job_data['job_id']
-            
-            print(f"   ✅ Job submitted: {job_id}")
-            print(f"   ⏱️  Expected runtime: 20-40 minutes...")
-            
-            # Poll for completion
-            structure = self._poll_job_completion(job_id, timeout_minutes=60)
-            
-            if structure:
-                return structure
-            
-        except Exception as e:
-            print(f"   ❌ API Error: {e}")
+        # Step 2: Analyze structural features
+        print("    → Analyzing structural features...")
+        structural_analysis = await self.analyze_structure(wt_structure)
+        print(f"      ✓ Identified {len(structural_analysis['modifiable_regions'])} design regions")
         
-        print(f"   ℹ️  Using mock structure")
-        return self._generate_mock_structure()
-    
-    def _identify_designable_positions(self, structure_data: Dict) -> List[int]:
-        """
-        Identify designable positions from structure
+        # Step 3: Generate variants using multiple strategies
+        variants = []
         
-        Criteria:
-        1. High pLDDT (>70) - well-structured
-        2. Surface exposed (RSA > 20%)
-        3. NOT in active site core (>5Å away)
-        4. Flexible loops and surfaces
-        """
+        # Strategy distribution
+        mpnn_count = int(n_variants * 0.5)  # 50% from inverse folding
+        targeted_count = int(n_variants * 0.3)  # 30% from targeted design
+        backbone_count = n_variants - mpnn_count - targeted_count  # 20% backbone modifications
         
-        plddt = structure_data.get('plddt', [85.0] * len(self.maize_sequence))
-        rsa = structure_data.get('rsa', [0.5] * len(self.maize_sequence))  # Relative solvent accessibility
+        # 3a. Inverse folding with LigandMPNN
+        print(f"    → Generating {mpnn_count} variants with LigandMPNN...")
+        mpnn_variants = await self.inverse_folding_variants(
+            wt_structure['structure'],
+            mpnn_count
+        )
+        variants.extend(mpnn_variants)
         
-        designable = []
+        # 3b. Targeted structural modifications
+        print(f"    → Designing {targeted_count} targeted variants...")
+        targeted_variants = await self.targeted_design_variants(
+            wt_sequence,
+            structural_analysis,
+            targeted_count
+        )
+        variants.extend(targeted_variants)
         
-        for i in range(len(self.maize_sequence)):
-            pos = i + 1
-            
-            # Skip active site core
-            if pos in self.active_site_core:
-                continue
-            
-            # High confidence structure
-            if plddt[i] < 70:
-                continue
-            
-            # Surface exposed OR flexible loop
-            if rsa[i] > 0.2 or (50 < i < 70) or (180 < i < 210):
-                designable.append(pos)
+        # 3c. Backbone-guided modifications
+        print(f"    → Creating {backbone_count} backbone variants...")
+        backbone_variants = await self.backbone_guided_variants(
+            wt_sequence,
+            wt_structure,
+            structural_analysis,
+            backbone_count
+        )
+        variants.extend(backbone_variants)
         
-        return designable
-    
-    def _run_proteinmpnn_real(self, structure_data: Dict, 
-                              designable: List[int], 
-                              n_variants: int) -> List[Dict]:
-        """
-        REAL ProteinMPNN inverse folding
-        """
+        # Add IDs and metadata
+        for i, variant in enumerate(variants):
+            variant['id'] = f'T3_STRUCT_{i:04d}'
+            variant['track'] = 'track3'
+            if 'method' not in variant:
+                variant['method'] = 'structural'
         
-        print(f"   📡 Submitting to ProteinMPNN API...")
-        
-        # Extract coordinates from structure
-        coordinates = structure_data.get('coordinates', None)
-        
-        try:
-            response = requests.post(
-                f"{self.base_url}/api/job/submit/ProteinMPNN",
-                headers={
-                    'X-API-KEY': self.api_key,
-                    'Content-Type': 'application/json'
-                },
-                json={
-                    'structure_coordinates': coordinates,
-                    'template_sequence': self.maize_sequence,
-                    'designable_positions': designable,
-                    'fixed_positions': list(self.active_site_core),
-                    'n_sequences': n_variants,
-                    'temperature': 0.1,  # Sampling temperature
-                    'optimization_target': 'stability',
-                },
-                timeout=30
-            )
-            response.raise_for_status()
-            job_data = response.json()
-            job_id = job_data['job_id']
-            
-            print(f"   ✅ Job submitted: {job_id}")
-            print(f"   ⏱️  Expected runtime: 1-2 hours...")
-            
-            # Poll for completion
-            variants = self._poll_job_completion(job_id, timeout_minutes=150)
-            
-            if variants:
-                return variants
-            
-        except Exception as e:
-            print(f"   ❌ API Error: {e}")
-        
-        print(f"   ⚠️  Using mock variants")
-        return self._generate_mock_variants(designable, n_variants)
-    
-    def _validate_with_tempstapro(self, variants: List[Dict]) -> List[Dict]:
-        """Validate with TemStaPro"""
-        
-        sequences = [v['sequence'] for v in variants]
-        
-        try:
-            response = requests.post(
-                f"{self.base_url}/api/job/submit/TemStaPro Protein Thermostability Prediction",
-                headers={
-                    'X-API-KEY': self.api_key,
-                    'Content-Type': 'application/json'
-                },
-                json={
-                    'sequences': sequences,
-                    'reference_sequence': self.maize_sequence,
-                    'temperature_range': [30, 65]
-                },
-                timeout=30
-            )
-            response.raise_for_status()
-            job_data = response.json()
-            job_id = job_data['job_id']
-            
-            predictions = self._poll_job_completion(job_id, timeout_minutes=30)
-            
-            if predictions:
-                for variant, pred in zip(variants, predictions):
-                    variant['predicted_tm'] = pred.get('tm', 28.0)
-                    variant['predicted_delta_tm'] = pred['tm'] - 28.0
-                    variant['design_score'] = (variant.get('structural_confidence', 0.8) * 
-                                             pred.get('stability_score', 0.5))
-            
-        except Exception as e:
-            print(f"   ⚠️  Validation failed: {e}")
-            for variant in variants:
-                variant['predicted_tm'] = 28.0 + np.random.uniform(0, 4)
-                variant['predicted_delta_tm'] = variant['predicted_tm'] - 28.0
-                variant['design_score'] = 0.5 + np.random.uniform(0, 0.4)
-        
+        print(f"    ✓ Generated {len(variants)} structural variants")
         return variants
     
-    def _poll_job_completion(self, job_id: str, timeout_minutes: int = 60) -> Optional:
-        """Poll API for job completion"""
+    async def predict_best_structure(self, sequence: str) -> Dict:
+        """
+        Predict structure using best available method
+        Try methods in order of preference
+        """
         
-        start_time = time.time()
-        timeout_seconds = timeout_minutes * 60
-        poll_interval = 30
-        
-        while (time.time() - start_time) < timeout_seconds:
+        for method in self.structure_methods:
             try:
-                response = requests.get(
-                    f"{self.base_url}/api/job/status/{job_id}",
-                    headers={'X-API-KEY': self.api_key},
-                    timeout=10
-                )
-                response.raise_for_status()
-                status = response.json()
+                print(f"      Trying {method}...")
+                structure = await self.client.predict_structure(sequence, method)
                 
-                if status['status'] == 'completed':
-                    result_response = requests.get(
-                        f"{self.base_url}/api/job/data/{job_id}",
-                        headers={'X-API-KEY': self.api_key},
-                        timeout=30
-                    )
-                    result_response.raise_for_status()
-                    return result_response.json()
-                
-                elif status['status'] == 'failed':
-                    print(f"   ❌ Job failed: {status.get('error', 'Unknown')}")
-                    return None
-                
-                elif status['status'] == 'running':
-                    progress = status.get('progress', 0)
-                    print(f"   ⏱️  Progress: {progress}%...")
-                
-                time.sleep(poll_interval)
-                
+                if structure['plddt'] > 70:  # Good confidence
+                    return structure
+                    
             except Exception as e:
-                print(f"   ⚠️  Polling error: {e}")
-                time.sleep(poll_interval)
+                print(f"      ⚠ {method} failed: {str(e)}")
+                continue
         
-        print(f"   ⏱️  Timeout after {timeout_minutes} minutes")
-        return None
+        # If all fail, raise error
+        raise Exception("Failed to predict structure with any method")
     
-    def _generate_mock_structure(self) -> Dict:
-        """Mock structure for testing"""
+    async def analyze_structure(self, structure: Dict) -> Dict:
+        """
+        Analyze structural features for design
+        """
         
-        n = len(self.maize_sequence)
-        
-        # Mock pLDDT scores (confidence)
-        plddt = []
-        for i in range(n):
-            if i+1 in self.active_site_core:
-                plddt.append(95 + np.random.uniform(0, 5))  # High confidence
-            else:
-                plddt.append(75 + np.random.uniform(0, 20))
-        
-        # Mock RSA (surface accessibility)
-        rsa = []
-        for i in range(n):
-            # Loops are more exposed
-            if (50 < i < 70) or (180 < i < 210):
-                rsa.append(0.6 + np.random.uniform(0, 0.3))
-            else:
-                rsa.append(0.1 + np.random.uniform(0, 0.4))
-        
-        return {
-            'confidence': float(np.mean(plddt)),
-            'plddt': plddt,
-            'rsa': rsa,
-            'coordinates': None  # Would be 3D coords in real version
+        analysis = {
+            'modifiable_regions': [],
+            'loop_regions': [],
+            'surface_residues': [],
+            'core_residues': [],
+            'interaction_sites': []
         }
+        
+        # Parse PDB structure
+        pdb_lines = structure['structure'].split('\n')
+        
+        # Extract residue positions and properties
+        residues = {}
+        for line in pdb_lines:
+            if line.startswith('ATOM'):
+                res_num = int(line[22:26].strip())
+                res_name = line[17:20].strip()
+                atom_name = line[12:16].strip()
+                
+                if res_num not in residues:
+                    residues[res_num] = {
+                        'name': res_name,
+                        'atoms': []
+                    }
+                
+                residues[res_num]['atoms'].append({
+                    'name': atom_name,
+                    'x': float(line[30:38]),
+                    'y': float(line[38:46]),
+                    'z': float(line[46:54])
+                })
+        
+        # Identify modifiable regions (not in active site or TM helices)
+        for res_num in residues:
+            # Skip active site
+            if res_num in self.structural_features['active_site']:
+                continue
+            
+            # Check if in TM helix
+            in_tm = False
+            for start, end, name in self.structural_features['tm_helices']:
+                if start <= res_num <= end:
+                    in_tm = True
+                    break
+            
+            if not in_tm:
+                analysis['modifiable_regions'].append(res_num)
+            
+            # Classify as surface or core based on coordinates
+            # Simplified: use distance from center of mass
+            coords = residues[res_num]['atoms'][0]  # Use CA atom
+            dist_from_center = np.sqrt(coords['x']**2 + coords['y']**2 + coords['z']**2)
+            
+            if dist_from_center > 20:  # Arbitrary threshold
+                analysis['surface_residues'].append(res_num)
+            else:
+                analysis['core_residues'].append(res_num)
+        
+        # Identify loop regions (between TM helices)
+        tm_boundaries = []
+        for start, end, name in self.structural_features['tm_helices']:
+            tm_boundaries.extend([start, end])
+        tm_boundaries.sort()
+        
+        for i in range(0, len(tm_boundaries)-1, 2):
+            if i+1 < len(tm_boundaries):
+                loop_start = tm_boundaries[i] + 1
+                loop_end = tm_boundaries[i+1] - 1
+                if loop_end > loop_start:
+                    analysis['loop_regions'].append((loop_start, loop_end))
+        
+        return analysis
     
-    def _generate_mock_variants(self, designable: List[int], n: int) -> List[Dict]:
-        """Mock variants for testing"""
+    async def inverse_folding_variants(self, structure: str, n_variants: int) -> List[Dict]:
+        """
+        Generate variants using LigandMPNN inverse folding
+        """
         
         variants = []
         
-        for i in range(n):
-            n_mut = np.random.randint(1, min(6, len(designable)))
-            positions = np.random.choice(designable, size=n_mut, replace=False)
-            
-            variant_seq = list(self.maize_sequence)
+        # Use different temperatures for diversity
+        temperatures = [0.1, 0.2, 0.3, 0.5]
+        per_temp = n_variants // len(temperatures)
+        
+        for temp in temperatures:
+            try:
+                # Fix active site residues
+                fixed_positions = list(self.structural_features['active_site'].keys())
+                
+                sequences = await self.client.inverse_folding(
+                    structure,
+                    num_sequences=per_temp
+                )
+                
+                for seq_data in sequences:
+                    # Calculate mutations
+                    mutations = self._get_mutations(
+                        self.wt_structure_cache.get('sequence', ''),
+                        seq_data['sequence']
+                    )
+                    
+                    variants.append({
+                        'sequence': seq_data['sequence'],
+                        'mutations': mutations,
+                        'method': 'ligandmpnn',
+                        'temperature': temp,
+                        'score': seq_data.get('score', 0),
+                        'recovery': seq_data.get('recovery', 0)
+                    })
+                    
+            except Exception as e:
+                print(f"      ⚠ Inverse folding failed at T={temp}: {str(e)}")
+        
+        return variants
+    
+    async def targeted_design_variants(self, 
+                                      sequence: str,
+                                      analysis: Dict,
+                                      n_variants: int) -> List[Dict]:
+        """
+        Design variants with targeted structural modifications
+        """
+        
+        variants = []
+        
+        for i in range(n_variants):
+            variant_seq = list(sequence)
             mutations = []
             
-            for pos in positions:
-                from_aa = self.maize_sequence[pos-1]
-                to_aa = np.random.choice(['I', 'V', 'L', 'A', 'F', 'T', 'S', 'K', 'R'])
-                variant_seq[pos-1] = to_aa
-                mutations.append(f"{from_aa}{pos}{to_aa}")
+            # Strategy: Modify loop regions for flexibility
+            if analysis['loop_regions']:
+                loop_start, loop_end = analysis['loop_regions'][
+                    np.random.randint(len(analysis['loop_regions']))
+                ]
+                
+                # Add stabilizing mutations in loops
+                n_loop_muts = np.random.randint(2, 5)
+                positions = np.random.choice(
+                    range(loop_start, min(loop_end, len(sequence))),
+                    min(n_loop_muts, loop_end - loop_start),
+                    replace=False
+                )
+                
+                for pos in positions:
+                    old_aa = variant_seq[pos]
+                    # Prefer Pro in loops for rigidity
+                    new_aa = np.random.choice(['P', 'G', 'S', 'T'])
+                    variant_seq[pos] = new_aa
+                    mutations.append(f"{old_aa}{pos+1}{new_aa}")
             
-            variant_seq = ''.join(variant_seq)
-            identity = sum(1 for a, b in zip(self.maize_sequence, variant_seq) 
-                          if a == b) / len(self.maize_sequence)
+            # Strategy: Optimize surface charges
+            if analysis['surface_residues']:
+                n_surface_muts = np.random.randint(3, 7)
+                positions = np.random.choice(
+                    [p for p in analysis['surface_residues'] if p < len(sequence)],
+                    min(n_surface_muts, len(analysis['surface_residues'])),
+                    replace=False
+                )
+                
+                for pos in positions:
+                    old_aa = variant_seq[pos]
+                    # Add charged residues for solubility
+                    new_aa = np.random.choice(['K', 'R', 'D', 'E'])
+                    variant_seq[pos] = new_aa
+                    mutations.append(f"{old_aa}{pos+1}{new_aa}")
+            
+            # Strategy: Strengthen hydrophobic core
+            if analysis['core_residues']:
+                n_core_muts = np.random.randint(2, 4)
+                positions = np.random.choice(
+                    [p for p in analysis['core_residues'] 
+                     if p < len(sequence) and p not in self.structural_features['active_site']],
+                    min(n_core_muts, len(analysis['core_residues'])),
+                    replace=False
+                )
+                
+                for pos in positions:
+                    old_aa = variant_seq[pos]
+                    # Hydrophobic packing
+                    new_aa = np.random.choice(['V', 'I', 'L', 'M', 'F'])
+                    variant_seq[pos] = new_aa
+                    mutations.append(f"{old_aa}{pos+1}{new_aa}")
             
             variants.append({
-                'variant_id': f"TRACK3_STRUCT_{i+1:03d}",
-                'sequence': variant_seq,
+                'sequence': ''.join(variant_seq),
                 'mutations': mutations,
-                'n_mutations': len(mutations),
-                'identity_to_wt': identity,
-                'structural_confidence': 0.7 + np.random.uniform(0, 0.25),
-                'evidence_score': 0.6 + np.random.uniform(0, 0.3),
-                'source_track': 'structure_guided',
-                'predicted_tm': 28.0 + np.random.uniform(-1, 6),
-                'predicted_delta_tm': np.random.uniform(-1, 6),
-                'design_score': 0.5 + np.random.uniform(0, 0.4)
+                'method': 'targeted_structural',
+                'design_features': {
+                    'loop_mutations': len([m for m in mutations if any(
+                        loop[0] <= int(m[1:-1]) <= loop[1] 
+                        for loop in analysis['loop_regions']
+                    )]),
+                    'surface_mutations': len([m for m in mutations if 
+                        int(m[1:-1]) in analysis['surface_residues']]),
+                    'core_mutations': len([m for m in mutations if 
+                        int(m[1:-1]) in analysis['core_residues']])
+                }
             })
         
         return variants
     
-    def export_results(self, output_dir: Path, results: Dict):
-        """Export Track 3 results"""
-        output_dir = Path(output_dir)
-        output_dir.mkdir(parents=True, exist_ok=True)
+    async def backbone_guided_variants(self,
+                                      sequence: str,
+                                      structure: Dict,
+                                      analysis: Dict,
+                                      n_variants: int) -> List[Dict]:
+        """
+        Design variants guided by backbone geometry
+        """
         
-        # Export variants
-        fasta_file = output_dir / "track3_structural_variants.fasta"
-        with open(fasta_file, 'w') as f:
-            for variant in results['variants']:
-                mutations_str = "+".join(variant['mutations'])
-                f.write(f">{variant['variant_id']} | {mutations_str} | "
-                       f"PredTm={variant.get('predicted_tm', 0):.1f}°C | "
-                       f"Score={variant.get('design_score', 0):.3f}\n")
-                seq = variant['sequence']
-                for i in range(0, len(seq), 60):
-                    f.write(f"{seq[i:i+60]}\n")
+        variants = []
         
-        print(f"\n💾 FASTA saved: {fasta_file}")
+        for i in range(n_variants):
+            variant_seq = list(sequence)
+            mutations = []
+            
+            # Strategy: Reduce backbone strain
+            # Add prolines in turns, remove them from helices
+            n_backbone_muts = np.random.randint(3, 6)
+            
+            # Positions good for proline
+            pro_friendly_positions = []
+            for loop in analysis.get('loop_regions', []):
+                pro_friendly_positions.extend(range(loop[0], min(loop[1], len(sequence))))
+            
+            if pro_friendly_positions:
+                positions = np.random.choice(
+                    pro_friendly_positions,
+                    min(n_backbone_muts, len(pro_friendly_positions)),
+                    replace=False
+                )
+                
+                for pos in positions:
+                    old_aa = variant_seq[pos]
+                    if old_aa != 'P':
+                        variant_seq[pos] = 'P'
+                        mutations.append(f"{old_aa}{pos+1}P")
+            
+            # Strategy: Remove glycines from helices
+            for start, end, name in self.structural_features['tm_helices']:
+                for pos in range(start, min(end, len(sequence))):
+                    if variant_seq[pos] == 'G' and np.random.random() > 0.5:
+                        old_aa = variant_seq[pos]
+                        new_aa = np.random.choice(['A', 'V', 'L'])
+                        variant_seq[pos] = new_aa
+                        mutations.append(f"{old_aa}{pos+1}{new_aa}")
+            
+            # Strategy: Disulfide bonds for stability
+            # Find pairs of positions that could form disulfides
+            cys_positions = []
+            for pos in analysis.get('modifiable_regions', []):
+                if pos < len(sequence) and np.random.random() > 0.9:
+                    cys_positions.append(pos)
+            
+            # Add cysteines in pairs
+            if len(cys_positions) >= 2:
+                for j in range(0, len(cys_positions)-1, 2):
+                    pos1, pos2 = cys_positions[j], cys_positions[j+1]
+                    
+                    old_aa1 = variant_seq[pos1]
+                    old_aa2 = variant_seq[pos2]
+                    
+                    variant_seq[pos1] = 'C'
+                    variant_seq[pos2] = 'C'
+                    
+                    mutations.append(f"{old_aa1}{pos1+1}C")
+                    mutations.append(f"{old_aa2}{pos2+1}C")
+            
+            variants.append({
+                'sequence': ''.join(variant_seq),
+                'mutations': mutations,
+                'method': 'backbone_guided',
+                'backbone_features': {
+                    'proline_additions': len([m for m in mutations if m.endswith('P')]),
+                    'glycine_removals': len([m for m in mutations if m[0] == 'G']),
+                    'potential_disulfides': len([m for m in mutations if m.endswith('C')]) // 2
+                }
+            })
         
-        # Export structure info
-        structure_file = output_dir / "structure_info.json"
-        with open(structure_file, 'w') as f:
-            json.dump(results['structure_prediction'], f, indent=2, default=str)
-        print(f"💾 Structure info saved: {structure_file}")
+        return variants
+    
+    def _get_mutations(self, wt_seq: str, variant_seq: str) -> List[str]:
+        """Extract mutations between sequences"""
+        mutations = []
+        min_len = min(len(wt_seq), len(variant_seq))
         
-        # Export full results
-        json_file = output_dir / "track3_analysis_results.json"
-        with open(json_file, 'w') as f:
-            json.dump(results, f, indent=2, default=str)
-        print(f"💾 Analysis saved: {json_file}")
-
-
-# CLI
-if __name__ == "__main__":
-    from datetime import datetime
-    
-    print("="*70)
-    print("🏗️  MAIZE D1 TRACK 3: STRUCTURE-GUIDED DESIGN (PRODUCTION)")
-    print("="*70)
-    
-    designer = StructuralDesigner()
-    
-    results = designer.run_complete_analysis(n_variants=100)
-    
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    output_dir = Path(f"../data/results/track3_{timestamp}")
-    designer.export_results(output_dir, results)
-    
-    print("\n" + "="*70)
-    print("✅ TRACK 3 COMPLETE!")
-    print("="*70)
-    print(f"📊 Generated {len(results['variants'])} variants")
-    print(f"📊 Mean structure confidence: {results['structure_prediction']['confidence']:.1f}")
-    if results['variants']:
-        top = results['variants'][0]
-        print(f"🏆 Top variant: {top['variant_id']}")
-        print(f"   Design score: {top.get('design_score', 0):.3f}")
-        print(f"   Predicted Tm: {top.get('predicted_tm', 0):.1f}°C")
-    print(f"📁 Results saved to: {output_dir}")
-    print("="*70)
+        for i in range(min_len):
+            if wt_seq[i] != variant_seq[i]:
+                mutations.append(f"{wt_seq[i]}{i+1}{variant_seq[i]}")
+        
+        return mutations

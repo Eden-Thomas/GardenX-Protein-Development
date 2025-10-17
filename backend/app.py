@@ -10,9 +10,11 @@ from visualizations import ConservationPlotter, CorrelationHeatmap, MutationImpa
 import json
 import asyncio
 from datetime import datetime
-import random
+import numpy as np
+import os
 
-from pipeline import D1EngineeringPipeline
+# Import the real pipeline
+from pipeline.master_pipeline_v3 import MasterPipelineV3
 from config import Config
 
 app = FastAPI(title="Eden D1 Engineering Platform")
@@ -37,7 +39,7 @@ class PipelineRequest(BaseModel):
     sequences: List[str]
     crop_type: str = "corn"
     compute_mode: str = "hybrid"
-    n_variants: int = 500
+    n_variants: int = 15  # Default to 15 for initial testing
 
 class PipelineResponse(BaseModel):
     job_id: str
@@ -111,40 +113,9 @@ async def submit_pipeline(request: PipelineRequest, background_tasks: Background
     
     return response
 
-def generate_example_mutations(sequence: str, num_mutations: int = 8):
-    """Generate example mutations for demo purposes"""
-    mutations = []
-    seq_length = len(sequence)
-    
-    # Common thermostability-enhancing mutation types
-    mutation_types = [
-        ("A", "V", "Hydrophobic core"),
-        ("S", "T", "H-bond network"),
-        ("K", "R", "Surface charge"),
-        ("L", "I", "Packing"),
-        ("E", "D", "Salt bridge"),
-        ("N", "Q", "Polar contact"),
-        ("F", "Y", "Aromatic stack"),
-        ("V", "L", "Stability")
-    ]
-    
-    # Generate random positions (avoiding first 10 and last 10)
-    positions = random.sample(range(10, seq_length - 10), num_mutations)
-    
-    for i, pos in enumerate(positions):
-        from_aa, to_aa, effect = mutation_types[i % len(mutation_types)]
-        mutations.append({
-            "position": pos + 1,  # 1-indexed
-            "from": from_aa,
-            "to": to_aa,
-            "effect": effect
-        })
-    
-    return sorted(mutations, key=lambda x: x["position"])
-
 async def run_pipeline_task(job_id: str, sequences: List[str], crop_type: str, n_variants: int):
-    """Background task to run the pipeline"""
-    print(f"🔄 Starting pipeline task for job: {job_id}")
+    """Background task to run the REAL production pipeline"""
+    print(f"🔄 Starting PRODUCTION pipeline task for job: {job_id}")
     
     try:
         if job_store[job_id]["status"] == "stopped":
@@ -152,100 +123,104 @@ async def run_pipeline_task(job_id: str, sequences: List[str], crop_type: str, n
             
         job_store[job_id]["status"] = "running"
         
-        # Stage 1: Fitness Scoring
-        job_store[job_id]["current_stage"] = "Fitness Scoring"
-        job_store[job_id]["stage_number"] = 1
-        job_store[job_id]["progress"] = 0.0
-        print(f"🧬 Stage 1/5: Fitness Scoring")
-        await asyncio.sleep(3)
-        job_store[job_id]["progress"] = 0.2
+        # Initialize real pipeline
+        config = Config()
+        pipeline = MasterPipelineV3(config)
         
-        if job_store[job_id]["status"] == "stopped":
-            return
+        # Progress callback
+        async def update_progress(progress: float, message: str):
+            if job_store[job_id]["status"] == "stopped":
+                raise Exception("Pipeline stopped by user")
+            
+            job_store[job_id]["progress"] = progress
+            job_store[job_id]["current_stage"] = message
+            
+            # Map progress to stage numbers (1-5)
+            if progress < 0.2:
+                stage = 1
+            elif progress < 0.4:
+                stage = 2
+            elif progress < 0.6:
+                stage = 3
+            elif progress < 0.8:
+                stage = 4
+            else:
+                stage = 5
+            
+            job_store[job_id]["stage_number"] = stage
+            print(f"   Stage {stage}/5: {message} ({progress*100:.0f}%)")
         
-        # Stage 2: Variant Generation
-        job_store[job_id]["current_stage"] = "Variant Generation"
-        job_store[job_id]["stage_number"] = 2
-        print(f"🧬 Stage 2/5: Variant Generation")
-        await asyncio.sleep(3)
-        job_store[job_id]["progress"] = 0.4
+        # Run REAL pipeline with API calls
+        print(f"   Running pipeline with {n_variants} variants targeting {crop_type}")
         
-        if job_store[job_id]["status"] == "stopped":
-            return
+        results = await pipeline.run(
+            wt_sequence=sequences[0],
+            target_temp=50,  # Target 50°C
+            n_variants=n_variants,
+            validate_all=False,  # Validate top candidates only for cost
+            progress_callback=update_progress
+        )
         
-        # Stage 3: ThermoScore Calculation
-        job_store[job_id]["current_stage"] = "ThermoScore Calculation"
-        job_store[job_id]["stage_number"] = 3
-        print(f"🧬 Stage 3/5: ThermoScore Calculation")
-        await asyncio.sleep(3)
-        job_store[job_id]["progress"] = 0.6
-        
-        if job_store[job_id]["status"] == "stopped":
-            return
-        
-        # Stage 4: Structure Prediction
-        job_store[job_id]["current_stage"] = "Structure Prediction"
-        job_store[job_id]["stage_number"] = 4
-        print(f"🧬 Stage 4/5: Structure Prediction")
-        await asyncio.sleep(3)
-        job_store[job_id]["progress"] = 0.8
-        
-        if job_store[job_id]["status"] == "stopped":
-            return
-        
-        # Stage 5: Diverse Selection
-        job_store[job_id]["current_stage"] = "Diverse Selection"
-        job_store[job_id]["stage_number"] = 5
-        print(f"🧬 Stage 5/5: Diverse Selection")
-        await asyncio.sleep(3)
-        job_store[job_id]["progress"] = 1.0
-        
-        # Generate example mutations
-        input_sequence = job_store[job_id].get("input_sequence", "")
-        num_mutations = random.randint(6, 10)
-        mutations = generate_example_mutations(input_sequence, num_mutations) if input_sequence else []
-        
-        # Complete with comprehensive results
-        baseline_tm = 42.0
-        delta_tm = round(random.uniform(4.5, 6.5), 1)
-        predicted_tm = baseline_tm + delta_tm
-        
-        job_store[job_id]["status"] = "complete"
-        job_store[job_id]["current_stage"] = "Complete"
-        job_store[job_id]["results"] = {
-            "variants": n_variants,
-            "best_score": round(random.uniform(0.88, 0.96), 2),
-            "best_delta_tm": delta_tm,
-            "predicted_tm": predicted_tm,
-            "baseline_tm": baseline_tm,
-            "num_mutations": num_mutations,
-            "structure_confidence": round(random.uniform(0.88, 0.95), 2),
-            "fitness_score": round(random.uniform(0.82, 0.92), 2),
-            "mutations": mutations,
-            "crop_type": crop_type,
-            "input_sequence_length": len(input_sequence)
-        }
-        job_store[job_id]["completed_at"] = datetime.now().isoformat()
-        print(f"✅ Job {job_id} completed successfully")
-        print(f"   - Best ThermoScore: {job_store[job_id]['results']['best_score']}")
-        print(f"   - ΔTm: +{delta_tm}°C")
-        print(f"   - Mutations: {num_mutations}")
-        
+        # Process real results
+        if results.get('final_variants'):
+            best_variant = results['final_variants'][0]
+            validation = best_variant.get('validation', {})
+            
+            # Format mutations for display
+            mutations_display = []
+            for mut in best_variant.get('mutations', []):
+                # Parse mutation string (e.g., "A123V")
+                if len(mut) >= 3:
+                    from_aa = mut[0]
+                    to_aa = mut[-1]
+                    pos = mut[1:-1]
+                    mutations_display.append({
+                        "position": int(pos) if pos.isdigit() else 0,
+                        "from": from_aa,
+                        "to": to_aa,
+                        "effect": "Thermostability enhancement"
+                    })
+            
+            job_store[job_id]["results"] = {
+                "variants": len(results['final_variants']),
+                "best_score": round(best_variant.get('consensus_score', 0), 2),
+                "best_delta_tm": round(validation.get('delta_tm', 0), 1),
+                "predicted_tm": round(validation.get('predicted_tm', 0), 1),
+                "baseline_tm": round(validation.get('predicted_tm', 0) - validation.get('delta_tm', 0), 1),
+                "num_mutations": len(best_variant.get('mutations', [])),
+                "structure_confidence": round(validation.get('plddt', 0) / 100.0, 2),
+                "fitness_score": round(validation.get('composite_score', 0) / 100.0, 2),
+                "mutations": mutations_display,
+                "crop_type": crop_type,
+                "input_sequence_length": len(sequences[0]),
+                "risk_level": best_variant.get('risk_level', 'UNKNOWN'),
+                "output_files": results.get('output_files', {}),
+                "api_calls": results.get('api_usage', {}).get('total_calls', 0),
+                "all_variants": results['final_variants']  # Store all for download
+            }
+            
+            job_store[job_id]["status"] = "complete"
+            job_store[job_id]["current_stage"] = "Complete"
+            job_store[job_id]["completed_at"] = datetime.now().isoformat()
+            
+            print(f"✅ Job {job_id} completed successfully")
+            print(f"   - Final variants: {len(results['final_variants'])}")
+            print(f"   - Best ΔTm: +{validation.get('delta_tm', 0):.1f}°C")
+            print(f"   - Risk level: {best_variant.get('risk_level')}")
+            print(f"   - API calls made: {results.get('api_usage', {}).get('total_calls', 0)}")
+            
+        else:
+            raise Exception("No variants passed validation criteria")
+            
     except Exception as e:
         print(f"❌ Job {job_id} failed with error: {str(e)}")
         import traceback
         traceback.print_exc()
+        
         job_store[job_id]["status"] = "failed"
         job_store[job_id]["error"] = str(e)
         job_store[job_id]["current_stage"] = "Failed"
-
-def update_progress(job_id: str, progress: float):
-    """Update job progress"""
-    if job_id in job_store:
-        if job_store[job_id]["status"] == "stopped":
-            return
-        job_store[job_id]["progress"] = progress
-        print(f"📈 Job {job_id} progress: {progress*100:.1f}%")
+        job_store[job_id]["failed_at"] = datetime.now().isoformat()
 
 @app.post("/api/pipeline/stop/{job_id}")
 async def stop_pipeline(job_id: str):
@@ -257,6 +232,79 @@ async def stop_pipeline(job_id: str):
     
     job_store[job_id]["status"] = "stopped"
     return {"status": "stopped", "job_id": job_id}
+
+@app.get("/api/pipeline/status/{job_id}")
+async def get_status(job_id: str):
+    """Get the status of a pipeline job"""
+    if job_id not in job_store:
+        raise HTTPException(404, "Job not found")
+    
+    return job_store[job_id]
+
+@app.get("/api/pipeline/download/{job_id}")
+async def download_results(job_id: str, format: str = "fasta"):
+    """Download pipeline results in specified format"""
+    print(f"📥 Download request for job {job_id} in format: {format}")
+    
+    if job_id not in job_store:
+        raise HTTPException(404, "Job not found")
+    
+    job_data = job_store[job_id]
+    
+    if job_data["status"] != "complete":
+        raise HTTPException(400, "Job not completed yet")
+    
+    if "results" not in job_data:
+        raise HTTPException(404, "No results available")
+    
+    results = job_data["results"]
+    
+    # Create temp directory if it doesn't exist
+    os.makedirs("temp", exist_ok=True)
+    
+    if format == "fasta":
+        # Generate REAL FASTA file with all variants
+        filename = f"temp/{job_id}_results.fasta"
+        with open(filename, "w") as f:
+            for i, variant in enumerate(results.get('all_variants', [])):
+                validation = variant.get('validation', {})
+                f.write(f">{variant.get('id', f'VAR_{i+1:04d}')} ")
+                f.write(f"score={variant.get('consensus_score', 0):.2f} ")
+                f.write(f"delta_tm={validation.get('delta_tm', 0):+.1f} ")
+                f.write(f"risk={variant.get('risk_level', 'UNKNOWN')}\n")
+                f.write(f"{variant['sequence']}\n")
+        
+        return FileResponse(
+            filename,
+            media_type="text/plain",
+            filename=f"eden_d1_variants_{job_id}.fasta"
+        )
+    
+    elif format == "csv":
+        # Generate CSV with detailed results
+        filename = f"temp/{job_id}_results.csv"
+        with open(filename, "w") as f:
+            f.write("Variant_ID,Track,Method,Consensus_Score,Delta_Tm,Predicted_Tm,Risk_Level,Num_Mutations\n")
+            
+            for i, variant in enumerate(results.get('all_variants', [])):
+                validation = variant.get('validation', {})
+                f.write(f"{variant.get('id', f'VAR_{i+1:04d')},")
+                f.write(f"{variant.get('track', 'unknown')},")
+                f.write(f"{variant.get('method', 'unknown')},")
+                f.write(f"{variant.get('consensus_score', 0):.3f},")
+                f.write(f"{validation.get('delta_tm', 0):.1f},")
+                f.write(f"{validation.get('predicted_tm', 0):.1f},")
+                f.write(f"{variant.get('risk_level', 'UNKNOWN')},")
+                f.write(f"{len(variant.get('mutations', []))}\n")
+        
+        return FileResponse(
+            filename,
+            media_type="text/csv",
+            filename=f"eden_d1_results_{job_id}.csv"
+        )
+    
+    else:
+        raise HTTPException(400, f"Unsupported format: {format}")
 
 @app.post("/api/analysis/comparative")
 async def run_comparative_analysis(request: dict):
@@ -302,114 +350,10 @@ async def run_comparative_analysis(request: dict):
         traceback.print_exc()
         raise HTTPException(500, f"Analysis failed: {str(e)}")
 
-@app.post("/api/variant/score")
-async def score_variant(request: dict):
-    """Score a variant sequence"""
-    try:
-        reference_seq = request.get('reference_sequence')
-        variant_seq = request.get('variant_sequence')
-        
-        if not reference_seq or not variant_seq:
-            raise HTTPException(400, "Both reference and variant sequences required")
-        
-        scorer = VariantScorer()
-        result = scorer.score_variant(reference_seq, variant_seq)
-        
-        return result
-        
-    except Exception as e:
-        print(f"Scoring error: {str(e)}")
-        raise HTTPException(500, f"Scoring failed: {str(e)}")
-
-@app.post("/api/mutation/predict")
-async def predict_mutation_effect(request: dict):
-    """Predict effect of a single mutation"""
-    try:
-        from_aa = request.get('from_aa')
-        to_aa = request.get('to_aa')
-        position = request.get('position')
-        sequence_length = request.get('sequence_length', 350)
-        
-        predictor = MutationEffectPredictor()
-        predictor.train_with_synthetic_data()
-        
-        result = predictor.predict(from_aa, to_aa, position, sequence_length)
-        
-        return result
-        
-    except Exception as e:
-        print(f"Prediction error: {str(e)}")
-        raise HTTPException(500, f"Prediction failed: {str(e)}")
-
 @app.get("/api/sequences/reference")
 async def get_reference_sequences():
     """Get all reference sequences"""
     return {"sequences": REFERENCE_SEQUENCES}
-
-@app.get("/api/pipeline/status/{job_id}")
-async def get_status(job_id: str):
-    """Get the status of a pipeline job"""
-    if job_id not in job_store:
-        raise HTTPException(404, "Job not found")
-    
-    return job_store[job_id]
-
-@app.get("/api/pipeline/download/{job_id}")
-async def download_results(job_id: str, format: str = "fasta"):
-    """Download pipeline results in specified format"""
-    print(f"📥 Download request for job {job_id} in format: {format}")
-    
-    if job_id not in job_store:
-        raise HTTPException(404, "Job not found")
-    
-    job_data = job_store[job_id]
-    
-    if job_data["status"] != "complete":
-        raise HTTPException(400, "Job not completed yet")
-    
-    if "results" not in job_data:
-        raise HTTPException(404, "No results available")
-    
-    results = job_data["results"]
-    
-    if format == "fasta":
-        # Generate FASTA file
-        content = f">Eden_D1_Variant_001 | ThermoScore:{results['best_score']} | ΔTm:+{results['best_delta_tm']}°C\n"
-        content += "MTTTLQRRESANLWERFCNWVTSTDNRLYVGWFGVIMIPTLLAAT\n"
-        content += "ICFVIAFIAAPPVDIDGIREPVSGSLLYGNNIITGAVVPSSNAIG\n"
-        
-        # Write to temporary file
-        filename = f"{job_id}_results.fasta"
-        with open(filename, "w") as f:
-            f.write(content)
-        
-        return FileResponse(
-            filename,
-            media_type="text/plain",
-            filename=f"eden_d1_variants_{job_id}.fasta"
-        )
-    
-    elif format == "csv":
-        # Generate CSV file
-        content = "Variant_ID,ThermoScore,Delta_Tm,Predicted_Tm,Mutations,Confidence,Fitness\n"
-        content += f"Variant_001,{results['best_score']},{results['best_delta_tm']},{results['predicted_tm']},{results['num_mutations']},{results['structure_confidence']},{results['fitness_score']}\n"
-        
-        filename = f"{job_id}_results.csv"
-        with open(filename, "w") as f:
-            f.write(content)
-        
-        return FileResponse(
-            filename,
-            media_type="text/csv",
-            filename=f"eden_d1_results_{job_id}.csv"
-        )
-    
-    elif format == "pdb":
-        # For now, return a placeholder message
-        raise HTTPException(501, "PDB structure download coming soon!")
-    
-    else:
-        raise HTTPException(400, f"Unsupported format: {format}")
 
 @app.get("/api/jobs")
 async def list_jobs():
@@ -420,7 +364,9 @@ async def list_jobs():
                 "job_id": job_id,
                 "status": data["status"],
                 "created_at": data.get("created_at"),
-                "current_stage": data.get("current_stage")
+                "current_stage": data.get("current_stage"),
+                "progress": data.get("progress", 0),
+                "crop_type": data.get("results", {}).get("crop_type") if "results" in data else None
             }
             for job_id, data in job_store.items()
         ]
