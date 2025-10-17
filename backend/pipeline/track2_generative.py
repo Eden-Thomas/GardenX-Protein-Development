@@ -8,7 +8,7 @@ import asyncio
 
 class Track2Generative:
     """
-    Generative AI track - THE KEY TRACK!
+    Generative AI track
     Includes NeuroFold, RFdiffusion, Efficient Evolution
     """
     

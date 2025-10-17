@@ -16,9 +16,13 @@ from datetime import datetime
 import os
 import ssl
 import urllib3
+from dotenv import load_dotenv
 
 # Suppress SSL warnings for older systems
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+# Load environment variables from .env file
+load_dotenv()  
 
 class SSLAdapter(requests.adapters.HTTPAdapter):
     """Custom SSL adapter for compatibility with older OpenSSL versions"""
@@ -64,14 +68,15 @@ class NeurosnapClient:
         adapter = SSLAdapter(max_retries=retry_strategy)
         self.session.mount("https://", adapter)
         
-        # Complete service mapping (including alternate names)
+        # Complete service mapping - using exact API service names
         self.services = {
-            # Core Pipeline Tools
+            # Core Pipeline Tools (exact names as they appear in the API)
             'temstapro': 'TemStaPro Protein Thermostability Prediction',
             'neurofold': 'NeuroFold',
             'alphafold2': 'AlphaFold2',
-            'boltz1': 'Boltz-1',
-            'chai1': 'Chai-1',
+            'boltz1': 'Boltz-1 (AlphaFold3)',  # Based on service list
+            'boltz2': 'Boltz-2 (AlphaFold3)',  # The one shown in debug output
+            'chai1': 'Chai-1 (AlphaFold3)',    # Likely has (AlphaFold3) suffix
             'esmfold': 'ESMFold',
             
             # Protein Design Tools
@@ -116,13 +121,18 @@ class NeurosnapClient:
     async def test_connection(self) -> bool:
         """Test API connection and authentication"""
         try:
+            # Use the /services endpoint which actually exists
             response = self.session.get(
-                f"{self.base_url}/status",
+                f"{self.base_url}/services",
                 timeout=10
             )
             if response.status_code == 200:
-                print("✅ API connection successful")
+                services = response.json()
+                print(f"✅ API connection successful - Found {len(services)} services")
                 return True
+            elif response.status_code == 401:
+                print(f"⚠️ Authentication failed: {response.text}")
+                return False
             else:
                 print(f"⚠️ API returned status: {response.status_code}")
                 return False
@@ -130,10 +140,21 @@ class NeurosnapClient:
             print(f"❌ Connection test failed: {str(e)}")
             return False
     
+    async def list_jobs(self) -> List[Dict]:
+        """List all jobs for this account"""
+        try:
+            response = self.session.get(f"{self.base_url}/jobs")
+            response.raise_for_status()
+            return response.json()
+        except Exception as e:
+            print(f"Error listing jobs: {str(e)}")
+            return []
+    
     async def submit_job(self, service: str, params: Dict) -> str:
         """Submit job to Neurosnap with proper error handling"""
         
         self.api_calls += 1
+        # Get the full service name from mapping
         service_name = self.services.get(service, service)
         
         print(f"  → Submitting {service_name} job...")
@@ -142,8 +163,9 @@ class NeurosnapClient:
             # Build multipart request based on service
             multipart_data = self._build_multipart_data(service, params)
             
+            # IMPORTANT: Use the full service name in the API URL!
             response = self.session.post(
-                f"{self.base_url}/job/submit/{service}",
+                f"{self.base_url}/job/submit/{service_name}",  # Use service_name, not service
                 headers={"Content-Type": multipart_data.content_type},
                 data=multipart_data,
                 timeout=30,
@@ -165,7 +187,7 @@ class NeurosnapClient:
             # Fallback: Try with less strict SSL if needed
             try:
                 response = self.session.post(
-                    f"{self.base_url}/job/submit/{service_name}",
+                    f"{self.base_url}/job/submit/{service_name}",  # Fixed: use service_name not service
                     headers={"Content-Type": multipart_data.content_type},
                     data=multipart_data,
                     timeout=30,
@@ -181,6 +203,8 @@ class NeurosnapClient:
                 
         except requests.exceptions.RequestException as e:
             print(f"    ✗ API Error: {str(e)}")
+            if hasattr(e, 'response') and e.response is not None:
+                print(f"    Response text: {e.response.text}")
             raise
         except Exception as e:
             print(f"    ✗ Error: {str(e)}")
@@ -193,8 +217,8 @@ class NeurosnapClient:
         
         if service == 'temstapro':
             fields = {
-                "Input Sequence": json.dumps([{
-                    "data": f">sequence\\n{params['sequence']}", 
+                "Input Sequences": json.dumps([{  # Changed to plural "Sequences"
+                    "data": f">sequence\n{params['sequence']}", 
                     "type": "fasta"
                 }]),
                 "Temperature Thresholds": json.dumps(
@@ -204,20 +228,19 @@ class NeurosnapClient:
             
         elif service == 'neurofold':
             fields = {
-                "Input Sequence": json.dumps([{
-                    "data": f">sequence\\n{params['sequence']}", 
-                    "type": "fasta"
+                "Reference Protein": json.dumps([{  # Changed based on API docs
+                    "data": f">sequence\n{params['sequence']}", 
+                    "type": "pdb"  # NeuroFold expects PDB structure
                 }]),
-                "Optimization Target": params.get('target', 'thermostability'),
-                "Number of Designs": str(params.get('num_designs', 100)),
-                "Temperature Target": str(params.get('temperature', 50)),
-                "pH Target": str(params.get('ph', 7.0))
+                "Thermostability": params.get('target', 'Decrease'),  # Increase/Decrease
+                "Solubility": params.get('solubility', 'Increase'),
+                "Optimal pH": str(params.get('ph', 7.0))
             }
             
         elif service in ['alphafold2', 'esmfold', 'boltz1', 'chai1']:
             fields = {
-                "Input Sequence": json.dumps([{
-                    "data": f">sequence\\n{params['sequence']}", 
+                "Input Sequences": json.dumps([{  # Changed to plural "Sequences"
+                    "data": f">sequence\n{params['sequence']}", 
                     "type": "fasta"
                 }]),
                 "Number of Models": str(params.get('num_models', 5)),
@@ -262,8 +285,8 @@ class NeurosnapClient:
             
         elif service == 'mmseqs2':
             fields = {
-                "Input Sequence": json.dumps([{
-                    "data": f">sequence\\n{params['sequence']}", 
+                "Input Sequences": json.dumps([{  # Changed to plural "Sequences"
+                    "data": f">sequence\n{params['sequence']}", 
                     "type": "fasta"
                 }]),
                 "Database": params.get('database', 'uniclust30'),
@@ -557,7 +580,14 @@ if __name__ == "__main__":
             print("✅ Client initialized")
             
             # Test connection
-            await client.test_connection()
+            connected = await client.test_connection()
+            if not connected:
+                print("⚠️ Connection test failed, but continuing...")
+            
+            # List jobs
+            print("\n📋 Listing jobs...")
+            jobs = await client.list_jobs()
+            print(f"   Found {len(jobs)} jobs")
             
             # Test with a short sequence
             test_seq = "MTAILERRESESLWGRFCNWG"
@@ -570,5 +600,7 @@ if __name__ == "__main__":
             
         except Exception as e:
             print(f"❌ Error: {e}")
+            import traceback
+            traceback.print_exc()
     
     asyncio.run(test_client())
