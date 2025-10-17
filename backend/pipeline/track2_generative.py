@@ -5,6 +5,7 @@ track2_generative.py - Production generative track with NeuroFold
 import numpy as np
 from typing import List, Dict
 import asyncio
+import json  
 
 class Track2Generative:
     """
@@ -34,11 +35,15 @@ class Track2Generative:
             print(f"    - NeuroFold: optimizing for {target_temp}°C...")
             
             neurofold_job = await self.client.submit_job('neurofold', {
-                'sequence': wt_sequence,
+                # FIX: Wrap sequence in json.dumps with proper format
+                'sequence': json.dumps([{"type": "fasta", "data": wt_sequence}]),
                 'target': 'thermostability',  # Correct parameter name
-                'temperature': target_temp,   # Correct parameter name
-                'ph': 7.0,                    # Correct parameter name
-                'num_designs': max(neurofold_count * 2, 10)  # Generate extra, filter later
+                # FIX: Convert to string
+                'temperature': str(target_temp),
+                # FIX: Convert to string
+                'ph': "7.0",
+                # FIX: Convert to string
+                'num_designs': str(max(neurofold_count * 2, 10))
             })
             
             neurofold_results = await self.client.wait_for_job(neurofold_job)
@@ -85,9 +90,12 @@ class Track2Generative:
                 
                 # Try to get structure first
                 structure_job = await self.client.submit_job('alphafold2', {
-                    'sequence': wt_sequence,
-                    'num_models': 1,
-                    'relax': False  # Faster without relaxation
+                    # FIX: Wrap sequence in json.dumps with proper format
+                    'sequence': json.dumps([{"type": "fasta", "data": wt_sequence}]),
+                    # FIX: Convert to string
+                    'num_models': "1",
+                    # FIX: Convert boolean to string
+                    'relax': "false"
                 })
                 
                 structure_result = await self.client.wait_for_job(structure_job)
@@ -98,9 +106,12 @@ class Track2Generative:
                     try:
                         # Use LigandMPNN as alternative to RFdiffusion
                         mpnn_job = await self.client.submit_job('ligandmpnn', {
-                            'structure': structure,
-                            'num_sequences': rfdiffusion_count * 2,
-                            'temperature': 0.2,  # Low temperature for conservative designs
+                            # FIX: Wrap structure in json.dumps with proper format
+                            'structure': json.dumps([{"type": "pdb", "data": structure}]),
+                            # FIX: Convert to string
+                            'num_sequences': str(rfdiffusion_count * 2),
+                            # FIX: Convert to string
+                            'temperature': "0.2",
                             'fixed_positions': json.dumps(self._get_fixed_positions())
                         })
                         

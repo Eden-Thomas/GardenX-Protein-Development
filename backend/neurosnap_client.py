@@ -3,6 +3,7 @@ backend/neurosnap_client.py
 Complete production-ready Neurosnap API client with all available tools
 NO MOCK DATA - Real API calls only
 Updated with SSL/TLS compatibility fix
+FIXED: All sequence inputs now properly formatted for Neurosnap API
 """
 
 import requests
@@ -216,19 +217,23 @@ class NeurosnapClient:
         fields = {}
         
         if service == 'temstapro':
+            # FIX: Wrap sequence in proper format
             fields = {
-                # TemStaPro expects just amino acid sequences, no FASTA headers
-                "Input Sequences": json.dumps([params['sequence']]),  # Just the sequence
+                "Input Sequences": json.dumps([{
+                    "type": "fasta",
+                    "data": params['sequence']
+                }]),
                 "Temperature Thresholds": json.dumps(
                     params.get('temperatures', [40, 45, 50, 55, 60, 65, 70])
                 )
             }
             
         elif service == 'neurofold':
+            # FIX: Changed type from "pdb" to "fasta" since we're passing a sequence
             fields = {
-                "Reference Protein": json.dumps([{  # Changed based on API docs
-                    "data": f">sequence\n{params['sequence']}", 
-                    "type": "pdb"  # NeuroFold expects PDB structure
+                "Reference Protein": json.dumps([{
+                    "type": "fasta",  # Changed from "pdb"
+                    "data": f">sequence\n{params['sequence']}"
                 }]),
                 "Thermostability": params.get('target', 'Decrease'),  # Increase/Decrease
                 "Solubility": params.get('solubility', 'Increase'),
@@ -236,10 +241,12 @@ class NeurosnapClient:
             }
             
         elif service in ['alphafold2', 'esmfold', 'boltz1', 'chai1']:
+            # FIX: Wrap sequence in proper format
             fields = {
-                # Structure prediction services may expect plain sequences or FASTA
-                # Let's use plain sequences to match TemStaPro format
-                "Input Sequences": json.dumps([params['sequence']]),
+                "Input Sequences": json.dumps([{
+                    "type": "fasta",
+                    "data": params['sequence']
+                }]),
                 "Number of Models": str(params.get('num_models', 5)),
                 "Relax Structure": str(params.get('relax', True)).lower()
             }
@@ -281,9 +288,12 @@ class NeurosnapClient:
             }
             
         elif service == 'mmseqs2':
+            # FIX: Wrap sequence in proper format
             fields = {
-                # For MSA generation, use plain sequences
-                "Input Sequences": json.dumps([params['sequence']]),
+                "Input Sequences": json.dumps([{
+                    "type": "fasta",
+                    "data": params['sequence']
+                }]),
                 "Database": params.get('database', 'uniclust30'),
                 "Iterations": str(params.get('iterations', 3)),
                 "E-value": str(params.get('evalue', 1e-3))
