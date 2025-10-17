@@ -453,7 +453,7 @@ class D1EngineeringPipelineV1:
         elif isinstance(obj, (np.floating, np.float64, np.float32, np.float16)):
             return float(obj)
         # Handle numpy boolean types - THIS IS THE KEY FIX
-        elif isinstance(obj, (np.bool_, np.bool)):
+        elif isinstance(obj, np.bool_):
             return bool(obj)
         # Handle numpy arrays
         elif isinstance(obj, np.ndarray):

@@ -39,6 +39,39 @@ class FunctionalValidator:
             # Fallback if structure module not available
             self.critical_db = None
     
+    # ========== PRIORITY 2 FIX: New helper method ==========
+    def _has_real_structural_data(self, structural_context: Optional[Dict]) -> bool:
+        """
+        Check if structural context contains real data or just defaults
+        
+        Args:
+            structural_context: Structural information dictionary
+            
+        Returns:
+            True if real structural data is present, False if missing/default
+        """
+        if structural_context is None or not isinstance(structural_context, dict):
+            return False
+        
+        # Check if distance_to_active_site is the default placeholder (999.0)
+        distance = structural_context.get('distance_to_active_site', 999.0)
+        if distance >= 999.0:
+            return False
+        
+        # Check if we have meaningful structure score
+        structure_score = structural_context.get('score', 0)
+        if structure_score <= 0:
+            return False
+        
+        # Check if all values are zeros (NeuroSnap failure signature)
+        values = [v for k, v in structural_context.items() 
+                  if isinstance(v, (int, float)) and k != 'distance_to_active_site']
+        if values and all(v == 0.0 for v in values):
+            return False
+        
+        return True
+    # ========== END PRIORITY 2 FIX ==========
+    
     def predict_functional_impact(self,
                                   mutation: Dict,
                                   structural_context: Optional[Dict] = None) -> FunctionalScore:
@@ -156,12 +189,32 @@ class FunctionalValidator:
         Args:
             mutations: List of mutation dictionaries
             min_function_score: Minimum functional score to keep (0-1)
+                              Will be relaxed to 0.5 when structural data is unavailable
         
         Returns:
             List of functional mutations with scores added
         """
         
         functional_mutations = []
+        
+        # ========== PRIORITY 2 FIX: Check for structural data availability ==========
+        # Sample first mutation to determine if we have real structural data
+        has_real_structure_data = False
+        if mutations:
+            first_mut_context = mutations[0].get('structural_features', None)
+            has_real_structure_data = self._has_real_structural_data(first_mut_context)
+        
+        # Adapt threshold based on data availability
+        effective_min_score = min_function_score if has_real_structure_data else 0.5
+        
+        if not has_real_structure_data:
+            print(f"   ⚠️  No structural data available (NeuroSnap likely failed)")
+            print(f"   📉 Relaxing functional threshold: {min_function_score:.2f} → {effective_min_score:.2f}")
+            print(f"   💡 Pipeline will rely more on comparative genomics + ML scores")
+        else:
+            print(f"   ✅ Structural data available")
+            print(f"   📊 Using standard functional threshold: {effective_min_score:.2f}")
+        # ========== END PRIORITY 2 FIX ==========
         
         for mutation in mutations:
             # Get structural context if available
@@ -178,8 +231,10 @@ class FunctionalValidator:
             # Predict functional impact
             func_score = self.predict_functional_impact(mutation, structural_context)
             
-            # Filter by minimum score
-            if func_score.overall_function >= min_function_score:
+            # ========== PRIORITY 2 FIX: Use adaptive threshold ==========
+            # Filter by adaptive minimum score (lower when no structure data)
+            if func_score.overall_function >= effective_min_score:
+            # ========== END PRIORITY 2 FIX ==========
                 mutation['functional_score'] = func_score.overall_function
                 mutation['function_details'] = {
                     'photosynthesis': func_score.photosynthesis_activity,
