@@ -22,7 +22,7 @@ from dotenv import load_dotenv
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 # Load environment variables from .env file
-load_dotenv()  
+load_dotenv()
 
 class SSLAdapter(requests.adapters.HTTPAdapter):
     """Custom SSL adapter for compatibility with older OpenSSL versions"""
@@ -68,7 +68,7 @@ class NeurosnapClient:
         adapter = SSLAdapter(max_retries=retry_strategy)
         self.session.mount("https://", adapter)
         
-        # Complete service mapping - using exact API service names
+        # Complete service mapping - using EXACT API service names
         self.services = {
             # Core Pipeline Tools (exact names as they appear in the API)
             'temstapro': 'TemStaPro Protein Thermostability Prediction',
@@ -217,10 +217,8 @@ class NeurosnapClient:
         
         if service == 'temstapro':
             fields = {
-                "Input Sequences": json.dumps([{  # Changed to plural "Sequences"
-                    "data": f">sequence\n{params['sequence']}", 
-                    "type": "fasta"
-                }]),
+                # TemStaPro expects just amino acid sequences, no FASTA headers
+                "Input Sequences": json.dumps([params['sequence']]),  # Just the sequence
                 "Temperature Thresholds": json.dumps(
                     params.get('temperatures', [40, 45, 50, 55, 60, 65, 70])
                 )
@@ -239,10 +237,9 @@ class NeurosnapClient:
             
         elif service in ['alphafold2', 'esmfold', 'boltz1', 'chai1']:
             fields = {
-                "Input Sequences": json.dumps([{  # Changed to plural "Sequences"
-                    "data": f">sequence\n{params['sequence']}", 
-                    "type": "fasta"
-                }]),
+                # Structure prediction services may expect plain sequences or FASTA
+                # Let's use plain sequences to match TemStaPro format
+                "Input Sequences": json.dumps([params['sequence']]),
                 "Number of Models": str(params.get('num_models', 5)),
                 "Relax Structure": str(params.get('relax', True)).lower()
             }
@@ -285,10 +282,8 @@ class NeurosnapClient:
             
         elif service == 'mmseqs2':
             fields = {
-                "Input Sequences": json.dumps([{  # Changed to plural "Sequences"
-                    "data": f">sequence\n{params['sequence']}", 
-                    "type": "fasta"
-                }]),
+                # For MSA generation, use plain sequences
+                "Input Sequences": json.dumps([params['sequence']]),
                 "Database": params.get('database', 'uniclust30'),
                 "Iterations": str(params.get('iterations', 3)),
                 "E-value": str(params.get('evalue', 1e-3))
