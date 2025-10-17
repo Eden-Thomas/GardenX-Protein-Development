@@ -6,6 +6,7 @@ Production configuration for D1 Engineering Pipeline
 import os
 from pathlib import Path
 from dotenv import load_dotenv
+from pipeline.master_pipeline_v3 import MasterPipelineV3Sequential as MasterPipelineV3
 
 # Load environment variables
 load_dotenv()
@@ -15,7 +16,7 @@ class Config:
     
     # API Keys
     NEUROSNAP_API_KEY = os.getenv('NEUROSNAP_API_KEY')
-    NCBI_EMAIL = os.getenv('NCBI_EMAIL', 'your_email@domain.com')
+    NCBI_EMAIL = os.getenv('NCBI_EMAIL', 'thomas@edenaglabs.com')
     NCBI_API_KEY = os.getenv('NCBI_API_KEY')  # Optional but recommended
     
     # Pipeline Configuration
@@ -109,7 +110,6 @@ from datetime import datetime
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from config import Config
-from pipeline.master_pipeline_v3 import MasterPipelineV3
 from analysis_engine import REFERENCE_SEQUENCES
 
 async def progress_callback(progress: float, message: str):

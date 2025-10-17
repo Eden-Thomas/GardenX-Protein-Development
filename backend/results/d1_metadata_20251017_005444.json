@@ -1,0 +1,32 @@
+{
+  "start_time": "2025-10-17T00:54:35.386419",
+  "config": {
+    "target_temp": 50,
+    "n_variants": 3,
+    "wt_length": 50
+  },
+  "stages": {
+    "generation": {
+      "total_generated": 0,
+      "by_track": {
+        "track1": 0,
+        "track2": 0,
+        "track3": 0
+      }
+    },
+    "screening": {
+      "passed": 0,
+      "filtered": 0
+    },
+    "validation": {
+      "total_validated": 0,
+      "low_risk": 0,
+      "medium_risk": 0,
+      "high_risk": 0
+    },
+    "selection": {
+      "final_count": 0
+    }
+  },
+  "api_usage": {}
+}
