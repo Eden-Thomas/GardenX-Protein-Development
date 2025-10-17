@@ -1,0 +1,2559 @@
+{
+  "total_variants": 100,
+  "consensus_mutations": {
+    "P196S": [
+      "generative_ai",
+      "structure_guided"
+    ],
+    "T43I": [
+      "generative_ai",
+      "structure_guided"
+    ]
+  },
+  "scored_variants": [
+    {
+      "variant_id": "TRACK3_STRUCT_071",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLIATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "T43I"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 43 (pLDDT=90.2)",
+      "evidence_score": 0.90222745078711,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.90222745078711,
+      "thermostability_component": 0.4,
+      "structure_component": 0.270668235236133,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 5.0,
+      "has_consensus": true,
+      "final_score": 5.760668235236133
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_023",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHSFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "P196S"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 196 (pLDDT=95.1)",
+      "evidence_score": 0.9509408220074885,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.9509408220074885,
+      "thermostability_component": 0.4,
+      "structure_component": 0.28528224660224655,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.05,
+      "consensus_bonus": 5.0,
+      "has_consensus": true,
+      "final_score": 5.735282246602247
+    },
+    {
+      "variant_id": "TRACK2_RF_007",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLIATSVFIIAFIAAPPSDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "T43I",
+        "V58S"
+      ],
+      "n_mutations": 2,
+      "identity_to_wt": 0.9943342776203966,
+      "design_rationale": "AI-generated via RF (max 2 mutations)",
+      "evidence_score": 0.753497065119296,
+      "source_track": "generative_ai",
+      "method": "RFdiffusion",
+      "thermostability_component": 0.4,
+      "structure_component": 0.2260491195357888,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 5.0,
+      "has_consensus": true,
+      "final_score": 5.716049119535789
+    },
+    {
+      "variant_id": "TRACK2_EE_005",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNALMHSFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANIGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "I192A",
+        "L326I",
+        "P196S"
+      ],
+      "n_mutations": 3,
+      "identity_to_wt": 0.9915014164305949,
+      "design_rationale": "AI-generated via EE (max 3 mutations)",
+      "evidence_score": 0.8148023768196422,
+      "source_track": "generative_ai",
+      "method": "EfficientEvolution",
+      "thermostability_component": 0.4,
+      "structure_component": 0.24444071304589265,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.1,
+      "consensus_bonus": 5.0,
+      "has_consensus": true,
+      "final_score": 5.644440713045893
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_019",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAWPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "P56W"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 56 (pLDDT=97.9)",
+      "evidence_score": 0.9789225830759724,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.9789225830759724,
+      "thermostability_component": 0.4,
+      "structure_component": 0.2936767749227917,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7836767749227916
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_046",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGIHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "L91I"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 91 (pLDDT=96.0)",
+      "evidence_score": 0.9599946057019976,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.9599946057019976,
+      "thermostability_component": 0.4,
+      "structure_component": 0.28799838171059927,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7779983817105992
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_004",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIIFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "A51I"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 51 (pLDDT=95.8)",
+      "evidence_score": 0.958031726532586,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.958031726532586,
+      "thermostability_component": 0.4,
+      "structure_component": 0.28740951795977576,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7774095179597758
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_044",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPDWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "I96D"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 96 (pLDDT=95.3)",
+      "evidence_score": 0.9532199703966592,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.9532199703966592,
+      "thermostability_component": 0.4,
+      "structure_component": 0.28596599111899773,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7759659911189977
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_006",
+      "sequence": "MTAILMRRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "E6M"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 6 (pLDDT=94.5)",
+      "evidence_score": 0.9452189455910686,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.9452189455910686,
+      "thermostability_component": 0.4,
+      "structure_component": 0.28356568367732055,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7735656836773205
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_058",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLITATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "L42I"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 42 (pLDDT=94.3)",
+      "evidence_score": 0.9427973018348123,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.9427973018348123,
+      "thermostability_component": 0.4,
+      "structure_component": 0.28283919055044365,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7728391905504436
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_059",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTTAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "S86T"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 86 (pLDDT=94.0)",
+      "evidence_score": 0.9403479593983852,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.9403479593983852,
+      "thermostability_component": 0.4,
+      "structure_component": 0.2821043878195156,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7721043878195156
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_072",
+      "sequence": "MTAILERDESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "R8D"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 8 (pLDDT=93.1)",
+      "evidence_score": 0.9309439344266393,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.9309439344266393,
+      "thermostability_component": 0.4,
+      "structure_component": 0.27928318032799176,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7692831803279917
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_010",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSIVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "V306I"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 306 (pLDDT=93.0)",
+      "evidence_score": 0.930250125872503,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.930250125872503,
+      "thermostability_component": 0.4,
+      "structure_component": 0.2790750377617509,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7690750377617509
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_029",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTHNRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "E25H"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 25 (pLDDT=92.8)",
+      "evidence_score": 0.9282926735760532,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.9282926735760532,
+      "thermostability_component": 0.4,
+      "structure_component": 0.2784878020728159,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.768487802072816
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_024",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNIIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "N76I"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 76 (pLDDT=92.8)",
+      "evidence_score": 0.9279175215258566,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.9279175215258566,
+      "thermostability_component": 0.4,
+      "structure_component": 0.27837525645775696,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.768375256457757
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_033",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWALIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "D319L"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 319 (pLDDT=92.7)",
+      "evidence_score": 0.9269163799129652,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.9269163799129652,
+      "thermostability_component": 0.4,
+      "structure_component": 0.27807491397388956,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7680749139738895
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_049",
+      "sequence": "MTAILERRESTSLWGRFCNWITTTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "S23T"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 23 (pLDDT=92.6)",
+      "evidence_score": 0.926167245525481,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.926167245525481,
+      "thermostability_component": 0.4,
+      "structure_component": 0.2778501736576443,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7678501736576443
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_001",
+      "sequence": "MTAILETRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "R7T"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 7 (pLDDT=92.5)",
+      "evidence_score": 0.9252233772481694,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.9252233772481694,
+      "thermostability_component": 0.4,
+      "structure_component": 0.2775670131744508,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7675670131744509
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_037",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGDVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "R312D"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 312 (pLDDT=92.4)",
+      "evidence_score": 0.9242448154871781,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.9242448154871781,
+      "thermostability_component": 0.4,
+      "structure_component": 0.2772734446461534,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7672734446461534
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_061",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWIYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "L106I"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 106 (pLDDT=92.3)",
+      "evidence_score": 0.9229168719942001,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.9229168719942001,
+      "thermostability_component": 0.4,
+      "structure_component": 0.27687506159826003,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.76687506159826
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_031",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDITGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "D61T"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 61 (pLDDT=92.1)",
+      "evidence_score": 0.9209541666833398,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.9209541666833398,
+      "thermostability_component": 0.4,
+      "structure_component": 0.27628625000500195,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.766286250005002
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_043",
+      "sequence": "MTAILERRESTSLWGRFCNWIVSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "T22V"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 22 (pLDDT=92.0)",
+      "evidence_score": 0.9201446632262702,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.9201446632262702,
+      "thermostability_component": 0.4,
+      "structure_component": 0.27604339896788105,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7660433989678811
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_005",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQAVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "S305A"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 305 (pLDDT=92.0)",
+      "evidence_score": 0.9199269599722859,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.9199269599722859,
+      "thermostability_component": 0.4,
+      "structure_component": 0.27597808799168577,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7659780879916858
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_051",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVCSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "D308C"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 308 (pLDDT=92.0)",
+      "evidence_score": 0.9197246972529589,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.9197246972529589,
+      "thermostability_component": 0.4,
+      "structure_component": 0.27591740917588764,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7659174091758877
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_042",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREQVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "P66Q"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 66 (pLDDT=91.7)",
+      "evidence_score": 0.9172028085755602,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.9172028085755602,
+      "thermostability_component": 0.4,
+      "structure_component": 0.27516084257266804,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.765160842572668
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_048",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTFADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "W317F"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 317 (pLDDT=91.5)",
+      "evidence_score": 0.9150627289955976,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.9150627289955976,
+      "thermostability_component": 0.4,
+      "structure_component": 0.2745188186986793,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7645188186986792
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_074",
+      "sequence": "MTAILERRESTSLWGRFCNWITSVENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "T24V"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 24 (pLDDT=91.3)",
+      "evidence_score": 0.9132997233240124,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.9132997233240124,
+      "thermostability_component": 0.4,
+      "structure_component": 0.2739899169972037,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7639899169972036
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_020",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFMFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "N301M"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 301 (pLDDT=91.2)",
+      "evidence_score": 0.911699325994661,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.911699325994661,
+      "thermostability_component": 0.4,
+      "structure_component": 0.2735097977983983,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7635097977983983
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_069",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVIGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "V281I"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 281 (pLDDT=91.0)",
+      "evidence_score": 0.9096865650473233,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.9096865650473233,
+      "thermostability_component": 0.4,
+      "structure_component": 0.272905969514197,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.762905969514197
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_007",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVDIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "F48D"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 48 (pLDDT=90.4)",
+      "evidence_score": 0.9042260192902094,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.9042260192902094,
+      "thermostability_component": 0.4,
+      "structure_component": 0.27126780578706283,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7612678057870629
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_041",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVISTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "N315S"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 315 (pLDDT=90.3)",
+      "evidence_score": 0.9028261222597251,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.9028261222597251,
+      "thermostability_component": 0.4,
+      "structure_component": 0.2708478366779175,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7608478366779176
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_025",
+      "sequence": "MTAILERRESTSLWGLFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "R16L"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 16 (pLDDT=90.2)",
+      "evidence_score": 0.9022340816452354,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.9022340816452354,
+      "thermostability_component": 0.4,
+      "structure_component": 0.27067022449357064,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7606702244935707
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_066",
+      "sequence": "MTAILERREATSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "S10A"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 10 (pLDDT=90.1)",
+      "evidence_score": 0.9011177895500098,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.9011177895500098,
+      "thermostability_component": 0.4,
+      "structure_component": 0.27033533686500294,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7603353368650029
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_021",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMDPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "I38D"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 38 (pLDDT=89.8)",
+      "evidence_score": 0.8984865846379801,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.8984865846379801,
+      "thermostability_component": 0.4,
+      "structure_component": 0.269545975391394,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.759545975391394
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_063",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGYYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "P111Y"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 111 (pLDDT=89.6)",
+      "evidence_score": 0.8956522760880367,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.8956522760880367,
+      "thermostability_component": 0.4,
+      "structure_component": 0.268695682826411,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.758695682826411
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_052",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLWVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "G201W"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 201 (pLDDT=89.6)",
+      "evidence_score": 0.8955994058824647,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.8955994058824647,
+      "thermostability_component": 0.4,
+      "structure_component": 0.26867982176473937,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7586798217647394
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_054",
+      "sequence": "MTVILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "A3V"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 3 (pLDDT=89.3)",
+      "evidence_score": 0.8933068351211173,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.8933068351211173,
+      "thermostability_component": 0.4,
+      "structure_component": 0.2679920505363352,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7579920505363352
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_038",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGREEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "Q241R"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 241 (pLDDT=89.0)",
+      "evidence_score": 0.8897767050775341,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.8897767050775341,
+      "thermostability_component": 0.4,
+      "structure_component": 0.2669330115232602,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7569330115232602
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_028",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTAISVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "T45I"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 45 (pLDDT=88.9)",
+      "evidence_score": 0.88919868551772,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.88919868551772,
+      "thermostability_component": 0.4,
+      "structure_component": 0.266759605655316,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.756759605655316
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_075",
+      "sequence": "MTAILERRESTSLWGRFCNFITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "W20F"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 20 (pLDDT=88.8)",
+      "evidence_score": 0.8881692164316128,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.8881692164316128,
+      "thermostability_component": 0.4,
+      "structure_component": 0.26645076492948383,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7564507649294838
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_027",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYVGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "I30V"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 30 (pLDDT=88.6)",
+      "evidence_score": 0.8861084750100988,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.8861084750100988,
+      "thermostability_component": 0.4,
+      "structure_component": 0.2658325425030296,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7558325425030296
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_056",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFSIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "I49S"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 49 (pLDDT=88.2)",
+      "evidence_score": 0.882398422160544,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.882398422160544,
+      "thermostability_component": 0.4,
+      "structure_component": 0.2647195266481632,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7547195266481631
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_035",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAATVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "S101T"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 101 (pLDDT=88.6)",
+      "evidence_score": 0.8855267387923498,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.8855267387923498,
+      "thermostability_component": 0.3986620018166424,
+      "structure_component": 0.2656580216377049,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7543200234543473
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_055",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEMYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "G236M"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 236 (pLDDT=87.3)",
+      "evidence_score": 0.8734464993591773,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.8734464993591773,
+      "thermostability_component": 0.4,
+      "structure_component": 0.2620339498077532,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7520339498077532
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_040",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSPGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "Q310P"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 310 (pLDDT=87.2)",
+      "evidence_score": 0.8715579088273694,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.8715579088273694,
+      "thermostability_component": 0.4,
+      "structure_component": 0.2614673726482108,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7514673726482107
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_067",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGIIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "A81I"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 81 (pLDDT=86.0)",
+      "evidence_score": 0.8599466004198072,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.8599466004198072,
+      "thermostability_component": 0.4,
+      "structure_component": 0.25798398012594215,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7479839801259421
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_064",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDAQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "S309A"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 309 (pLDDT=85.9)",
+      "evidence_score": 0.8593555791511202,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.8593555791511202,
+      "thermostability_component": 0.4,
+      "structure_component": 0.25780667374533606,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.747806673745336
+    },
+    {
+      "variant_id": "TRACK2_RF_002",
+      "sequence": "MTAILERRESTSLEGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "W14E"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "AI-generated via RF (max 2 mutations)",
+      "evidence_score": 0.8521579609841115,
+      "source_track": "generative_ai",
+      "method": "RFdiffusion",
+      "thermostability_component": 0.4,
+      "structure_component": 0.2556473882952334,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7456473882952334
+    },
+    {
+      "variant_id": "TRACK2_RF_001",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMMGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFPQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "L200M",
+        "N303P"
+      ],
+      "n_mutations": 2,
+      "identity_to_wt": 0.9943342776203966,
+      "design_rationale": "AI-generated via RF (max 2 mutations)",
+      "evidence_score": 0.8478859894475226,
+      "source_track": "generative_ai",
+      "method": "RFdiffusion",
+      "thermostability_component": 0.4,
+      "structure_component": 0.25436579683425675,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7443657968342567
+    },
+    {
+      "variant_id": "TRACK2_RF_004",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAGIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVADSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "V307A",
+        "I82G"
+      ],
+      "n_mutations": 2,
+      "identity_to_wt": 0.9943342776203966,
+      "design_rationale": "AI-generated via RF (max 2 mutations)",
+      "evidence_score": 0.8468570862808343,
+      "source_track": "generative_ai",
+      "method": "RFdiffusion",
+      "thermostability_component": 0.4,
+      "structure_component": 0.2540571258842503,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7440571258842502
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_057",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGITTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "S291T"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 291 (pLDDT=84.6)",
+      "evidence_score": 0.846307295524111,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.846307295524111,
+      "thermostability_component": 0.4,
+      "structure_component": 0.2538921886572333,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7438921886572333
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_014",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWGGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "F33G"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 33 (pLDDT=84.5)",
+      "evidence_score": 0.8450256028893017,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.8450256028893017,
+      "thermostability_component": 0.4,
+      "structure_component": 0.2535076808667905,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7435076808667905
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_050",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRIYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "L28I"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 28 (pLDDT=83.9)",
+      "evidence_score": 0.8389402235443053,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.8389402235443053,
+      "thermostability_component": 0.4,
+      "structure_component": 0.2516820670632916,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7416820670632917
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_008",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTVLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "L41V"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 41 (pLDDT=83.8)",
+      "evidence_score": 0.8381065816810768,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.8381065816810768,
+      "thermostability_component": 0.4,
+      "structure_component": 0.25143197450432303,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7414319745043231
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_039",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGLLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "V35L"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 35 (pLDDT=83.6)",
+      "evidence_score": 0.8362097993780586,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.8362097993780586,
+      "thermostability_component": 0.4,
+      "structure_component": 0.25086293981341756,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7408629398134176
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_011",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTEMRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "N26M"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 26 (pLDDT=83.6)",
+      "evidence_score": 0.8359761045849283,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.8359761045849283,
+      "thermostability_component": 0.4,
+      "structure_component": 0.2507928313754785,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7407928313754785
+    },
+    {
+      "variant_id": "TRACK2_EE_003",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSATIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVVNTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "A88T",
+        "I314V"
+      ],
+      "n_mutations": 2,
+      "identity_to_wt": 0.9943342776203966,
+      "design_rationale": "AI-generated via EE (max 3 mutations)",
+      "evidence_score": 0.8340840067911579,
+      "source_track": "generative_ai",
+      "method": "EfficientEvolution",
+      "thermostability_component": 0.4,
+      "structure_component": 0.2502252020373474,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7402252020373473
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_060",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFVVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "G34V"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 34 (pLDDT=81.3)",
+      "evidence_score": 0.8131137067475988,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.8131137067475988,
+      "thermostability_component": 0.4,
+      "structure_component": 0.24393411202427961,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7339341120242796
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_013",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGIFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "W32I"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 32 (pLDDT=81.3)",
+      "evidence_score": 0.812805672406017,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.812805672406017,
+      "thermostability_component": 0.4,
+      "structure_component": 0.24384170172180508,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7338417017218051
+    },
+    {
+      "variant_id": "TRACK2_EE_010",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYECIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "L114C"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "AI-generated via EE (max 3 mutations)",
+      "evidence_score": 0.8118127106146887,
+      "source_track": "generative_ai",
+      "method": "EfficientEvolution",
+      "thermostability_component": 0.4,
+      "structure_component": 0.2435438131844066,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7335438131844066
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_017",
+      "sequence": "MTAILERRESTSLWGRACNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "F17A"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 17 (pLDDT=81.0)",
+      "evidence_score": 0.8095603747413631,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.8095603747413631,
+      "thermostability_component": 0.4,
+      "structure_component": 0.2428681124224089,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7328681124224089
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_030",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWVDIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "A318V"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 318 (pLDDT=81.4)",
+      "evidence_score": 0.8144363483281092,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.8144363483281092,
+      "thermostability_component": 0.3979528435357791,
+      "structure_component": 0.24433090449843275,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7322837480342118
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_016",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINHANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "R323H"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 323 (pLDDT=93.9)",
+      "evidence_score": 0.9387425899805858,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.9387425899805858,
+      "thermostability_component": 0.4,
+      "structure_component": 0.2816227769941757,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.05,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7316227769941757
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_036",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRAGLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "N325G"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 325 (pLDDT=93.0)",
+      "evidence_score": 0.929500051092634,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.929500051092634,
+      "thermostability_component": 0.4,
+      "structure_component": 0.2788500153277902,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.05,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7288500153277901
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_018",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGPSGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "I176P"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 176 (pLDDT=92.8)",
+      "evidence_score": 0.9280489287532889,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.9280489287532889,
+      "thermostability_component": 0.4,
+      "structure_component": 0.2784146786259867,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.05,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7284146786259866
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_009",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFTFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "N181T"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 181 (pLDDT=92.2)",
+      "evidence_score": 0.9215734418734038,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.9215734418734038,
+      "thermostability_component": 0.4,
+      "structure_component": 0.27647203256202113,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.05,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7264720325620211
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_002",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLYMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "G327Y"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 327 (pLDDT=91.8)",
+      "evidence_score": 0.9184374622553626,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.9184374622553626,
+      "thermostability_component": 0.4,
+      "structure_component": 0.2755312386766088,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.05,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7255312386766087
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_034",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNA",
+      "mutations": [
+        "G353A"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 353 (pLDDT=91.8)",
+      "evidence_score": 0.9180914745775839,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.9180914745775839,
+      "thermostability_component": 0.4,
+      "structure_component": 0.27542744237327516,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.05,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.725427442373275
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_045",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATVVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "A156V"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 156 (pLDDT=90.9)",
+      "evidence_score": 0.909209329372527,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.909209329372527,
+      "thermostability_component": 0.4,
+      "structure_component": 0.2727627988117581,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.05,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7227627988117581
+    },
+    {
+      "variant_id": "TRACK2_RF_009",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTQNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "F180Q"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "AI-generated via RF (max 2 mutations)",
+      "evidence_score": 0.8860458752255689,
+      "source_track": "generative_ai",
+      "method": "RFdiffusion",
+      "thermostability_component": 0.4,
+      "structure_component": 0.26581376256767064,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.05,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7158137625676706
+    },
+    {
+      "variant_id": "TRACK2_EE_012",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGSIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "A81S"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "AI-generated via EE (max 3 mutations)",
+      "evidence_score": 0.7867580932238241,
+      "source_track": "generative_ai",
+      "method": "EfficientEvolution",
+      "thermostability_component": 0.38668571887181397,
+      "structure_component": 0.2360274279671472,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7127131468389611
+    },
+    {
+      "variant_id": "TRACK2_EE_007",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATWVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLRGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "S46W",
+        "L121R"
+      ],
+      "n_mutations": 2,
+      "identity_to_wt": 0.9943342776203966,
+      "design_rationale": "AI-generated via EE (max 3 mutations)",
+      "evidence_score": 0.8745572300060813,
+      "source_track": "generative_ai",
+      "method": "EfficientEvolution",
+      "thermostability_component": 0.4,
+      "structure_component": 0.2623671690018244,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.05,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7123671690018244
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_065",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVKGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "F206K"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 206 (pLDDT=87.2)",
+      "evidence_score": 0.8715839394202232,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.8715839394202232,
+      "thermostability_component": 0.4,
+      "structure_component": 0.26147518182606694,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.05,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7114751818260668
+    },
+    {
+      "variant_id": "TRACK2_EE_011",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSDSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "G69D"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "AI-generated via EE (max 3 mutations)",
+      "evidence_score": 0.7353427033349909,
+      "source_track": "generative_ai",
+      "method": "EfficientEvolution",
+      "thermostability_component": 0.4,
+      "structure_component": 0.22060281100049725,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7106028110004973
+    },
+    {
+      "variant_id": "TRACK2_RF_008",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNGSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "Q304G"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "AI-generated via RF (max 2 mutations)",
+      "evidence_score": 0.745743170605035,
+      "source_track": "generative_ai",
+      "method": "RFdiffusion",
+      "thermostability_component": 0.39663799620947404,
+      "structure_component": 0.2237229511815105,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7103609473909845
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_032",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETGNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "Y246G"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 246 (pLDDT=86.8)",
+      "evidence_score": 0.8676693073386835,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.8676693073386835,
+      "thermostability_component": 0.4,
+      "structure_component": 0.26030079220160507,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.05,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.710300792201605
+    },
+    {
+      "variant_id": "TRACK2_EE_009",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWESASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGCEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNRFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "A99S",
+        "G299R",
+        "Q241C"
+      ],
+      "n_mutations": 3,
+      "identity_to_wt": 0.9915014164305949,
+      "design_rationale": "AI-generated via EE (max 3 mutations)",
+      "evidence_score": 0.7332196169298164,
+      "source_track": "generative_ai",
+      "method": "EfficientEvolution",
+      "thermostability_component": 0.4,
+      "structure_component": 0.2199658850789449,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7099658850789449
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_073",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVRYLNG",
+      "mutations": [
+        "P349R"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 349 (pLDDT=86.6)",
+      "evidence_score": 0.8660368923354439,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.8660368923354439,
+      "thermostability_component": 0.4,
+      "structure_component": 0.25981106770063317,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.05,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7098110677006332
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_053",
+      "sequence": "MTAILERRESISLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "T11I"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 11 (pLDDT=80.5)",
+      "evidence_score": 0.8053562747645613,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.8053562747645613,
+      "thermostability_component": 0.3761598905148743,
+      "structure_component": 0.24160688242936837,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7077667729442426
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_003",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLIGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "L121I"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 121 (pLDDT=85.5)",
+      "evidence_score": 0.8552296111812087,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.8552296111812087,
+      "thermostability_component": 0.4,
+      "structure_component": 0.25656888335436256,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.05,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7065688833543625
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_047",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRVNLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "A324V"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 324 (pLDDT=84.9)",
+      "evidence_score": 0.8491896329455219,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.8491896329455219,
+      "thermostability_component": 0.4,
+      "structure_component": 0.2547568898836565,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.05,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7047568898836565
+    },
+    {
+      "variant_id": "TRACK2_EE_006",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLDFYPIWEAASVDEWLYNGGPYELIVRHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEMETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "L117R",
+        "E243M",
+        "H92D"
+      ],
+      "n_mutations": 3,
+      "identity_to_wt": 0.9915014164305949,
+      "design_rationale": "AI-generated via EE (max 3 mutations)",
+      "evidence_score": 0.7114115173149496,
+      "source_track": "generative_ai",
+      "method": "EfficientEvolution",
+      "thermostability_component": 0.4,
+      "structure_component": 0.21342345519448486,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7034234551944848
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_068",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPIAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "V151I"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 151 (pLDDT=97.4)",
+      "evidence_score": 0.9738295908985763,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.9738295908985763,
+      "thermostability_component": 0.4,
+      "structure_component": 0.2921488772695729,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.1,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.692148877269573
+    },
+    {
+      "variant_id": "TRACK2_EE_015",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPYHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANTGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRFNLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "A324F",
+        "F197Y",
+        "E235T"
+      ],
+      "n_mutations": 3,
+      "identity_to_wt": 0.9915014164305949,
+      "design_rationale": "AI-generated via EE (max 3 mutations)",
+      "evidence_score": 0.8016957771698082,
+      "source_track": "generative_ai",
+      "method": "EfficientEvolution",
+      "thermostability_component": 0.4,
+      "structure_component": 0.24050873315094246,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.05,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.6905087331509424
+    },
+    {
+      "variant_id": "TRACK2_RF_006",
+      "sequence": "MTEILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGFYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "A3E",
+        "P111F"
+      ],
+      "n_mutations": 2,
+      "identity_to_wt": 0.9943342776203966,
+      "design_rationale": "AI-generated via RF (max 2 mutations)",
+      "evidence_score": 0.6608875601664995,
+      "source_track": "generative_ai",
+      "method": "RFdiffusion",
+      "thermostability_component": 0.4,
+      "structure_component": 0.19826626804994985,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.6882662680499498
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_012",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGYEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "M328Y"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 328 (pLDDT=93.6)",
+      "evidence_score": 0.9359499093262669,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.9359499093262669,
+      "thermostability_component": 0.4,
+      "structure_component": 0.28078497279788006,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.1,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.6807849727978801
+    },
+    {
+      "variant_id": "TRACK2_EE_014",
+      "sequence": "MTAILERRESTSLWGRNCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVKEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGLSGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "F17N",
+        "I176L",
+        "D103K"
+      ],
+      "n_mutations": 3,
+      "identity_to_wt": 0.9915014164305949,
+      "design_rationale": "AI-generated via EE (max 3 mutations)",
+      "evidence_score": 0.7666464816648318,
+      "source_track": "generative_ai",
+      "method": "EfficientEvolution",
+      "thermostability_component": 0.4,
+      "structure_component": 0.22999394449944954,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.05,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.6799939444994495
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_015",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAIHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "A251I"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 251 (pLDDT=92.3)",
+      "evidence_score": 0.9234867721993577,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.9234867721993577,
+      "thermostability_component": 0.4,
+      "structure_component": 0.2770460316598073,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.1,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.6770460316598073
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_062",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHAILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "N191A"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 191 (pLDDT=91.7)",
+      "evidence_score": 0.917332266593464,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.917332266593464,
+      "thermostability_component": 0.4,
+      "structure_component": 0.2751996799780392,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.1,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.6751996799780392
+    },
+    {
+      "variant_id": "TRACK2_RF_003",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNKISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIGFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "I77K",
+        "W284G"
+      ],
+      "n_mutations": 2,
+      "identity_to_wt": 0.9943342776203966,
+      "design_rationale": "AI-generated via RF (max 2 mutations)",
+      "evidence_score": 0.6306874919072135,
+      "source_track": "generative_ai",
+      "method": "RFdiffusion",
+      "thermostability_component": 0.39231614016647437,
+      "structure_component": 0.18920624757216406,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.6715223877386384
+    },
+    {
+      "variant_id": "TRACK2_RF_005",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISWTPNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "G178W",
+        "F180P"
+      ],
+      "n_mutations": 2,
+      "identity_to_wt": 0.9943342776203966,
+      "design_rationale": "AI-generated via RF (max 2 mutations)",
+      "evidence_score": 0.7103451562324923,
+      "source_track": "generative_ai",
+      "method": "RFdiffusion",
+      "thermostability_component": 0.4,
+      "structure_component": 0.21310354686974767,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.05,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.6631035468697476
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_022",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVHQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "F186H"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 186 (pLDDT=85.4)",
+      "evidence_score": 0.8537859873683616,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.8537859873683616,
+      "thermostability_component": 0.4,
+      "structure_component": 0.25613579621050847,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.1,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.6561357962105085
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_026",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVDHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "M331D"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 331 (pLDDT=85.3)",
+      "evidence_score": 0.8530909734562558,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.8530909734562558,
+      "thermostability_component": 0.4,
+      "structure_component": 0.25592729203687675,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.1,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.6559272920368768
+    },
+    {
+      "variant_id": "TRACK2_EE_013",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPPWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAIVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAASPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "W278S",
+        "I96P",
+        "G204I"
+      ],
+      "n_mutations": 3,
+      "identity_to_wt": 0.9915014164305949,
+      "design_rationale": "AI-generated via EE (max 3 mutations)",
+      "evidence_score": 0.6659068317542403,
+      "source_track": "generative_ai",
+      "method": "EfficientEvolution",
+      "thermostability_component": 0.4,
+      "structure_component": 0.19977204952627206,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.05,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.649772049526272
+    },
+    {
+      "variant_id": "TRACK2_EE_002",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQEEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSCGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "A188E",
+        "Q310C"
+      ],
+      "n_mutations": 2,
+      "identity_to_wt": 0.9943342776203966,
+      "design_rationale": "AI-generated via EE (max 3 mutations)",
+      "evidence_score": 0.8193139355911447,
+      "source_track": "generative_ai",
+      "method": "EfficientEvolution",
+      "thermostability_component": 0.4,
+      "structure_component": 0.2457941806773434,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.1,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.6457941806773434
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_070",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFRRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "G256R"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 256 (pLDDT=83.5)",
+      "evidence_score": 0.8349481253669018,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.8349481253669018,
+      "thermostability_component": 0.3846655599939173,
+      "structure_component": 0.2504844376100705,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.1,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.6351499976039878
+    },
+    {
+      "variant_id": "TRACK2_RF_010",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVTEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "D103T"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "AI-generated via RF (max 2 mutations)",
+      "evidence_score": 0.6166762572005279,
+      "source_track": "generative_ai",
+      "method": "RFdiffusion",
+      "thermostability_component": 0.3516338057806083,
+      "structure_component": 0.18500287716015837,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.6266366829407667
+    },
+    {
+      "variant_id": "TRACK2_EE_004",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGSSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHVFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "G208S",
+        "F273V"
+      ],
+      "n_mutations": 2,
+      "identity_to_wt": 0.9943342776203966,
+      "design_rationale": "AI-generated via EE (max 3 mutations)",
+      "evidence_score": 0.7251172358298179,
+      "source_track": "generative_ai",
+      "method": "EfficientEvolution",
+      "thermostability_component": 0.4,
+      "structure_component": 0.21753517074894538,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.1,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.6175351707489454
+    },
+    {
+      "variant_id": "TRACK2_EE_008",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWGTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "F285G"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "AI-generated via EE (max 3 mutations)",
+      "evidence_score": 0.6372253323322615,
+      "source_track": "generative_ai",
+      "method": "EfficientEvolution",
+      "thermostability_component": 0.30415583446056194,
+      "structure_component": 0.19116759969967845,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.5853234341602404
+    },
+    {
+      "variant_id": "TRACK2_EE_001",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGNEWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENEMANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "R129N",
+        "S232M"
+      ],
+      "n_mutations": 2,
+      "identity_to_wt": 0.9943342776203966,
+      "design_rationale": "AI-generated via EE (max 3 mutations)",
+      "evidence_score": 0.6154596120134691,
+      "source_track": "generative_ai",
+      "method": "EfficientEvolution",
+      "thermostability_component": 0.39130370574341067,
+      "structure_component": 0.18463788360404074,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.1,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.5759415893474514
+    }
+  ],
+  "top_variants": [
+    {
+      "variant_id": "TRACK3_STRUCT_071",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLIATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "T43I"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 43 (pLDDT=90.2)",
+      "evidence_score": 0.90222745078711,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.90222745078711,
+      "thermostability_component": 0.4,
+      "structure_component": 0.270668235236133,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 5.0,
+      "has_consensus": true,
+      "final_score": 5.760668235236133
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_023",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHSFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "P196S"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 196 (pLDDT=95.1)",
+      "evidence_score": 0.9509408220074885,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.9509408220074885,
+      "thermostability_component": 0.4,
+      "structure_component": 0.28528224660224655,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.05,
+      "consensus_bonus": 5.0,
+      "has_consensus": true,
+      "final_score": 5.735282246602247
+    },
+    {
+      "variant_id": "TRACK2_RF_007",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLIATSVFIIAFIAAPPSDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "T43I",
+        "V58S"
+      ],
+      "n_mutations": 2,
+      "identity_to_wt": 0.9943342776203966,
+      "design_rationale": "AI-generated via RF (max 2 mutations)",
+      "evidence_score": 0.753497065119296,
+      "source_track": "generative_ai",
+      "method": "RFdiffusion",
+      "thermostability_component": 0.4,
+      "structure_component": 0.2260491195357888,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 5.0,
+      "has_consensus": true,
+      "final_score": 5.716049119535789
+    },
+    {
+      "variant_id": "TRACK2_EE_005",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNALMHSFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANIGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "I192A",
+        "L326I",
+        "P196S"
+      ],
+      "n_mutations": 3,
+      "identity_to_wt": 0.9915014164305949,
+      "design_rationale": "AI-generated via EE (max 3 mutations)",
+      "evidence_score": 0.8148023768196422,
+      "source_track": "generative_ai",
+      "method": "EfficientEvolution",
+      "thermostability_component": 0.4,
+      "structure_component": 0.24444071304589265,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.1,
+      "consensus_bonus": 5.0,
+      "has_consensus": true,
+      "final_score": 5.644440713045893
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_019",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAWPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "P56W"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 56 (pLDDT=97.9)",
+      "evidence_score": 0.9789225830759724,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.9789225830759724,
+      "thermostability_component": 0.4,
+      "structure_component": 0.2936767749227917,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7836767749227916
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_046",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGIHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "L91I"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 91 (pLDDT=96.0)",
+      "evidence_score": 0.9599946057019976,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.9599946057019976,
+      "thermostability_component": 0.4,
+      "structure_component": 0.28799838171059927,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7779983817105992
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_004",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIIFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "A51I"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 51 (pLDDT=95.8)",
+      "evidence_score": 0.958031726532586,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.958031726532586,
+      "thermostability_component": 0.4,
+      "structure_component": 0.28740951795977576,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7774095179597758
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_044",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPDWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "I96D"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 96 (pLDDT=95.3)",
+      "evidence_score": 0.9532199703966592,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.9532199703966592,
+      "thermostability_component": 0.4,
+      "structure_component": 0.28596599111899773,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7759659911189977
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_006",
+      "sequence": "MTAILMRRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "E6M"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 6 (pLDDT=94.5)",
+      "evidence_score": 0.9452189455910686,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.9452189455910686,
+      "thermostability_component": 0.4,
+      "structure_component": 0.28356568367732055,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7735656836773205
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_058",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLITATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "L42I"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 42 (pLDDT=94.3)",
+      "evidence_score": 0.9427973018348123,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.9427973018348123,
+      "thermostability_component": 0.4,
+      "structure_component": 0.28283919055044365,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7728391905504436
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_059",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTTAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "S86T"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 86 (pLDDT=94.0)",
+      "evidence_score": 0.9403479593983852,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.9403479593983852,
+      "thermostability_component": 0.4,
+      "structure_component": 0.2821043878195156,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7721043878195156
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_072",
+      "sequence": "MTAILERDESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "R8D"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 8 (pLDDT=93.1)",
+      "evidence_score": 0.9309439344266393,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.9309439344266393,
+      "thermostability_component": 0.4,
+      "structure_component": 0.27928318032799176,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7692831803279917
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_010",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSIVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "V306I"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 306 (pLDDT=93.0)",
+      "evidence_score": 0.930250125872503,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.930250125872503,
+      "thermostability_component": 0.4,
+      "structure_component": 0.2790750377617509,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7690750377617509
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_029",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTHNRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "E25H"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 25 (pLDDT=92.8)",
+      "evidence_score": 0.9282926735760532,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.9282926735760532,
+      "thermostability_component": 0.4,
+      "structure_component": 0.2784878020728159,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.768487802072816
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_024",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNIIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "N76I"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 76 (pLDDT=92.8)",
+      "evidence_score": 0.9279175215258566,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.9279175215258566,
+      "thermostability_component": 0.4,
+      "structure_component": 0.27837525645775696,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.768375256457757
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_033",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWALIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "D319L"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 319 (pLDDT=92.7)",
+      "evidence_score": 0.9269163799129652,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.9269163799129652,
+      "thermostability_component": 0.4,
+      "structure_component": 0.27807491397388956,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7680749139738895
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_049",
+      "sequence": "MTAILERRESTSLWGRFCNWITTTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "S23T"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 23 (pLDDT=92.6)",
+      "evidence_score": 0.926167245525481,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.926167245525481,
+      "thermostability_component": 0.4,
+      "structure_component": 0.2778501736576443,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7678501736576443
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_001",
+      "sequence": "MTAILETRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "R7T"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 7 (pLDDT=92.5)",
+      "evidence_score": 0.9252233772481694,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.9252233772481694,
+      "thermostability_component": 0.4,
+      "structure_component": 0.2775670131744508,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7675670131744509
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_037",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGDVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "R312D"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 312 (pLDDT=92.4)",
+      "evidence_score": 0.9242448154871781,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.9242448154871781,
+      "thermostability_component": 0.4,
+      "structure_component": 0.2772734446461534,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7672734446461534
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_061",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWIYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "L106I"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 106 (pLDDT=92.3)",
+      "evidence_score": 0.9229168719942001,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.9229168719942001,
+      "thermostability_component": 0.4,
+      "structure_component": 0.27687506159826003,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.76687506159826
+    }
+  ],
+  "clustered_variants": [
+    {
+      "variant_id": "TRACK3_STRUCT_071",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLIATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "T43I"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.9971671388101983,
+      "design_rationale": "Structure-guided at position 43 (pLDDT=90.2)",
+      "evidence_score": 0.90222745078711,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.90222745078711,
+      "thermostability_component": 0.4,
+      "structure_component": 0.270668235236133,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 5.0,
+      "has_consensus": true,
+      "final_score": 5.760668235236133
+    },
+    {
+      "variant_id": "TRACK2_EE_005",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNALMHSFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANIGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "I192A",
+        "L326I",
+        "P196S"
+      ],
+      "n_mutations": 3,
+      "identity_to_wt": 0.9915014164305949,
+      "design_rationale": "AI-generated via EE (max 3 mutations)",
+      "evidence_score": 0.8148023768196422,
+      "source_track": "generative_ai",
+      "method": "EfficientEvolution",
+      "thermostability_component": 0.4,
+      "structure_component": 0.24444071304589265,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.1,
+      "consensus_bonus": 5.0,
+      "has_consensus": true,
+      "final_score": 5.644440713045893
+    },
+    {
+      "variant_id": "TRACK2_EE_009",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWESASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGCEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNRFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "A99S",
+        "G299R",
+        "Q241C"
+      ],
+      "n_mutations": 3,
+      "identity_to_wt": 0.9915014164305949,
+      "design_rationale": "AI-generated via EE (max 3 mutations)",
+      "evidence_score": 0.7332196169298164,
+      "source_track": "generative_ai",
+      "method": "EfficientEvolution",
+      "thermostability_component": 0.4,
+      "structure_component": 0.2199658850789449,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7099658850789449
+    },
+    {
+      "variant_id": "TRACK2_EE_006",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLDFYPIWEAASVDEWLYNGGPYELIVRHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEMETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "L117R",
+        "E243M",
+        "H92D"
+      ],
+      "n_mutations": 3,
+      "identity_to_wt": 0.9915014164305949,
+      "design_rationale": "AI-generated via EE (max 3 mutations)",
+      "evidence_score": 0.7114115173149496,
+      "source_track": "generative_ai",
+      "method": "EfficientEvolution",
+      "thermostability_component": 0.4,
+      "structure_component": 0.21342345519448486,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.010000000000000002,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.7034234551944848
+    },
+    {
+      "variant_id": "TRACK2_EE_015",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPYHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANTGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRFNLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "A324F",
+        "F197Y",
+        "E235T"
+      ],
+      "n_mutations": 3,
+      "identity_to_wt": 0.9915014164305949,
+      "design_rationale": "AI-generated via EE (max 3 mutations)",
+      "evidence_score": 0.8016957771698082,
+      "source_track": "generative_ai",
+      "method": "EfficientEvolution",
+      "thermostability_component": 0.4,
+      "structure_component": 0.24050873315094246,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.05,
+      "consensus_bonus": 0.0,
+      "has_consensus": false,
+      "final_score": 0.6905087331509424
+    }
+  ],
+  "statistics": {
+    "mean_score": 0.9287424986929581,
+    "std_score": 0.9777880539583107,
+    "max_score": 5.760668235236133,
+    "min_score": 0.5759415893474514
+  }
+}

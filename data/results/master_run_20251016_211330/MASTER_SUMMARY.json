@@ -1,0 +1,125 @@
+{
+  "pipeline_version": "2.0",
+  "run_timestamp": "20251016_211330",
+  "runtime": "0:00:00.902221",
+  "total_variants": 100,
+  "track1_variants": 0,
+  "track2_variants": 25,
+  "track3_variants": 75,
+  "consensus_mutations": 2,
+  "consensus_mutation_list": [
+    "P196S",
+    "T43I"
+  ],
+  "top_variant": "TRACK3_STRUCT_071",
+  "top_score": 5.760668235236133,
+  "top_mutations": [
+    "T43I"
+  ],
+  "score_statistics": {
+    "mean_score": 0.9287424986929581,
+    "std_score": 0.9777880539583107,
+    "max_score": 5.760668235236133,
+    "min_score": 0.5759415893474514
+  },
+  "top_10_variants": [
+    {
+      "variant_id": "TRACK3_STRUCT_071",
+      "mutations": [
+        "T43I"
+      ],
+      "score": 5.760668235236133,
+      "track": "structure_guided",
+      "has_consensus": true
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_023",
+      "mutations": [
+        "P196S"
+      ],
+      "score": 5.735282246602247,
+      "track": "structure_guided",
+      "has_consensus": true
+    },
+    {
+      "variant_id": "TRACK2_RF_007",
+      "mutations": [
+        "T43I",
+        "V58S"
+      ],
+      "score": 5.716049119535789,
+      "track": "generative_ai",
+      "has_consensus": true
+    },
+    {
+      "variant_id": "TRACK2_EE_005",
+      "mutations": [
+        "I192A",
+        "L326I",
+        "P196S"
+      ],
+      "score": 5.644440713045893,
+      "track": "generative_ai",
+      "has_consensus": true
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_019",
+      "mutations": [
+        "P56W"
+      ],
+      "score": 0.7836767749227916,
+      "track": "structure_guided",
+      "has_consensus": false
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_046",
+      "mutations": [
+        "L91I"
+      ],
+      "score": 0.7779983817105992,
+      "track": "structure_guided",
+      "has_consensus": false
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_004",
+      "mutations": [
+        "A51I"
+      ],
+      "score": 0.7774095179597758,
+      "track": "structure_guided",
+      "has_consensus": false
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_044",
+      "mutations": [
+        "I96D"
+      ],
+      "score": 0.7759659911189977,
+      "track": "structure_guided",
+      "has_consensus": false
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_006",
+      "mutations": [
+        "E6M"
+      ],
+      "score": 0.7735656836773205,
+      "track": "structure_guided",
+      "has_consensus": false
+    },
+    {
+      "variant_id": "TRACK3_STRUCT_058",
+      "mutations": [
+        "L42I"
+      ],
+      "score": 0.7728391905504436,
+      "track": "structure_guided",
+      "has_consensus": false
+    }
+  ],
+  "results_directory": "../data/results/master_run_20251016_211330",
+  "track1_dir": "../data/results/master_run_20251016_211330/track1_evolutionary",
+  "track2_dir": "../data/results/master_run_20251016_211330/track2_generative",
+  "track3_dir": "../data/results/master_run_20251016_211330/track3_structural",
+  "consensus_dir": "../data/results/master_run_20251016_211330/consensus"
+}

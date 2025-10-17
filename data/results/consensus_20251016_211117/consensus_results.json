@@ -1,0 +1,132 @@
+{
+  "total_variants": 2,
+  "consensus_mutations": {
+    "L335I": [
+      "structure_guided",
+      "generative_ai"
+    ]
+  },
+  "scored_variants": [
+    {
+      "variant_id": "TRACK3_STRUCT_001",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "L335I"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.997,
+      "evidence_score": 0.82,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.89,
+      "thermostability_component": 0.4,
+      "structure_component": 0.267,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.1,
+      "consensus_bonus": 5.0,
+      "has_consensus": true,
+      "final_score": 5.667
+    },
+    {
+      "variant_id": "TRACK2_EE_001",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "L335I"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.997,
+      "evidence_score": 0.75,
+      "source_track": "generative_ai",
+      "thermostability_component": 0.3416285242395675,
+      "structure_component": 0.22499999999999998,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.1,
+      "consensus_bonus": 5.0,
+      "has_consensus": true,
+      "final_score": 5.566628524239567
+    }
+  ],
+  "top_variants": [
+    {
+      "variant_id": "TRACK3_STRUCT_001",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "L335I"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.997,
+      "evidence_score": 0.82,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.89,
+      "thermostability_component": 0.4,
+      "structure_component": 0.267,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.1,
+      "consensus_bonus": 5.0,
+      "has_consensus": true,
+      "final_score": 5.667
+    },
+    {
+      "variant_id": "TRACK2_EE_001",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "L335I"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.997,
+      "evidence_score": 0.75,
+      "source_track": "generative_ai",
+      "thermostability_component": 0.3416285242395675,
+      "structure_component": 0.22499999999999998,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.1,
+      "consensus_bonus": 5.0,
+      "has_consensus": true,
+      "final_score": 5.566628524239567
+    }
+  ],
+  "clustered_variants": [
+    {
+      "variant_id": "TRACK3_STRUCT_001",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "L335I"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.997,
+      "evidence_score": 0.82,
+      "source_track": "structure_guided",
+      "structural_confidence": 0.89,
+      "thermostability_component": 0.4,
+      "structure_component": 0.267,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.1,
+      "consensus_bonus": 5.0,
+      "has_consensus": true,
+      "final_score": 5.667
+    },
+    {
+      "variant_id": "TRACK2_EE_001",
+      "sequence": "MTAILERRESTSLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIISGAIIPTSAAIGLHFYPIWEAASVDEWLYNGGPYELIVLHFLLGVACYMGREWELSFRLGMRPWIAVAYSAPVAAATAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLFSAMHGSLVTSSLIRETTENESANEGYKFGQEEETYNIVAAHGYFGRLIFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAALEVPYLNG",
+      "mutations": [
+        "L335I"
+      ],
+      "n_mutations": 1,
+      "identity_to_wt": 0.997,
+      "evidence_score": 0.75,
+      "source_track": "generative_ai",
+      "thermostability_component": 0.3416285242395675,
+      "structure_component": 0.22499999999999998,
+      "evolutionary_component": 0.1,
+      "functional_risk_component": 0.1,
+      "consensus_bonus": 5.0,
+      "has_consensus": true,
+      "final_score": 5.566628524239567
+    }
+  ],
+  "statistics": {
+    "mean_score": 5.616814262119783,
+    "std_score": 0.05018573788021641,
+    "max_score": 5.667,
+    "min_score": 5.566628524239567
+  }
+}

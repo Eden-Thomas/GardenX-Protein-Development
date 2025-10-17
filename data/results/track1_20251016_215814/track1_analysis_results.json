@@ -1,0 +1,30 @@
+{
+  "track": "evolutionary_guided",
+  "method": "contrastive_learning",
+  "classification": {
+    "target": [
+      "maize"
+    ],
+    "positive": [
+      "sorghum",
+      "setaria",
+      "panicum"
+    ],
+    "negative": [
+      "wheat",
+      "rice"
+    ]
+  },
+  "analysis": {
+    "n_sequences": 6,
+    "n_flexible_positions": 0,
+    "n_candidate_positions": 0
+  },
+  "candidate_positions": [],
+  "variants": [],
+  "parameters": {
+    "min_enrichment": 0.5,
+    "max_conservation": 0.7,
+    "use_contrastive": true
+  }
+}

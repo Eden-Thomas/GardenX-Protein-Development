@@ -1,0 +1,3 @@
+variant_id,mutations,n_mutations,source_track,final_score,thermostability,structure,evolutionary,functional_risk,has_consensus,identity_to_wt
+TRACK3_STRUCT_001,L335I,1,structure_guided,5.667,0.4,0.267,0.1,0.1,True,0.997
+TRACK2_EE_001,L335I,1,generative_ai,5.566628524239567,0.3416285242395675,0.22499999999999998,0.1,0.1,True,0.997

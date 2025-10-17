@@ -1,0 +1,16 @@
+{
+  "track": "evolutionary_guided",
+  "analysis": {
+    "n_sequences": 8,
+    "n_flexible_positions": 0,
+    "n_significant_correlations": 1,
+    "n_candidate_positions": 0
+  },
+  "candidate_positions": [],
+  "variants": [],
+  "parameters": {
+    "min_correlation": 0.3,
+    "max_conservation": 0.7,
+    "p_value_threshold": 0.1
+  }
+}

@@ -1,0 +1,15 @@
+SEQUENCE CLASSIFICATION SUMMARY
+======================================================================
+
+TARGET (1 sequences):
+  - maize: Zea mays (28.0°C)
+
+POSITIVE (3 sequences):
+  - sorghum: Sorghum bicolor (32.0°C)
+  - setaria: Setaria italica (30.0°C)
+  - panicum: Panicum miliaceum (30.0°C)
+
+NEGATIVE (2 sequences):
+  - wheat: Triticum aestivum (20.0°C)
+  - rice: Oryza sativa (28.0°C)
+
