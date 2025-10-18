@@ -31,7 +31,7 @@ async def main():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  # Generate 50 variants for 50°C using parallel execution
+  # Generate 50 variants for 50°C using sequential execution
   python run_pipeline.py --variants 50 --temp 50
   
   # Use sequential pipeline where each track builds on previous insights
@@ -51,8 +51,8 @@ Examples:
                        help='Reference sequence to use (default: maize)')
     parser.add_argument('--validate-all', action='store_true',
                        help='Run full validation on all variants (slower but more thorough)')
-    parser.add_argument('--sequential', action='store_true',
-                       help='Use sequential pipeline where Track1→Track2→Track3 with insights passed between')
+    parser.add_argument('--sequential', action='store_true', default=True,
+                       help='Use sequential pipeline where Track1→Track2→Track3 with insights passed between (DEFAULT)')
     parser.add_argument('--output-dir', type=str, default=None,
                        help='Custom output directory for results')
     parser.add_argument('--debug', action='store_true',
@@ -77,26 +77,19 @@ Examples:
         config.RESULTS_DIR = Path(args.output_dir)
         config.RESULTS_DIR.mkdir(parents=True, exist_ok=True)
     
-    # Choose pipeline version based on --sequential flag
-    if args.sequential:
-        try:
-            from pipeline.master_pipeline_v3 import MasterPipelineV3Sequential as MasterPipelineV3
-
-            pipeline = MasterPipelineV3(config)
-            print("🔄 Mode: SEQUENTIAL (each track builds on previous insights)")
-            print("   Track 1 → Track 2 → Track 3")
-            print("   Full statistical analysis enabled")
-        except ImportError as e:
-            print(f"❌ Error: Sequential pipeline not found. Make sure master_pipeline_v3_sequential.py exists")
-            print(f"   Error details: {e}")
-            print("   Falling back to parallel pipeline...")
-            from pipeline.master_pipeline_v3 import MasterPipelineV3
-            pipeline = MasterPipelineV3(config)
-            args.sequential = False
-    else:
-        from pipeline.master_pipeline_v3 import MasterPipelineV3
-        pipeline = MasterPipelineV3(config)
-        print("⚡ Mode: PARALLEL (all tracks run simultaneously)")
+    # FIXED: Always use sequential pipeline (Track 1 → Track 2 → Track 3)
+    # This is the correct mode where each track builds on previous insights
+    try:
+        from pipeline.master_pipeline_v3 import MasterPipelineV3Sequential
+        pipeline = MasterPipelineV3Sequential(config)
+        print("🔗 Mode: SEQUENTIAL (Track 1 → Track 2 → Track 3)")
+        print("   Each track builds on previous insights")
+        print("   Full statistical analysis enabled")
+    except ImportError as e:
+        print(f"❌ Error: Sequential pipeline not found")
+        print(f"   Error details: {e}")
+        print(f"   Make sure pipeline/master_pipeline_v3.py has MasterPipelineV3Sequential class")
+        return
     
     # Get wild-type sequence
     wt_sequence = get_sequence(args.sequence)

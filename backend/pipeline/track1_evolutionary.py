@@ -1,371 +1,331 @@
 """
-backend/pipeline/track1_evolutionary.py
-Track 1: Evolutionary-guided design with NCBI photosynthetic protein integration
-Production-ready with real data fetching
+track1_evolutionary.py
+Evolutionary analysis with position mapping, topology filters, and functional site exclusions
 """
 
-import numpy as np
-from typing import List, Dict, Optional, Set
 import asyncio
-from Bio import Entrez, SeqIO
-from Bio.SeqRecord import SeqRecord
-import time
+import numpy as np
+from typing import Dict, List, Optional, Set, Tuple
 from collections import Counter
-import re
+
+# Try to import Bio, but provide fallback
+try:
+    from Bio import Entrez, SeqIO
+    BIOPYTHON_AVAILABLE = True
+except ImportError:
+    print("WARNING: BioPython not available. Using fallback mode.")
+    BIOPYTHON_AVAILABLE = False
+
+
+# D1/psbA STRUCTURAL ANNOTATIONS (canonical numbering)
+D1_TOPOLOGY = {
+    'TM1': range(21, 47),
+    'TM2': range(60, 88),
+    'TM3': range(181, 207),
+    'TM4': range(241, 270),
+    'TM5': range(311, 342),
+    'loops': [range(1, 21), range(47, 60), range(88, 181), 
+              range(207, 241), range(270, 311), range(342, 360)]
+}
+
+# CRITICAL FUNCTIONAL RESIDUES - DO NOT MUTATE
+FUNCTIONAL_MASK = {
+    'OEC': {170, 189, 332, 333, 342, 344},
+    'TyrZ': {161},
+    'QB_pocket': {215, 254, 255, 264, 265, 271},
+    'PheoD1': {130, 147},
+    'Cterm': {344}
+}
+
+ALL_LOCKED_POSITIONS = set()
+for positions in FUNCTIONAL_MASK.values():
+    ALL_LOCKED_POSITIONS.update(positions)
+
 
 class Track1Evolutionary:
-    """
-    Evolutionary approach using:
-    - NCBI data for photosynthetic proteins
-    - Contrastive learning from thermophiles
-    - MSA-guided mutations
-    - Phylogenetic analysis
-    """
+    """Evolutionary analysis with comprehensive guardrails"""
     
-    def __init__(self, config, neurosnap_client):
+    def __init__(self, config, client):
         self.config = config
-        self.client = neurosnap_client
+        self.client = client
+        self.canonical_length = 344
         
-        # Configure NCBI Entrez
-        Entrez.email = config.NCBI_EMAIL or "your_email@domain.com"
-        Entrez.api_key = config.NCBI_API_KEY  # Optional but recommended
-        
-        # Cache for fetched sequences
-        self.sequence_cache = {}
-        self.msa_cache = {}
-        
-        # D1 protein identifiers and keywords
-        self.d1_search_terms = [
-            "psbA",  # Gene name
-            "D1 protein photosystem II",
-            "photosystem II protein D1",
-            "PSII D1",
-            "chloroplast psbA"
-        ]
-        
-        # Target thermophilic organisms with oxygen-evolving photosynthesis
-        self.thermophilic_organisms = [
-            "Thermosynechococcus elongatus",  # Key thermophilic cyanobacterium
-            "Thermosynechococcus vulcanus",
-            "Synechococcus lividus",
-            "Mastigocladus laminosus",  # Thermophilic cyanobacterium
-            "Chloroflexus aurantiacus",
-            "Fischerella thermalis",
-            "Chroococcidiopsis thermalis"
-        ]
-        
-        # Mesophilic reference organisms
-        self.mesophilic_organisms = [
-            "Arabidopsis thaliana",
-            "Zea mays",  # Corn
-            "Oryza sativa",  # Rice
-            "Triticum aestivum",  # Wheat
-            "Glycine max",  # Soybean
-            "Spinacia oleracea",  # Spinach
-            "Nicotiana tabacum"  # Tobacco
-        ]
+        if BIOPYTHON_AVAILABLE:
+            Entrez.email = "thomas@edenaglabs.com"  # CHANGE THIS TO YOUR EMAIL
     
-    async def generate_variants(self, wt_sequence: str, n_variants: int) -> List[Dict]:
-        """
-        Generate variants using evolutionary analysis of photosynthetic proteins
-        """
-        print("  🧬 Track 1: Evolutionary-guided design")
+    async def generate_variants(self, wt_sequence: str, n_variants: int = 15) -> List[Dict]:
+        """Generate evolution-guided variants with full guardrails"""
         
-        # Step 1: Fetch related D1 sequences from NCBI
-        print("    → Fetching photosynthetic D1 sequences from NCBI...")
-        d1_sequences = await self.fetch_d1_sequences()
-        print(f"      ✓ Retrieved {len(d1_sequences)} D1 sequences")
+        print("  🧬 Track 1: Evolutionary analysis with guardrails")
         
-        # Step 2: Generate MSA using Neurosnap
-        print("    → Generating MSA with mmseqs2...")
-        msa_result = await self.client.generate_msa(wt_sequence)
-        print(f"      ✓ MSA with {msa_result['num_sequences']} sequences")
+        if BIOPYTHON_AVAILABLE:
+            print(f"    → Fetching thermophilic sequences...")
+            thermophile_seqs = await self._fetch_thermophile_sequences()
+        else:
+            print("    → BioPython unavailable, using heuristic mode")
+            thermophile_seqs = []
         
-        # Step 3: Identify thermostability-associated mutations
-        print("    → Analyzing thermophilic adaptations...")
-        thermo_mutations = await self.analyze_thermophilic_adaptations(
-            wt_sequence, 
-            d1_sequences
+        if not thermophile_seqs or len(thermophile_seqs) < 3:
+            print("    ⚠️ Insufficient thermophile data, using fallback")
+            return self._fallback_variants(wt_sequence, n_variants)
+        
+        print(f"    ✓ Retrieved {len(thermophile_seqs)} thermophilic sequences")
+        
+        print("    → Analyzing conservation and topology...")
+        conservation_data = self._analyze_conservation(wt_sequence, thermophile_seqs)
+        
+        print("    → Identifying thermostable mutations...")
+        candidate_mutations = self._identify_mutations_with_guardrails(
+            wt_sequence, thermophile_seqs, conservation_data
         )
-        print(f"      ✓ Identified {len(thermo_mutations)} beneficial positions")
         
-        # Step 4: Apply contrastive learning
-        print("    → Applying contrastive learning...")
-        variants = []
+        if not candidate_mutations:
+            print("    ⚠️ No safe mutations found after filtering")
+            return self._fallback_variants(wt_sequence, n_variants)
         
-        for i in range(n_variants):
-            variant = await self.design_variant(
-                wt_sequence,
-                thermo_mutations,
-                msa_result,
-                d1_sequences
-            )
-            
+        print(f"    ✓ Found {len(candidate_mutations)} safe mutations")
+        
+        variants = self._build_variants_from_mutations(
+            wt_sequence, candidate_mutations, n_variants
+        )
+        
+        for i, variant in enumerate(variants):
             variant['id'] = f'T1_EVO_{i:04d}'
             variant['track'] = 'track1'
             variant['method'] = 'evolutionary'
-            variants.append(variant)
         
-        print(f"    ✓ Generated {len(variants)} evolutionary variants")
+        print(f"    ✓ Generated {len(variants)} evolution-guided variants")
+        
+        top_mutations = [m['mutation'] for m in candidate_mutations[:10]]
+        print(f"    → Top mutations for Track 2: {', '.join(top_mutations[:5])}")
+        
         return variants
     
-    async def fetch_d1_sequences(self) -> Dict[str, Dict]:
-        """
-        Fetch D1 protein sequences from NCBI
-        Focus on oxygen-evolving photosynthetic organisms
-        """
-        sequences = {}
+    async def _fetch_thermophile_sequences(self) -> List[Dict]:
+        """Fetch psbA sequences from thermophilic organisms"""
         
-        # Search for thermophilic D1 proteins
-        for organism in self.thermophilic_organisms[:5]:  # Limit for cost
+        if not BIOPYTHON_AVAILABLE:
+            return []
+        
+        organisms = [
+            "Thermosynechococcus elongatus",
+            "Thermosynechococcus vestitus",
+            "Synechococcus lividus",
+            "Chroococcidiopsis thermalis"
+        ]
+        
+        sequences = []
+        
+        for organism in organisms:
             try:
-                # Build search query
-                query = f'("{organism}"[Organism]) AND (psbA[Gene] OR "D1 protein"[Protein])'
-                
-                # Search NCBI
-                handle = Entrez.esearch(
-                    db="protein",
-                    term=query,
-                    retmax=5,
-                    sort="relevance"
-                )
+                search_query = f"{organism}[Organism] AND psbA[Gene]"
+                handle = Entrez.esearch(db="nucleotide", term=search_query, retmax=5)
                 record = Entrez.read(handle)
                 handle.close()
                 
-                # Fetch sequences
-                if record["IdList"]:
-                    handle = Entrez.efetch(
-                        db="protein",
-                        id=record["IdList"][:2],  # Limit to 2 per organism
-                        rettype="gb",
+                if record['IdList']:
+                    fetch_handle = Entrez.efetch(
+                        db="nucleotide",
+                        id=record['IdList'][0],
+                        rettype="fasta",
                         retmode="text"
                     )
+                    seq_record = SeqIO.read(fetch_handle, "fasta")
+                    fetch_handle.close()
                     
-                    for seq_record in SeqIO.parse(handle, "genbank"):
-                        # Verify it's a D1 protein
-                        if self._is_d1_protein(seq_record):
-                            sequences[f"{organism}_{seq_record.id}"] = {
-                                'sequence': str(seq_record.seq),
-                                'organism': organism,
-                                'temperature': 'thermophilic',
-                                'accession': seq_record.id,
-                                'description': seq_record.description
-                            }
-                    
-                    handle.close()
-                    time.sleep(0.5)  # Rate limiting for NCBI
-                    
-            except Exception as e:
-                print(f"      ⚠ Failed to fetch {organism}: {str(e)}")
-        
-        # Also fetch some mesophilic references
-        for organism in self.mesophilic_organisms[:3]:
-            try:
-                query = f'("{organism}"[Organism]) AND (psbA[Gene] OR "D1 protein"[Protein])'
+                    sequences.append({
+                        'organism': organism,
+                        'sequence': str(seq_record.seq),
+                        'temperature': 50
+                    })
                 
-                handle = Entrez.esearch(
-                    db="protein",
-                    term=query,
-                    retmax=2,
-                    sort="relevance"
-                )
-                record = Entrez.read(handle)
-                handle.close()
+                await asyncio.sleep(0.5)
                 
-                if record["IdList"]:
-                    handle = Entrez.efetch(
-                        db="protein",
-                        id=record["IdList"][:1],
-                        rettype="gb",
-                        retmode="text"
-                    )
-                    
-                    for seq_record in SeqIO.parse(handle, "genbank"):
-                        if self._is_d1_protein(seq_record):
-                            sequences[f"{organism}_{seq_record.id}"] = {
-                                'sequence': str(seq_record.seq),
-                                'organism': organism,
-                                'temperature': 'mesophilic',
-                                'accession': seq_record.id,
-                                'description': seq_record.description
-                            }
-                    
-                    handle.close()
-                    time.sleep(0.5)
-                    
             except Exception as e:
-                print(f"      ⚠ Failed to fetch {organism}: {str(e)}")
+                print(f"      ⚠️ Failed to fetch {organism}: {e}")
+                continue
         
         return sequences
     
-    def _is_d1_protein(self, seq_record: SeqRecord) -> bool:
-        """
-        Verify if a sequence is actually a D1 protein
-        """
-        description = seq_record.description.lower()
+    def _analyze_conservation(self, wt_sequence: str, thermophile_seqs: List[Dict]) -> Dict:
+        """Calculate conservation scores per position"""
         
-        # Check for D1 identifiers
-        d1_indicators = ['psba', 'd1', 'photosystem ii', 'psii']
+        all_seqs = [wt_sequence] + [t['sequence'] for t in thermophile_seqs]
+        min_len = min(len(s) for s in all_seqs)
+        aligned = [s[:min_len] for s in all_seqs]
         
-        # Check description
-        if any(indicator in description for indicator in d1_indicators):
-            # Verify length (D1 is typically 340-360 amino acids)
-            if 300 < len(seq_record.seq) < 400:
-                return True
-        
-        # Check features
-        for feature in seq_record.features:
-            if feature.type == "CDS":
-                qualifiers = feature.qualifiers
-                gene = qualifiers.get('gene', [''])[0].lower()
-                product = qualifiers.get('product', [''])[0].lower()
-                
-                if 'psba' in gene or 'd1' in product:
-                    return True
-        
-        return False
-    
-    async def analyze_thermophilic_adaptations(self, 
-                                              wt_sequence: str, 
-                                              d1_sequences: Dict) -> Dict:
-        """
-        Identify mutations associated with thermostability
-        """
-        adaptations = {}
-        
-        # Separate by temperature preference
-        thermo_seqs = [v['sequence'] for k, v in d1_sequences.items() 
-                      if v['temperature'] == 'thermophilic']
-        meso_seqs = [v['sequence'] for k, v in d1_sequences.items() 
-                    if v['temperature'] == 'mesophilic']
-        
-        if not thermo_seqs or not meso_seqs:
-            print("      ⚠ Insufficient sequences for analysis")
-            return {}
-        
-        # Analyze position-wise differences
-        min_length = min(len(wt_sequence), 
-                        min(len(s) for s in thermo_seqs + meso_seqs))
-        
-        for pos in range(min_length):
-            # Get amino acids at this position
-            thermo_aas = [seq[pos] if pos < len(seq) else '-' 
-                         for seq in thermo_seqs]
-            meso_aas = [seq[pos] if pos < len(seq) else '-' 
-                       for seq in meso_seqs]
-            
-            # Count frequencies
-            thermo_freq = Counter(thermo_aas)
-            meso_freq = Counter(meso_aas)
-            
-            # Find thermophile-enriched amino acids
-            for aa in thermo_freq:
-                if aa != '-':
-                    thermo_ratio = thermo_freq[aa] / len(thermo_seqs)
-                    meso_ratio = meso_freq.get(aa, 0) / len(meso_seqs)
-                    
-                    # Significant enrichment in thermophiles
-                    if thermo_ratio > 0.5 and thermo_ratio > meso_ratio * 1.5:
-                        if pos not in adaptations:
-                            adaptations[pos] = {}
-                        adaptations[pos][aa] = {
-                            'thermo_freq': thermo_ratio,
-                            'meso_freq': meso_ratio,
-                            'enrichment': thermo_ratio / (meso_ratio + 0.01)
-                        }
-        
-        return adaptations
-    
-    async def design_variant(self, 
-                           wt_sequence: str,
-                           thermo_mutations: Dict,
-                           msa_result: Dict,
-                           d1_sequences: Dict) -> Dict:
-        """
-        Design a single variant using evolutionary principles
-        """
-        variant_seq = list(wt_sequence)
-        mutations = []
-        
-        # Strategy 1: Apply thermophile-enriched mutations
-        n_thermo_mutations = np.random.randint(3, 8)
-        
-        if thermo_mutations:
-            # Sort positions by enrichment score
-            scored_positions = []
-            for pos, aas in thermo_mutations.items():
-                for aa, scores in aas.items():
-                    scored_positions.append((pos, aa, scores['enrichment']))
-            
-            scored_positions.sort(key=lambda x: x[2], reverse=True)
-            
-            # Apply top mutations
-            for pos, aa, score in scored_positions[:n_thermo_mutations]:
-                if pos < len(variant_seq):
-                    old_aa = variant_seq[pos]
-                    if old_aa != aa:
-                        variant_seq[pos] = aa
-                        mutations.append(f"{old_aa}{pos+1}{aa}")
-        
-        # Strategy 2: Consensus-guided mutations
-        n_consensus = np.random.randint(2, 5)
-        
-        # Use MSA coverage to identify variable positions
-        if msa_result.get('coverage'):
-            # Apply some consensus mutations
-            # This would use the MSA alignment data
-            pass
-        
-        # Strategy 3: Biophysical improvements
-        # Add stabilizing mutations based on known principles
-        stabilizing_mutations = self._get_stabilizing_mutations(wt_sequence)
-        
-        for mut in stabilizing_mutations[:n_consensus]:
-            pos = mut['position']
-            new_aa = mut['amino_acid']
-            if pos < len(variant_seq):
-                old_aa = variant_seq[pos]
-                if old_aa != new_aa:
-                    variant_seq[pos] = new_aa
-                    mutations.append(f"{old_aa}{pos+1}{new_aa}")
+        conservation_scores = []
+        for pos in range(min_len):
+            residues = [seq[pos] for seq in aligned]
+            counts = Counter(residues)
+            total = len(residues)
+            entropy = -sum((c/total) * np.log2(c/total) for c in counts.values() if c > 0)
+            conservation = 1 - (entropy / np.log2(min(20, total)))
+            conservation_scores.append(conservation)
         
         return {
-            'sequence': ''.join(variant_seq),
-            'mutations': mutations,
-            'design_strategy': 'evolutionary_thermophile_guided',
-            'thermo_mutations': len([m for m in mutations if any(
-                str(pos+1) in m for pos in thermo_mutations.keys()
-            )]),
-            'consensus_mutations': n_consensus
+            'scores': conservation_scores,
+            'aligned_seqs': aligned,
+            'length': min_len
         }
     
-    def _get_stabilizing_mutations(self, sequence: str) -> List[Dict]:
-        """
-        Get known stabilizing mutations based on biophysical principles
-        """
+    def _identify_mutations_with_guardrails(
+        self, wt_sequence: str, thermophile_seqs: List[Dict], conservation_data: Dict
+    ) -> List[Dict]:
+        """Identify mutations with ALL guardrails applied"""
+        
         mutations = []
+        aligned_seqs = conservation_data['aligned_seqs']
+        conservation = conservation_data['scores']
         
-        # Avoid active site residues (D1-specific)
-        active_site = {160, 169, 188, 214, 253, 254, 263, 270, 331, 332, 341, 343}
-        
-        # Strategy: Replace flexible residues in loops
-        flexible_to_rigid = {
-            'G': ['A', 'V', 'P'],  # Reduce backbone flexibility
-            'S': ['T', 'V', 'A'],  # Larger side chain
-            'N': ['Q', 'D'],       # Reduce deamidation
-            'Q': ['E', 'N'],       # Charge or smaller
-            'M': ['L', 'I'],       # Remove oxidizable Met
-            'C': ['S', 'A']        # Remove reactive Cys
-        }
-        
-        for pos, aa in enumerate(sequence):
-            if (pos + 1) not in active_site and aa in flexible_to_rigid:
+        for pos in range(len(conservation)):
+            canonical_pos = pos + 1
+            
+            # GUARDRAIL 1: FUNCTIONAL SITE EXCLUSION
+            if canonical_pos in ALL_LOCKED_POSITIONS:
+                continue
+            
+            # GUARDRAIL 2: TOPOLOGY FILTER
+            in_tm_helix = any(canonical_pos in tm_range for tm_range in 
+                            [D1_TOPOLOGY['TM1'], D1_TOPOLOGY['TM2'], 
+                             D1_TOPOLOGY['TM3'], D1_TOPOLOGY['TM4'], 
+                             D1_TOPOLOGY['TM5']])
+            
+            wt_aa = wt_sequence[pos]
+            thermo_residues = [seq[pos] for seq in aligned_seqs[1:]]
+            residue_counts = Counter(thermo_residues)
+            
+            for residue, count in residue_counts.items():
+                if residue == wt_aa or residue == '-':
+                    continue
+                
+                prevalence = (count / len(thermo_residues)) * 100
+                
+                if prevalence < 20:
+                    continue
+                
+                # GUARDRAIL 3: TM HELIX RESTRICTIONS
+                if in_tm_helix:
+                    if residue == 'P':
+                        continue
+                    if wt_aa == 'G' and residue in 'STNQDE':
+                        continue
+                    if wt_aa in 'AILMFWV' and residue not in 'AILMFWV':
+                        continue
+                
+                # GUARDRAIL 4: CONSERVATION THRESHOLD
+                if conservation[pos] > 0.9:
+                    continue
+                
+                # GUARDRAIL 5: DISTANCE TO FUNCTIONAL SITES
+                min_distance = min(abs(canonical_pos - site) for site in ALL_LOCKED_POSITIONS)
+                
+                if min_distance < 3:
+                    continue
+                
+                score = (
+                    prevalence * 0.4 +
+                    (1 - conservation[pos]) * 0.3 +
+                    (min_distance / 50) * 0.3
+                )
+                
+                topology = 'TM' if in_tm_helix else 'loop'
+                
                 mutations.append({
-                    'position': pos,
-                    'amino_acid': np.random.choice(flexible_to_rigid[aa]),
-                    'rationale': 'reduce_flexibility'
+                    'position': canonical_pos,
+                    'from_aa': wt_aa,
+                    'to_aa': residue,
+                    'mutation': f'{wt_aa}{canonical_pos}{residue}',
+                    'prevalence': prevalence,
+                    'conservation': conservation[pos],
+                    'topology': topology,
+                    'distance_to_active': min_distance,
+                    'score': score
                 })
         
-        # Shuffle and return
-        np.random.shuffle(mutations)
+        mutations.sort(key=lambda x: x['score'], reverse=True)
         return mutations
+    
+    def _build_variants_from_mutations(
+        self, wt_sequence: str, mutations: List[Dict], n_variants: int
+    ) -> List[Dict]:
+        """Build variants by combining top mutations"""
+        
+        variants = []
+        top_mutations = mutations[:min(20, len(mutations))]
+        
+        for i in range(n_variants):
+            n_muts = np.random.randint(3, 7)
+            selected = np.random.choice(
+                len(top_mutations), 
+                size=min(n_muts, len(top_mutations)), 
+                replace=False
+            )
+            selected_muts = [top_mutations[idx] for idx in selected]
+            
+            variant_seq = list(wt_sequence)
+            variant_muts = []
+            
+            for mut in selected_muts:
+                pos = mut['position'] - 1
+                if pos < len(variant_seq):
+                    variant_seq[pos] = mut['to_aa']
+                    variant_muts.append(mut['mutation'])
+            
+            avg_score = np.mean([m['score'] for m in selected_muts])
+            avg_prevalence = np.mean([m['prevalence'] for m in selected_muts])
+            
+            variants.append({
+                'sequence': ''.join(variant_seq),
+                'mutations': variant_muts,
+                'score': avg_score,
+                'conservation_score': 1 - np.mean([m['conservation'] for m in selected_muts]),
+                'temperature_correlation': avg_prevalence / 100,
+                'n_tm_mutations': sum(1 for m in selected_muts if m['topology'] == 'TM'),
+                'n_loop_mutations': sum(1 for m in selected_muts if m['topology'] == 'loop')
+            })
+        
+        return variants
+    
+    def _fallback_variants(self, wt_sequence: str, n_variants: int) -> List[Dict]:
+        """Fallback: heuristic mutations when data unavailable"""
+        
+        variants = []
+        
+        safe_mutations = {
+            45: ('G', 'A', 'Reduce flexibility'),
+            120: ('S', 'T', 'H-bond network'),
+            200: ('V', 'I', 'Core packing'),
+            250: ('L', 'V', 'Hydrophobic core'),
+            280: ('A', 'V', 'Helix stability')
+        }
+        
+        for i in range(n_variants):
+            variant_seq = list(wt_sequence)
+            variant_muts = []
+            
+            positions = np.random.choice(
+                list(safe_mutations.keys()), 
+                size=min(3, len(safe_mutations)), 
+                replace=False
+            )
+            
+            for pos in positions:
+                if pos - 1 < len(variant_seq):
+                    from_aa, to_aa, _ = safe_mutations[pos]
+                    if variant_seq[pos-1] == from_aa:
+                        variant_seq[pos-1] = to_aa
+                        variant_muts.append(f'{from_aa}{pos}{to_aa}')
+            
+            variants.append({
+                'id': f'T1_FALLBACK_{i:04d}',
+                'sequence': ''.join(variant_seq),
+                'mutations': variant_muts,
+                'score': 0.5,
+                'track': 'track1',
+                'method': 'heuristic_fallback',
+                'conservation_score': 0.5,
+                'temperature_correlation': 0.5
+            })
+        
+        return variants

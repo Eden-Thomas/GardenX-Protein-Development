@@ -1,0 +1,23 @@
+{
+  "pipeline_version": "3.0_sequential",
+  "timestamp": "20251017_155710",
+  "runtime_minutes": 0.33826673333333335,
+  "final_variants": [],
+  "statistics": {
+    "track1_stats": {},
+    "track2_stats": {
+      "mean_delta_tm": 0.0,
+      "std_delta_tm": 0.0,
+      "ci_lower": 0.0,
+      "ci_upper": 0.0,
+      "synergistic_count": 1,
+      "improvement": 0
+    },
+    "track3_stats": {},
+    "overall_stats": {}
+  },
+  "parameters": {
+    "target_temperature": 50,
+    "initial_variant_count": 5
+  }
+}

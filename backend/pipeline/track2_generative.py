@@ -1,254 +1,470 @@
 """
-track2_generative.py - Production generative track with NeuroFold
+track2_generative.py
+AI-guided optimization with multi-objective scoring and Track 1 seed integration
 """
 
-import numpy as np
-from typing import List, Dict
 import asyncio
-import json  
+import numpy as np
+from typing import Dict, List, Optional
+import random
+
 
 class Track2Generative:
-    """
-    Generative AI track
-    Includes NeuroFold, RFdiffusion, Efficient Evolution
-    """
+    """AI-guided variant generation building on Track 1 insights"""
     
-    def __init__(self, config, neurosnap_client):
+    def __init__(self, config, client):
         self.config = config
-        self.client = neurosnap_client
+        self.client = client
+        self.membrane_regions = {
+            'TM1': range(21, 47),
+            'TM2': range(60, 88),
+            'TM3': range(181, 207),
+            'TM4': range(241, 270),
+            'TM5': range(311, 342)
+        }
         
-    async def generate_variants(self, wt_sequence: str, 
-                               target_temp: int, 
-                               n_variants: int) -> List[Dict]:
-        """Generate variants using generative AI approaches"""
+        self.functional_exclusion = {170, 189, 161, 332, 333, 342, 344, 
+                                    215, 254, 255, 264, 265, 271, 130, 147}
+    
+    async def generate_variants(
+        self,
+        wt_sequence: str,
+        target_temp: int = 50,
+        n_variants: int = 15,
+        seed_mutations: List[str] = None,
+        seed_variants: List[Dict] = None
+    ) -> List[Dict]:
+        """
+        Generate AI-optimized variants using Track 1 insights
         
-        print("  🤖 Track 2: Generative AI (NeuroFold + RFdiffusion)")
+        Args:
+            wt_sequence: Wild-type sequence
+            target_temp: Target temperature (°C)
+            n_variants: Number of variants to generate
+            seed_mutations: Top mutations from Track 1
+            seed_variants: Full variants from Track 1 (for reference)
+        """
+        
+        print("  🤖 Track 2: AI-guided optimization")
+        
+        if seed_mutations and len(seed_mutations) > 0:
+            print(f"    → Building on {len(seed_mutations)} Track 1 mutations")
+            print(f"      Seeds: {', '.join(seed_mutations[:5])}...")
+        else:
+            print("    → No Track 1 seeds, generating de novo")
+            seed_mutations = []
         
         variants = []
         
-        # NeuroFold is KEY - give it 70% of variants
-        neurofold_count = int(n_variants * 0.7) if n_variants > 1 else 1
-        rfdiffusion_count = n_variants - neurofold_count
-        
-        # 1. NeuroFold - Specialized enzyme optimization
-        try:
-            print(f"    - NeuroFold: optimizing for {target_temp}°C...")
-            
-            neurofold_job = await self.client.submit_job('neurofold', {
-                # FIX: Wrap sequence in json.dumps with proper format
-                'sequence': json.dumps([{"type": "fasta", "data": wt_sequence}]),
-                'target': 'thermostability',  # Correct parameter name
-                # FIX: Convert to string
-                'temperature': str(target_temp),
-                # FIX: Convert to string
-                'ph': "7.0",
-                # FIX: Convert to string
-                'num_designs': str(max(neurofold_count * 2, 10))
-            })
-            
-            neurofold_results = await self.client.wait_for_job(neurofold_job)
-            
-            # Process NeuroFold results
-            designs = neurofold_results.get('designs', [])
-            
-            for i, design in enumerate(designs[:neurofold_count]):
-                mutations = self._get_mutations(wt_sequence, design.get('sequence', wt_sequence))
-                
-                variants.append({
-                    'id': f"T2_NEURO_{i:04d}",
-                    'sequence': design.get('sequence', wt_sequence),
-                    'mutations': mutations,
-                    'method': 'neurofold',
-                    'predicted_tm': design.get('predicted_tm', target_temp),
-                    'confidence': design.get('confidence', 0.8),
-                    'optimization_score': design.get('optimization_score', 0.7),
-                    'track': 'track2'
-                })
-            
-            print(f"      ✅ Generated {len(variants)} NeuroFold variants")
-            
-        except Exception as e:
-            print(f"      ⚠️ NeuroFold failed: {e}, using fallback")
-            
-            # Fallback: Generate variants using heuristic approach
-            for i in range(neurofold_count):
-                variant_seq = self._apply_thermostability_mutations(wt_sequence)
-                mutations = self._get_mutations(wt_sequence, variant_seq)
-                
-                variants.append({
-                    'id': f"T2_FALLBACK_{i:04d}",
-                    'sequence': variant_seq,
-                    'mutations': mutations,
-                    'method': 'heuristic',
-                    'track': 'track2'
-                })
-        
-        # 2. RFdiffusion or alternative generative approach for remaining variants
-        if rfdiffusion_count > 0:
+        # Strategy 1: NeuroFold-based design (if API available)
+        if self.client and len(variants) < n_variants * 0.3:
             try:
-                print(f"    - Generative design: creating {rfdiffusion_count} variants...")
-                
-                # Try to get structure first
-                structure_job = await self.client.submit_job('alphafold2', {
-                    # FIX: Wrap sequence in json.dumps with proper format
-                    'sequence': json.dumps([{"type": "fasta", "data": wt_sequence}]),
-                    # FIX: Convert to string
-                    'num_models': "1",
-                    # FIX: Convert boolean to string
-                    'relax': "false"
-                })
-                
-                structure_result = await self.client.wait_for_job(structure_job)
-                structure = structure_result.get('structure_pdb', '')
-                
-                # Try RFdiffusion if structure available
-                if structure:
-                    try:
-                        # Use LigandMPNN as alternative to RFdiffusion
-                        mpnn_job = await self.client.submit_job('ligandmpnn', {
-                            # FIX: Wrap structure in json.dumps with proper format
-                            'structure': json.dumps([{"type": "pdb", "data": structure}]),
-                            # FIX: Convert to string
-                            'num_sequences': str(rfdiffusion_count * 2),
-                            # FIX: Convert to string
-                            'temperature': "0.2",
-                            'fixed_positions': json.dumps(self._get_fixed_positions())
-                        })
-                        
-                        mpnn_results = await self.client.wait_for_job(mpnn_job)
-                        
-                        for i, seq_data in enumerate(mpnn_results.get('sequences', [])[:rfdiffusion_count]):
-                            mutations = self._get_mutations(wt_sequence, seq_data.get('sequence', wt_sequence))
-                            
-                            variants.append({
-                                'id': f"T2_MPNN_{i:04d}",
-                                'sequence': seq_data.get('sequence', wt_sequence),
-                                'mutations': mutations,
-                                'method': 'ligandmpnn',
-                                'score': seq_data.get('score', 0),
-                                'track': 'track2'
-                            })
-                            
-                    except Exception as e:
-                        print(f"      ⚠️ Structure-based design failed: {e}")
-                        # Fall through to heuristic approach
-                
+                print("    → Trying NeuroFold design...")
+                neurofold_variants = await self._neurofold_with_constraints(
+                    wt_sequence,
+                    seed_mutations,
+                    max(1, int(n_variants * 0.3))
+                )
+                if neurofold_variants:
+                    variants.extend(neurofold_variants)
+                    print(f"      ✓ NeuroFold generated {len(neurofold_variants)} variants")
             except Exception as e:
-                print(f"      ⚠️ Structure prediction failed: {e}")
-            
-            # Fill remaining slots with heuristic variants if needed
-            current_count = len(variants)
-            remaining = n_variants - current_count
-            
-            for i in range(remaining):
-                variant_seq = self._apply_efficient_evolution(wt_sequence)
-                mutations = self._get_mutations(wt_sequence, variant_seq)
-                
-                variants.append({
-                    'id': f"T2_EE_{i:04d}",
-                    'sequence': variant_seq,
-                    'mutations': mutations,
-                    'method': 'efficient_evolution',
-                    'track': 'track2'
-                })
+                print(f"      ⚠️ NeuroFold failed: {e}")
         
-        print(f"    Total Track 2 variants: {len(variants)}")
+        # Strategy 2: Track 1-guided fallback (PRIMARY METHOD)
+        if seed_mutations and len(variants) < n_variants:
+            print("    → Applying Track 1-guided mutations...")
+            remaining = n_variants - len(variants)
+            track1_variants = self._apply_track1_mutations(
+                wt_sequence,
+                seed_mutations,
+                remaining
+            )
+            variants.extend(track1_variants)
+            print(f"      ✓ Generated {len(track1_variants)} Track 1-guided variants")
+        
+        # Strategy 3: Pure fallback if still short
+        if len(variants) < n_variants:
+            print("    → Filling remaining with heuristic variants...")
+            remaining = n_variants - len(variants)
+            fallback = self._heuristic_fallback(wt_sequence, remaining)
+            variants.extend(fallback)
+        
+        # Multi-objective scoring for all variants
+        print("    → Scoring variants (multi-objective)...")
+        for i, variant in enumerate(variants):
+            scores = await self._multi_objective_score(variant, wt_sequence, target_temp)
+            variant.update(scores)
+            if 'id' not in variant:
+                variant['id'] = f'T2_AI_{i:04d}'
+            variant['track'] = 'track2'
+        
+        variants.sort(key=lambda x: x.get('composite_score', 0), reverse=True)
+        
+        print(f"    ✓ Generated {len(variants)} AI-optimized variants")
+        if variants:
+            print(f"      Mean ΔTm: {np.mean([v.get('delta_tm', 0) for v in variants]):.1f}°C")
+        
+        return variants[:n_variants]
+    
+    async def _neurofold_with_constraints(
+        self, wt_sequence: str, seed_mutations: List[str], n_variants: int
+    ) -> List[Dict]:
+        """Use NeuroFold with Track 1 mutations as hints"""
+        
+        variants = []
+        
+        if seed_mutations:
+            template = self._apply_mutations_to_sequence(wt_sequence, seed_mutations[:3])
+        else:
+            template = wt_sequence
+        
+        try:
+            result = await self.client.run_neurofold(template)
+            
+            if 'sequences' in result and result['sequences']:
+                for i, seq_data in enumerate(result['sequences'][:n_variants]):
+                    sequence = seq_data.get('sequence', seq_data) if isinstance(seq_data, dict) else seq_data
+                    mutations = self._get_mutations(wt_sequence, sequence)
+                    
+                    variants.append({
+                        'id': f'T2_NEUROFOLD_{i:04d}',
+                        'sequence': sequence,
+                        'mutations': mutations,
+                        'method': 'neurofold',
+                        'based_on_track1': len(seed_mutations) > 0
+                    })
+        except Exception as e:
+            print(f"      ⚠️ NeuroFold error: {e}")
+        
         return variants
     
-    def _get_fixed_positions(self) -> List[int]:
-        """Define positions to keep fixed during design (1-indexed)"""
-        # Active site positions that must be preserved
-        return [161, 170, 189, 215, 254, 255, 264, 271, 332, 333, 342, 344]
+    def _apply_track1_mutations(
+        self, wt_sequence: str, seed_mutations: List[str], n_variants: int
+    ) -> List[Dict]:
+        """
+        Generate variants by combining Track 1 mutations with synergistic additions
+        THIS IS THE KEY METHOD FOR SEQUENTIAL PIPELINE!
+        """
+        
+        variants = []
+        
+        parsed_seeds = []
+        for mut in seed_mutations[:10]:
+            if len(mut) >= 3:
+                try:
+                    from_aa = mut[0]
+                    pos = int(mut[1:-1])
+                    to_aa = mut[-1]
+                    parsed_seeds.append({'from': from_aa, 'pos': pos, 'to': to_aa, 'string': mut})
+                except:
+                    continue
+        
+        if not parsed_seeds:
+            return []
+        
+        for i in range(n_variants):
+            n_t1_muts = min(np.random.randint(3, 6), len(parsed_seeds))
+            selected_t1 = random.sample(parsed_seeds, n_t1_muts)
+            
+            variant_seq = list(wt_sequence)
+            variant_muts = []
+            
+            for mut in selected_t1:
+                pos_idx = mut['pos'] - 1
+                if pos_idx < len(variant_seq) and variant_seq[pos_idx] == mut['from']:
+                    variant_seq[pos_idx] = mut['to']
+                    variant_muts.append(mut['string'])
+            
+            synergistic_muts = self._add_synergistic_mutations(
+                variant_seq, wt_sequence, selected_t1, np.random.randint(1, 4)
+            )
+            
+            variant_muts.extend(synergistic_muts)
+            
+            variants.append({
+                'id': f'T2_FALLBACK_{i:04d}',
+                'sequence': ''.join(variant_seq),
+                'mutations': variant_muts,
+                'method': 'track1_guided',
+                'n_track1_muts': len(selected_t1),
+                'n_synergistic': len(synergistic_muts),
+                'based_on_track1': True
+            })
+        
+        return variants
+    
+    def _add_synergistic_mutations(
+        self, variant_seq: List[str], wt_sequence: str, 
+        existing_muts: List[Dict], n_synergistic: int = 2
+    ) -> List[str]:
+        """Add synergistic mutations near Track 1 sites"""
+        
+        synergistic = []
+        existing_positions = {m['pos'] for m in existing_muts}
+        
+        stabilizing = {
+            'G': ['A', 'V'],
+            'S': ['T', 'A'],
+            'N': ['D', 'Q'],
+            'Q': ['E', 'N']
+        }
+        
+        attempts = 0
+        while len(synergistic) < n_synergistic and attempts < 50:
+            attempts += 1
+            
+            if existing_positions:
+                ref_pos = random.choice(list(existing_positions))
+                pos = ref_pos + random.randint(-2, 2)
+            else:
+                pos = random.randint(50, len(wt_sequence) - 50)
+            
+            pos_idx = pos - 1
+            
+            if pos_idx < 0 or pos_idx >= len(variant_seq):
+                continue
+            
+            if pos in self.functional_exclusion:
+                continue
+            
+            wt_aa = wt_sequence[pos_idx]
+            current_aa = variant_seq[pos_idx]
+            
+            if wt_aa != current_aa:
+                continue
+            
+            if wt_aa in stabilizing:
+                to_aa = random.choice(stabilizing[wt_aa])
+                
+                in_tm = any(pos in tm for tm in self.membrane_regions.values())
+                if in_tm and to_aa == 'P':
+                    continue
+                
+                variant_seq[pos_idx] = to_aa
+                synergistic.append(f'{wt_aa}{pos}{to_aa}')
+        
+        return synergistic
+    
+    def _heuristic_fallback(self, wt_sequence: str, n_variants: int) -> List[Dict]:
+        """Pure heuristic variants when no Track 1 data"""
+        
+        variants = []
+        
+        helix_stabilizers = {
+            'G': 'A', 'S': 'T', 'V': 'I', 'L': 'I'
+        }
+        
+        for i in range(n_variants):
+            variant_seq = list(wt_sequence)
+            variant_muts = []
+            
+            n_muts = np.random.randint(3, 6)
+            
+            for _ in range(n_muts):
+                tm_positions = []
+                for tm_range in self.membrane_regions.values():
+                    tm_positions.extend(list(tm_range))
+                
+                if tm_positions:
+                    pos = random.choice(tm_positions)
+                    pos_idx = pos - 1
+                    
+                    if pos in self.functional_exclusion:
+                        continue
+                    
+                    if pos_idx >= len(variant_seq):
+                        continue
+                    
+                    wt_aa = variant_seq[pos_idx]
+                    
+                    if wt_aa in helix_stabilizers:
+                        to_aa = helix_stabilizers[wt_aa]
+                        variant_seq[pos_idx] = to_aa
+                        variant_muts.append(f'{wt_aa}{pos}{to_aa}')
+            
+            variants.append({
+                'id': f'T2_HEURISTIC_{i:04d}',
+                'sequence': ''.join(variant_seq),
+                'mutations': variant_muts,
+                'method': 'heuristic',
+                'based_on_track1': False
+            })
+        
+        return variants
+    
+    async def _multi_objective_score(
+        self, variant: Dict, wt_sequence: str, target_temp: int
+    ) -> Dict:
+        """Multi-objective scoring"""
+        
+        scores = {}
+        
+        # 1. Predict ΔTm
+        if self.client:
+            try:
+                tm_result = await self.client.predict_tm(variant['sequence'], direction='Increase')
+                predicted_tm = tm_result.get('tm', 42)
+                scores['predicted_tm'] = predicted_tm
+                scores['delta_tm'] = predicted_tm - 42
+            except:
+                scores['delta_tm'] = self._heuristic_delta_tm(variant)
+                scores['predicted_tm'] = 42 + scores['delta_tm']
+        else:
+            scores['delta_tm'] = self._heuristic_delta_tm(variant)
+            scores['predicted_tm'] = 42 + scores['delta_tm']
+        
+        # 2. ΔΔG_membrane
+        scores['delta_dg_membrane'] = self._estimate_membrane_ddg(variant, wt_sequence)
+        
+        # 3. Helix propensity
+        scores['helix_score'] = self._helix_propensity_score(variant, wt_sequence)
+        
+        # 4. Distance to functional sites
+        scores['min_distance_functional'] = self._min_distance_to_functional(variant)
+        
+        # 5. Composite score
+        scores['composite_score'] = (
+            scores['delta_tm'] * 0.35 +
+            -scores['delta_dg_membrane'] * 0.25 +
+            scores['helix_score'] * 0.20 +
+            (scores['min_distance_functional'] / 10) * 0.20
+        )
+        
+        return scores
+    
+    def _heuristic_delta_tm(self, variant: Dict) -> float:
+        """Estimate ΔTm from mutation patterns"""
+        
+        delta = 0.0
+        mutations = variant.get('mutations', [])
+        
+        for mut in mutations:
+            if len(mut) < 3:
+                continue
+            
+            from_aa = mut[0]
+            to_aa = mut[-1]
+            
+            if from_aa in 'GSN' and to_aa in 'AILV':
+                delta += 1.5
+            if from_aa == 'G' and to_aa == 'A':
+                delta += 1.0
+            if to_aa == 'P':
+                delta += 0.5
+        
+        return min(delta, 8.0)
+    
+    def _estimate_membrane_ddg(self, variant: Dict, wt_sequence: str) -> float:
+        """Approximate ΔΔG in membrane context"""
+        
+        ddg = 0.0
+        mutations = variant.get('mutations', [])
+        
+        for mut in mutations:
+            if len(mut) < 3:
+                continue
+            
+            try:
+                pos = int(mut[1:-1])
+                in_tm = any(pos in tm for tm in self.membrane_regions.values())
+                
+                from_aa = mut[0]
+                to_aa = mut[-1]
+                
+                if in_tm:
+                    if from_aa in 'STNQ' and to_aa in 'AILMFWV':
+                        ddg -= 1.0
+                    elif from_aa in 'AILMFWV' and to_aa in 'STNQDE':
+                        ddg += 1.5
+            except:
+                continue
+        
+        return ddg
+    
+    def _helix_propensity_score(self, variant: Dict, wt_sequence: str) -> float:
+        """Score helix propensity changes"""
+        
+        helix_prop = {
+            'A': 1.41, 'L': 1.34, 'M': 1.30, 'E': 1.26, 'K': 1.23,
+            'F': 1.16, 'Q': 1.13, 'I': 1.09, 'W': 1.09, 'D': 1.04,
+            'V': 0.98, 'Y': 0.74, 'R': 0.79, 'T': 0.76, 'S': 0.57,
+            'C': 0.66, 'N': 0.76, 'H': 0.89, 'G': 0.43, 'P': 0.34
+        }
+        
+        score_change = 0.0
+        mutations = variant.get('mutations', [])
+        
+        for mut in mutations:
+            if len(mut) < 3:
+                continue
+            
+            try:
+                pos = int(mut[1:-1])
+                in_tm = any(pos in tm for tm in self.membrane_regions.values())
+                
+                if in_tm:
+                    from_aa = mut[0]
+                    to_aa = mut[-1]
+                    
+                    from_prop = helix_prop.get(from_aa, 1.0)
+                    to_prop = helix_prop.get(to_aa, 1.0)
+                    
+                    score_change += (to_prop - from_prop)
+            except:
+                continue
+        
+        return score_change
+    
+    def _min_distance_to_functional(self, variant: Dict) -> int:
+        """Minimum distance to any functional site"""
+        
+        mutations = variant.get('mutations', [])
+        min_dist = 100
+        
+        for mut in mutations:
+            if len(mut) < 3:
+                continue
+            
+            try:
+                pos = int(mut[1:-1])
+                
+                for func_pos in self.functional_exclusion:
+                    dist = abs(pos - func_pos)
+                    min_dist = min(min_dist, dist)
+            except:
+                continue
+        
+        return min_dist
+    
+    def _apply_mutations_to_sequence(self, sequence: str, mutations: List[str]) -> str:
+        """Apply a list of mutations to a sequence"""
+        
+        seq = list(sequence)
+        
+        for mut in mutations:
+            if len(mut) < 3:
+                continue
+            
+            try:
+                pos = int(mut[1:-1]) - 1
+                to_aa = mut[-1]
+                
+                if 0 <= pos < len(seq):
+                    seq[pos] = to_aa
+            except:
+                continue
+        
+        return ''.join(seq)
     
     def _get_mutations(self, wt: str, variant: str) -> List[str]:
-        """Extract mutations between sequences"""
+        """Extract mutations between WT and variant"""
+        
         mutations = []
         min_len = min(len(wt), len(variant))
         
         for i in range(min_len):
             if wt[i] != variant[i]:
-                mutations.append(f"{wt[i]}{i+1}{variant[i]}")
+                mutations.append(f'{wt[i]}{i+1}{variant[i]}')
         
         return mutations
-    
-    def _apply_thermostability_mutations(self, sequence: str) -> str:
-        """Apply known thermostability-enhancing mutations"""
-        
-        variant = list(sequence)
-        
-        # Common thermostability strategies
-        strategies = [
-            ('G', ['A', 'V']),      # Remove glycine flexibility
-            ('S', ['T', 'A']),      # Reduce polar surface
-            ('N', ['Q', 'D']),      # Prevent deamidation
-            ('M', ['L', 'I']),      # Remove oxidizable Met
-            ('C', ['S', 'A']),      # Remove reactive Cys
-            ('K', ['R']),           # Conservative charge
-            ('E', ['D']),           # Conservative charge
-            ('A', ['V', 'I']),      # Increase hydrophobic packing
-        ]
-        
-        # Apply 5-10 mutations
-        n_mutations = np.random.randint(5, 11)
-        mutation_count = 0
-        
-        # Avoid active site
-        active_site = {160, 169, 188, 214, 253, 254, 263, 270, 331, 332, 341, 343}
-        
-        positions = list(range(len(sequence)))
-        np.random.shuffle(positions)
-        
-        for pos in positions:
-            if mutation_count >= n_mutations:
-                break
-            
-            if (pos + 1) in active_site:
-                continue
-            
-            current_aa = variant[pos]
-            
-            for from_aa, to_aas in strategies:
-                if current_aa == from_aa:
-                    variant[pos] = np.random.choice(to_aas)
-                    mutation_count += 1
-                    break
-        
-        return ''.join(variant)
-    
-    def _apply_efficient_evolution(self, sequence: str) -> str:
-        """Apply efficient evolution strategy"""
-        
-        variant = list(sequence)
-        
-        # Target specific regions for improvement
-        # Loops between TM helices are good targets
-        loop_regions = [
-            (41, 69),    # Loop 1
-            (91, 159),   # Loop 2
-            (181, 219),  # Loop 3
-            (241, 289),  # Loop 4
-            (311, 331)   # Loop 5
-        ]
-        
-        # Apply 3-7 mutations in loops
-        n_mutations = np.random.randint(3, 8)
-        mutation_count = 0
-        
-        for _ in range(n_mutations):
-            # Pick a random loop
-            if loop_regions:
-                start, end = loop_regions[np.random.randint(len(loop_regions))]
-                pos = np.random.randint(start-1, min(end, len(sequence)))
-                
-                # Apply stabilizing mutation
-                old_aa = variant[pos]
-                
-                # Prefer Pro in loops for rigidity, or small hydrophobic
-                if old_aa != 'P' and np.random.random() > 0.5:
-                    variant[pos] = 'P'
-                else:
-                    variant[pos] = np.random.choice(['A', 'V', 'L', 'I'])
-                
-                mutation_count += 1
-        
-        return ''.join(variant)

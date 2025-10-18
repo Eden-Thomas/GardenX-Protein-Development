@@ -1,0 +1,735 @@
+{
+  "pipeline_version": "3.0_sequential",
+  "timestamp": "20251017_164039",
+  "summary": {
+    "total_generated": 25,
+    "track1": 10,
+    "track2": 10,
+    "track3": 5,
+    "runtime_minutes": 0.18097643333333335,
+    "wt_tm": 28.0,
+    "target_temp": 50,
+    "mean_delta_tm": 0.6799282084768768,
+    "max_delta_tm": 4.919464930865665
+  },
+  "final_variants": [
+    {
+      "sequence": "MTAILERRESESLWGRFCTWITGTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPASGSLLYGNNIITGAVVPSSNAILVHFYPIWEAASLDEWLYNGGPYQLIIFHFLLGASCYMGREWELSFRLGMRPWICVAYSAPLASAFAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLLFSAMHGSLVTSSLIRETTENESANEGYRFGQEEETYNIVAHAGYGRLLFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVIGTWADIINRANLGMEVMHERNAHNFPLDLAAEG",
+      "mutations": [
+        "N19T",
+        "V67A",
+        "N315G"
+      ],
+      "score": 40.47527525212477,
+      "conservation_score": 0.31091750708257104,
+      "temperature_correlation": 1.0,
+      "n_tm_mutations": 2,
+      "n_loop_mutations": 1,
+      "id": "T1_EVO_0007",
+      "track": "track1",
+      "method": "evolutionary",
+      "refinement_score": 6.117928913881101,
+      "validation": {
+        "delta_tm": 0,
+        "predicted_tm": 42,
+        "composite_score": 40.47527525212477,
+        "pass_rate": 0.8,
+        "validated": true
+      },
+      "final_score": 12.189220201699817
+    },
+    {
+      "sequence": "MTAILERRESESLWGRFCTWITGTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPASGSLLYGNNIITGAVVPSSNAILVHFYPIWEAASLDEWLYNGGPYQLIIFHFLLGASCYMGREWELSFRLGMRPWICVAYSAPLASAFAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLLFSAMHGSLVTSSLIRETTENESANEGYRFGQEEETYNIVAHAGYGRLLFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVIGTWADIINRANLGMEVMHERNAHNFPLDLAAEG",
+      "mutations": [
+        "N19T",
+        "V67A",
+        "N315G"
+      ],
+      "score": 40.47527525212477,
+      "conservation_score": 0.31091750708257104,
+      "temperature_correlation": 1.0,
+      "n_tm_mutations": 2,
+      "n_loop_mutations": 1,
+      "id": "T3_STRUCT_0_00",
+      "track": "track3",
+      "method": "structure_validated",
+      "refinement_score": 6.117928913881101,
+      "parent_variant": "T1_EVO_0007",
+      "plddt": 87.09308811524332,
+      "membrane_packing": -0.028242074927953883,
+      "validation": {
+        "delta_tm": 0,
+        "predicted_tm": 42,
+        "composite_score": 40.47527525212477,
+        "pass_rate": 0.8,
+        "validated": true
+      },
+      "final_score": 12.184983890460623
+    },
+    {
+      "sequence": "MTAILERRESESLWGRFCTWITGTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPASGSLLYGNNIITGAVVPSSNAILVHFYPIWEAASLDEWLYNGGPYQLIIFHFLLGASCYMGREWELSFRLGMRPWICVAYSAPLASAFAVFLIYPIGQGSFSDGMPLGISTTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLLFSAMHGSLVTSSLIRETTENESANEGYRFGQEEETYNIVAHAGYGRLLFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAAEG",
+      "mutations": [
+        "G178T",
+        "N19T",
+        "V67A"
+      ],
+      "score": 40.45727525212477,
+      "conservation_score": 0.31091750708257104,
+      "temperature_correlation": 1.0,
+      "n_tm_mutations": 1,
+      "n_loop_mutations": 2,
+      "id": "T1_EVO_0000",
+      "track": "track1",
+      "method": "evolutionary",
+      "refinement_score": 6.115228913881101,
+      "validation": {
+        "delta_tm": 0,
+        "predicted_tm": 42,
+        "composite_score": 40.45727525212477,
+        "pass_rate": 0.8,
+        "validated": true
+      },
+      "final_score": 12.183820201699817
+    },
+    {
+      "sequence": "MTAILERRESESLWGRFCTWITGTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPASGSLLYGNNIITGAVVPSSNAILVHFYPIWEAASLDEWLYNGGPYQLIIFHFLLGASCYMGREWELSFRLGMRPWICVAYSAPLASAFAVFLIYPIGQGSFSDGMPLGISTTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLLFSAMHGSLVTSSLIRETTENESANEGYRFGQEEETYNIVAHAGYGRLLFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAAEG",
+      "mutations": [
+        "G178T",
+        "N19T",
+        "V67A"
+      ],
+      "score": 40.45727525212477,
+      "conservation_score": 0.31091750708257104,
+      "temperature_correlation": 1.0,
+      "n_tm_mutations": 1,
+      "n_loop_mutations": 2,
+      "id": "T3_STRUCT_1_00",
+      "track": "track3",
+      "method": "structure_validated",
+      "refinement_score": 6.115228913881101,
+      "parent_variant": "T1_EVO_0000",
+      "plddt": 80.50731543394535,
+      "membrane_packing": -0.03054755043227665,
+      "validation": {
+        "delta_tm": 0,
+        "predicted_tm": 42,
+        "composite_score": 40.45727525212477,
+        "pass_rate": 0.8,
+        "validated": true
+      },
+      "final_score": 12.179238069134975
+    },
+    {
+      "sequence": "MTAILERRESESLWGRFCTWITGTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPASGSLLYGNNIITGAVVPGSNAILVHFYPIWEAASLDEWLYNGGPYQLIIFHFLLGASCYMGREWELSFRLGMRPWICVAYSAPLASAFAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLLFSAMHGSLVTSSLIRETTENESANEGYRFGQEEETYNIVAHAGYGRLLFQYASFNNSRSLHFFLAAWPVVGCWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMTVMHERNAHNFPLDLAAEG",
+      "mutations": [
+        "N19T",
+        "I283C",
+        "V67A",
+        "E329T",
+        "S85G"
+      ],
+      "score": 40.37407525212477,
+      "conservation_score": 0.31091750708257115,
+      "temperature_correlation": 1.0,
+      "n_tm_mutations": 3,
+      "n_loop_mutations": 2,
+      "id": "T1_EVO_0002",
+      "track": "track1",
+      "method": "evolutionary",
+      "refinement_score": 6.102748913881101,
+      "validation": {
+        "delta_tm": 0,
+        "predicted_tm": 42,
+        "composite_score": 40.37407525212477,
+        "pass_rate": 0.8,
+        "validated": true
+      },
+      "final_score": 12.158860201699817
+    },
+    {
+      "sequence": "MTAILERRESESLWGRFCTWITGTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPASGSLLYGNNIITGAVVPGSNAILVHFYPIWEAASLDEWLYNGGPYQLIIFHFLLGASCYMGREWELSFRLGMRPWICVAYSAPLASAFAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLLFSAMHGSLVTSSLIRETTENESANEGYRFGQEEETYNIVAHAGYGRLLFQYASFNNSRSLHFFLAAWPVVGCWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMTVMHERNAHNFPLDLAAEG",
+      "mutations": [
+        "N19T",
+        "I283C",
+        "V67A",
+        "E329T",
+        "S85G"
+      ],
+      "score": 40.37407525212477,
+      "conservation_score": 0.31091750708257115,
+      "temperature_correlation": 1.0,
+      "n_tm_mutations": 3,
+      "n_loop_mutations": 2,
+      "id": "T3_STRUCT_2_00",
+      "track": "track3",
+      "method": "structure_validated",
+      "refinement_score": 6.102748913881101,
+      "parent_variant": "T1_EVO_0002",
+      "plddt": 84.68140539614778,
+      "membrane_packing": -0.028242074927953876,
+      "validation": {
+        "delta_tm": 0,
+        "predicted_tm": 42,
+        "composite_score": 40.37407525212477,
+        "pass_rate": 0.8,
+        "validated": true
+      },
+      "final_score": 12.154623890460623
+    },
+    {
+      "sequence": "MTAILERRESESLWGRFCNWITGTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPASGSLLYGNNIITGAVVPGSNAILVHFYPIWEAASLDEWLYNGGPYQLIIFHFLLGASCYMGREWELSFRLGMRPWICVAYSAPLASAFAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLLFSAMHGSLVTSSLIRETTENESANEGYRFGQEEETYNIVAHAGYGRLLFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVIGTWADIINRANLGMEVMHERNAHNFPLDLAAEG",
+      "mutations": [
+        "N315G",
+        "V67A",
+        "S85G"
+      ],
+      "score": 40.34327525212476,
+      "conservation_score": 0.31091750708257104,
+      "temperature_correlation": 1.0,
+      "n_tm_mutations": 3,
+      "n_loop_mutations": 0,
+      "id": "T1_EVO_0003",
+      "track": "track1",
+      "method": "evolutionary",
+      "refinement_score": 6.0981289138811,
+      "validation": {
+        "delta_tm": 0,
+        "predicted_tm": 42,
+        "composite_score": 40.34327525212476,
+        "pass_rate": 0.8,
+        "validated": true
+      },
+      "final_score": 12.149620201699815
+    },
+    {
+      "sequence": "MTAILERRESESLWGRFCNWITATENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIITGAVVPGSNACLVHFYPIWEAASLDEWLYNGGPYQLIIFHFLLGASCYMGREWELSFRLGMRPWICVAYSAPLASAFAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLLFSAMHGSLVTSSLIRETTENESANEGYRFGQEEETYNIVAHAGYGRLLFQYASFNNSRSLHFFLAAWPVVGCWFTTLGISTCAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAAEG",
+      "mutations": [
+        "A287T",
+        "I283C",
+        "I89C",
+        "G23A",
+        "M293C",
+        "S85G"
+      ],
+      "score": 40.33627525212477,
+      "conservation_score": 0.31091750708257127,
+      "temperature_correlation": 1.0,
+      "n_tm_mutations": 2,
+      "n_loop_mutations": 4,
+      "id": "T1_EVO_0001",
+      "track": "track1",
+      "method": "evolutionary",
+      "refinement_score": 6.097078913881101,
+      "validation": {
+        "delta_tm": 0,
+        "predicted_tm": 42,
+        "composite_score": 40.33627525212477,
+        "pass_rate": 0.8,
+        "validated": true
+      },
+      "final_score": 12.147520201699818
+    },
+    {
+      "sequence": "MTAILERRESESLWGRFCNWITGTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPASGSLLYGNNIITGAVVPGSNAILVHFYPIWEAASLDEWLYNGGPYQLIIFHFLLGASCYMGREWELSFRLGMRPWICVAYSAPLASAFAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLLFSAMHGSLVTSSLIRETTENESANEGYRFGQEEETYNIVAHAGYGRLLFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVIGTWADIINRANLGMEVMHERNAHNFPLDLAAEG",
+      "mutations": [
+        "N315G",
+        "V67A",
+        "S85G"
+      ],
+      "score": 40.34327525212476,
+      "conservation_score": 0.31091750708257104,
+      "temperature_correlation": 1.0,
+      "n_tm_mutations": 3,
+      "n_loop_mutations": 0,
+      "id": "T3_STRUCT_3_00",
+      "track": "track3",
+      "method": "structure_validated",
+      "refinement_score": 6.0981289138811,
+      "parent_variant": "T1_EVO_0003",
+      "plddt": 87.55869167621678,
+      "membrane_packing": -0.02536023054755042,
+      "validation": {
+        "delta_tm": 0,
+        "predicted_tm": 42,
+        "composite_score": 40.34327525212476,
+        "pass_rate": 0.8,
+        "validated": true
+      },
+      "final_score": 12.145816167117681
+    },
+    {
+      "sequence": "MTAILERRESESLWGRFCNWITATENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIITGAVVPGSNACLVHFYPIWEAASLDEWLYNGGPYQLIIFHFLLGASCYMGREWELSFRLGMRPWICVAYSAPLASAFAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLLFSAMHGSLVTSSLIRETTENESANEGYRFGQEEETYNIVAHAGYGRLLFQYASFNNSRSLHFFLAAWPVVGCWFTTLGISTCAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAAEG",
+      "mutations": [
+        "A287T",
+        "I283C",
+        "I89C",
+        "G23A",
+        "M293C",
+        "S85G"
+      ],
+      "score": 40.33627525212477,
+      "conservation_score": 0.31091750708257127,
+      "temperature_correlation": 1.0,
+      "n_tm_mutations": 2,
+      "n_loop_mutations": 4,
+      "id": "T3_STRUCT_4_00",
+      "track": "track3",
+      "method": "structure_validated",
+      "refinement_score": 6.097078913881101,
+      "parent_variant": "T1_EVO_0001",
+      "plddt": 85.28834629803417,
+      "membrane_packing": -0.026224783861671454,
+      "validation": {
+        "delta_tm": 0,
+        "predicted_tm": 42,
+        "composite_score": 40.33627525212477,
+        "pass_rate": 0.8,
+        "validated": true
+      },
+      "final_score": 12.143586484120567
+    },
+    {
+      "sequence": "MTAILERRESESLWGRFCNWITATENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIITGAVVPSSNAILVHFYPIWEAASLDEWLYNGGPYQLIIFHFLLGCSCYMGREWELSFRLGMRPWICVAYSAPLASAFAGFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLLFSAMHGSLVTSSLIRETTENESANEGYRFGQEEETYNIAAHAGYGRLLFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAAEG",
+      "mutations": [
+        "G23A",
+        "V250A",
+        "A123C",
+        "V157G"
+      ],
+      "score": 40.27627525212477,
+      "conservation_score": 0.31091750708257115,
+      "temperature_correlation": 1.0,
+      "n_tm_mutations": 2,
+      "n_loop_mutations": 2,
+      "id": "T1_EVO_0009",
+      "track": "track1",
+      "method": "evolutionary",
+      "refinement_score": 6.088078913881101,
+      "validation": {
+        "delta_tm": 0,
+        "predicted_tm": 42,
+        "composite_score": 40.27627525212477,
+        "pass_rate": 0.8,
+        "validated": true
+      },
+      "final_score": 12.129520201699817
+    },
+    {
+      "sequence": "MTAILERRESESLWGRFCNWITGTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIITGAVVPGSNAILVHFYPIWEAASLDEWLYGGGPYQLIIFHFLLGASCYMGREWELSFRLGMRPWICVAYSAPLASAFAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLLFSAMHGSLVTSSLIRETTENESANEGYAFGQEEETYNIVAHAGYGRLLFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAAEG",
+      "mutations": [
+        "N108G",
+        "S85G",
+        "R239A"
+      ],
+      "score": 40.25727525212477,
+      "conservation_score": 0.31091750708257104,
+      "temperature_correlation": 1.0,
+      "n_tm_mutations": 1,
+      "n_loop_mutations": 2,
+      "id": "T1_EVO_0008",
+      "track": "track1",
+      "method": "evolutionary",
+      "refinement_score": 6.085228913881101,
+      "validation": {
+        "delta_tm": 0,
+        "predicted_tm": 42,
+        "composite_score": 40.25727525212477,
+        "pass_rate": 0.8,
+        "validated": true
+      },
+      "final_score": 12.123820201699818
+    },
+    {
+      "sequence": "MTAILERRESESLWGRFCNWITGTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPASGSLLYGNNIITGAVVPSSNAILVHFYPIWEAASLDEWLYNGGPYQLIIFHFLLGASCYMGREWELSFRLGMRPWICVAYSAPLASAFAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLLFSAMHGSLVTSSLIRETTENESANEGYRFGQEEETYNIAAHAGYGRLAFQYASFNNSRSLHFFLAAWPVVGCWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAAEG",
+      "mutations": [
+        "L259A",
+        "I283C",
+        "V67A",
+        "V250A"
+      ],
+      "score": 40.21777525212477,
+      "conservation_score": 0.31091750708257115,
+      "temperature_correlation": 1.0,
+      "n_tm_mutations": 3,
+      "n_loop_mutations": 1,
+      "id": "T1_EVO_0005",
+      "track": "track1",
+      "method": "evolutionary",
+      "refinement_score": 6.0793039138811,
+      "validation": {
+        "delta_tm": 0,
+        "predicted_tm": 42,
+        "composite_score": 40.21777525212477,
+        "pass_rate": 0.8,
+        "validated": true
+      },
+      "final_score": 12.111970201699815
+    },
+    {
+      "sequence": "MTAILERRESESLWGRFCNWITGTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIITGAVVPSSNAILVHFYPIWEAASLDEWLYNGGPYQLIIFHFLLGCSCYMGREWELSFRLGMRPWICVAYSAPLASAFAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGAFGGSLLFSAMHGSLVTSSLIRETTENESANEGYAFGQEEETYNIAAHAGYGRLLFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTCAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAAEG",
+      "mutations": [
+        "M293C",
+        "A123C",
+        "V205A",
+        "R239A",
+        "V250A"
+      ],
+      "score": 40.16287525212478,
+      "conservation_score": 0.31091750708257115,
+      "temperature_correlation": 1.0,
+      "n_tm_mutations": 2,
+      "n_loop_mutations": 3,
+      "id": "T1_EVO_0004",
+      "track": "track1",
+      "method": "evolutionary",
+      "refinement_score": 6.071068913881102,
+      "validation": {
+        "delta_tm": 0,
+        "predicted_tm": 42,
+        "composite_score": 40.16287525212478,
+        "pass_rate": 0.8,
+        "validated": true
+      },
+      "final_score": 12.095500201699819
+    },
+    {
+      "sequence": "MTTILERRESESLWGRFCNWITGTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIITGAVVPSSNACLVHFYPIWEAASLDEWLYNGGPYQLIIFHFLLGASCYMGREWELSFRLGMRPWICVAYSAPLASAFAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLLFSAMHGSLVTSSLIRETTENESANEGYAFGQEEETYNIVAHAGYGRLAFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAAEG",
+      "mutations": [
+        "R239A",
+        "A3T",
+        "L259A",
+        "I89C"
+      ],
+      "score": 37.89473916034171,
+      "conservation_score": 0.3807972011390306,
+      "temperature_correlation": 0.9375,
+      "n_tm_mutations": 1,
+      "n_loop_mutations": 3,
+      "id": "T1_EVO_0006",
+      "track": "track1",
+      "method": "evolutionary",
+      "refinement_score": 5.74133045422211,
+      "validation": {
+        "delta_tm": 0,
+        "predicted_tm": 42,
+        "composite_score": 37.89473916034171,
+        "pass_rate": 0.8,
+        "validated": true
+      },
+      "final_score": 11.425541328273365
+    },
+    {
+      "id": "T2_FALLBACK_0008",
+      "sequence": "MTAILERRESESLWGRFCTWITGTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPAAVSLLYGNNIITGAVVPSSNAILVHFYPIWEAASLDEWLYNGGPYQLIIFHFLLGASCYMGREWELSFRLGMRPWICVAYSAPLASAFAVFLIYPIGQGSFSDGMPLGITTTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLLFSAMHGSLVTSSLIRETTENESANEGYRFGQEEETYNIVAHAGYGRLLFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVIGTWADIINRANLGMEVMHERNAHNFPLDLAAEG",
+      "mutations": [
+        "G178T",
+        "N315G",
+        "N19T",
+        "V67A",
+        "S68A",
+        "S177T",
+        "G69V"
+      ],
+      "method": "track1_guided",
+      "n_track1_muts": 4,
+      "n_synergistic": 3,
+      "based_on_track1": true,
+      "predicted_tm": 46.919464930865665,
+      "delta_tm": 4.919464930865665,
+      "delta_dg_membrane": -1.0,
+      "helix_score": 1.49,
+      "min_distance_functional": 7,
+      "composite_score": 2.4098127258029827,
+      "track": "track2",
+      "refinement_score": 2.6907297900871607,
+      "validation": {
+        "delta_tm": 4.919464930865665,
+        "predicted_tm": 46.919464930865665,
+        "composite_score": 2.4098127258029827,
+        "pass_rate": 0.8,
+        "validated": true
+      },
+      "final_score": 2.6907297900871607
+    },
+    {
+      "id": "T2_FALLBACK_0007",
+      "sequence": "MTAILERRESESLWGRFCTWITGTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPASASLLYGNNIITGAVVPSSNAILVHFYPIWEAASLDEWLYNGGPYQLIIFHFLLGASCYMGREWELSFRLGMRPWICVAYSAPLASAFAVFLIYPIGQGSFSDGMPLGISTTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLLFSAMHGSLVTSSLIRETTENESANEGYRFGQEEETYNIVAHAGYGRLLFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVIGTWADIINRANLGMEVMHERNAHNFPLDLAAEG",
+      "mutations": [
+        "N315G",
+        "G178T",
+        "V67A",
+        "N19T",
+        "G69A"
+      ],
+      "method": "track1_guided",
+      "n_track1_muts": 4,
+      "n_synergistic": 1,
+      "based_on_track1": true,
+      "predicted_tm": 45.068435912102515,
+      "delta_tm": 3.0684359121025153,
+      "delta_dg_membrane": 0.0,
+      "helix_score": 1.0799999999999998,
+      "min_distance_functional": 8,
+      "composite_score": 1.4499525692358803,
+      "track": "track2",
+      "refinement_score": 1.6623601356117703,
+      "validation": {
+        "delta_tm": 3.0684359121025153,
+        "predicted_tm": 45.068435912102515,
+        "composite_score": 1.4499525692358803,
+        "pass_rate": 0.8,
+        "validated": true
+      },
+      "final_score": 1.6623601356117703
+    },
+    {
+      "id": "T2_FALLBACK_0009",
+      "sequence": "MTAILERRESESLWGRFCTWITGTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPASASLLYGNNIITGAVVPSSNAILVHFYPIWEAASLDEWLYNGGPYQLIIFHFLLGASCYMGREWELSFRLGMRPWICVAYSAPLASAFAVFLIYPIGQGSFSDGMPLGITTTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLLFSAMHGSLVTSSLIRETTENESANEGYRFGQEEETYNIVAHAGYGRLLFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVIGTWADIINRANLGMEVMHERNAHNFPLDLAAEG",
+      "mutations": [
+        "V67A",
+        "G178T",
+        "N19T",
+        "N315G",
+        "G69A",
+        "S177T"
+      ],
+      "method": "track1_guided",
+      "n_track1_muts": 4,
+      "n_synergistic": 2,
+      "based_on_track1": true,
+      "predicted_tm": 44.86041704074185,
+      "delta_tm": 2.8604170407418508,
+      "delta_dg_membrane": 0.0,
+      "helix_score": 1.0799999999999998,
+      "min_distance_functional": 7,
+      "composite_score": 1.3571459642596475,
+      "track": "track2",
+      "refinement_score": 1.5513106055746346,
+      "validation": {
+        "delta_tm": 2.8604170407418508,
+        "predicted_tm": 44.86041704074185,
+        "composite_score": 1.3571459642596475,
+        "pass_rate": 0.8,
+        "validated": true
+      },
+      "final_score": 1.5513106055746346
+    },
+    {
+      "id": "T2_FALLBACK_0006",
+      "sequence": "MTAILERRESESLWGRFCNWITGTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPASGSLLYGNNIITGAVVPSSNAILVHFYPIWEAASLDEWLYNGGPYQLIIFHFLLGASCYMGREWELSFRLGMRPWICVAYSAPLASAFAVFLIYPIGQGSFSDGMPLGITTTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLLFSAMHGSLVTSSLIRETTENESANEGYRFGQEEETYNIVAHAGYGRLLFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVIGTWADIINRANLGMEVMHERNAHNFPLDLAAEG",
+      "mutations": [
+        "N315G",
+        "G178T",
+        "V67A",
+        "S177T"
+      ],
+      "method": "track1_guided",
+      "n_track1_muts": 3,
+      "n_synergistic": 1,
+      "based_on_track1": true,
+      "predicted_tm": 44.33550402186422,
+      "delta_tm": 2.3355040218642173,
+      "delta_dg_membrane": 0.0,
+      "helix_score": 0.09999999999999992,
+      "min_distance_functional": 7,
+      "composite_score": 0.977426407652476,
+      "track": "track2",
+      "refinement_score": 1.2274295310414298,
+      "validation": {
+        "delta_tm": 2.3355040218642173,
+        "predicted_tm": 44.33550402186422,
+        "composite_score": 0.977426407652476,
+        "pass_rate": 0.8,
+        "validated": true
+      },
+      "final_score": 1.2274295310414298
+    },
+    {
+      "id": "T2_FALLBACK_0002",
+      "sequence": "MTAILERRESESLWGRFCTWITGTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPASASLLYGNNIITGAVVPSSNAILVHFYPIWEAASLDEWLYNGGPYQLIIFHFLLGASCYMGREWELSFRLGMRPWICVAYSAPLASAFAVFLIYPIGQGSFSDGMPLGISTTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLLFSAMHGSLVTSSLIRETTENESANEGYRFGQEEETYNIVAHAGYGRLLFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVIGTWADIINRANLGMEVMHERNAHNFPLDLAAEG",
+      "mutations": [
+        "G178T",
+        "V67A",
+        "N19T",
+        "N315G",
+        "G69A"
+      ],
+      "method": "track1_guided",
+      "n_track1_muts": 4,
+      "n_synergistic": 1,
+      "based_on_track1": true,
+      "predicted_tm": 43.23299645646508,
+      "delta_tm": 1.2329964564650808,
+      "delta_dg_membrane": 0.0,
+      "helix_score": 1.0799999999999998,
+      "min_distance_functional": 8,
+      "composite_score": 0.8075487597627783,
+      "track": "track2",
+      "refinement_score": 0.7354632105148657,
+      "validation": {
+        "delta_tm": 1.2329964564650808,
+        "predicted_tm": 43.23299645646508,
+        "composite_score": 0.8075487597627783,
+        "pass_rate": 0.8,
+        "validated": true
+      },
+      "final_score": 0.7354632105148657
+    },
+    {
+      "id": "T2_FALLBACK_0000",
+      "sequence": "MTAILERRESESLWGRFCTWITGTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPASVSLLYGNNIITGAVVPSSNAILVHFYPIWEAASLDEWLYNGGPYQLIIFHFLLGASCYMGREWELSFRLGMRPWICVAYSAPLASAFAVFLIYPIGQGSFSDGMPLGISTTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLLFSAMHGSLVTSSLIRETTENESANEGYRFGQEEETYNIVAHAGYGRLLFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVIGTWADIINRANLGMEVMHERNAHNFPLDLAAEG",
+      "mutations": [
+        "N315G",
+        "N19T",
+        "G178T",
+        "V67A",
+        "G69V"
+      ],
+      "method": "track1_guided",
+      "n_track1_muts": 4,
+      "n_synergistic": 1,
+      "based_on_track1": true,
+      "predicted_tm": 43.00320515499732,
+      "delta_tm": 1.0032051549973175,
+      "delta_dg_membrane": 0.0,
+      "helix_score": 0.6499999999999999,
+      "min_distance_functional": 8,
+      "composite_score": 0.6411218042490612,
+      "track": "track2",
+      "refinement_score": 0.5936186032736454,
+      "validation": {
+        "delta_tm": 1.0032051549973175,
+        "predicted_tm": 43.00320515499732,
+        "composite_score": 0.6411218042490612,
+        "pass_rate": 0.8,
+        "validated": true
+      },
+      "final_score": 0.5936186032736454
+    },
+    {
+      "id": "T2_FALLBACK_0005",
+      "sequence": "MTAILERRESESLWGRFCTWITGTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPATVSLLYGNNIITGAVVPSSNAILVHFYPIWEAASLDEWLYNGGPYQLIIFHFLLGASCYMGREWELSFRLGMRPWICVAYSAPLASAFAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLLFSAMHGSLVTSSLIRETTENESANEGYRFGQEEETYNIVAHAGYGRLLFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVIGTWADIINRANLGMEVMHERNAHNFPLDLAAEG",
+      "mutations": [
+        "N315G",
+        "N19T",
+        "V67A",
+        "S68T",
+        "G69V"
+      ],
+      "method": "track1_guided",
+      "n_track1_muts": 3,
+      "n_synergistic": 2,
+      "based_on_track1": true,
+      "predicted_tm": 42.71221881471224,
+      "delta_tm": 0.7122188147122372,
+      "delta_dg_membrane": 0.0,
+      "helix_score": 0.8400000000000001,
+      "min_distance_functional": 17,
+      "composite_score": 0.7572765851492831,
+      "track": "track2",
+      "refinement_score": 0.5120705014296798,
+      "validation": {
+        "delta_tm": 0.7122188147122372,
+        "predicted_tm": 42.71221881471224,
+        "composite_score": 0.7572765851492831,
+        "pass_rate": 0.8,
+        "validated": true
+      },
+      "final_score": 0.5120705014296798
+    },
+    {
+      "id": "T2_FALLBACK_0003",
+      "sequence": "MTAILERRESESLWGRFCNWITGTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPASGSLLYGNNIITGAVVPSSNAILVHFYPIWEAASLDEWLYNGGPYQLIIFHFLLGASCYMGREWELSFRLGMRPWICVAYSAPLASAFAVFLIYPIGQGSFSDGMPLGITTTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLLFSAMHGSLVTSSLIRETTENESANEGYRFGQEEETYNIVAHAGYGRLLFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVIGTWADIINRANLGMEVMHERNAHNFPLDLAAEG",
+      "mutations": [
+        "G178T",
+        "N315G",
+        "V67A",
+        "S177T"
+      ],
+      "method": "track1_guided",
+      "n_track1_muts": 3,
+      "n_synergistic": 1,
+      "based_on_track1": true,
+      "predicted_tm": 42.74612748917118,
+      "delta_tm": 0.7461274891711795,
+      "delta_dg_membrane": 0.0,
+      "helix_score": 0.09999999999999992,
+      "min_distance_functional": 7,
+      "composite_score": 0.4211446212099128,
+      "track": "track2",
+      "refinement_score": 0.4247943820314457,
+      "validation": {
+        "delta_tm": 0.7461274891711795,
+        "predicted_tm": 42.74612748917118,
+        "composite_score": 0.4211446212099128,
+        "pass_rate": 0.8,
+        "validated": true
+      },
+      "final_score": 0.4247943820314457
+    },
+    {
+      "id": "T2_FALLBACK_0001",
+      "sequence": "MTAILERRESESLWGRFCTWITGTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPAAVSLLYGNNIITGAVVPSSNAILVHFYPIWEAASLDEWLYNGGPYQLIIFHFLLGASCYMGREWELSFRLGMRPWICVAYSAPLASAFAVFLIYPIGQGSFSDGMPLGISTTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLLFSAMHGSLVTSSLIRETTENESANEGYRFGQEEETYNIVAHAGYGRLLFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVIGTWADIINRANLGMEVMHERNAHNFPLDLAAEG",
+      "mutations": [
+        "G178T",
+        "N19T",
+        "V67A",
+        "N315G",
+        "G69V",
+        "S68A"
+      ],
+      "method": "track1_guided",
+      "n_track1_muts": 4,
+      "n_synergistic": 2,
+      "based_on_track1": true,
+      "predicted_tm": 42.02366104009135,
+      "delta_tm": 0.02366104009134773,
+      "delta_dg_membrane": -1.0,
+      "helix_score": 1.4899999999999998,
+      "min_distance_functional": 8,
+      "composite_score": 0.7162813640319717,
+      "track": "track2",
+      "refinement_score": 0.2243488252461306,
+      "validation": {
+        "delta_tm": 0.02366104009134773,
+        "predicted_tm": 42.02366104009135,
+        "composite_score": 0.7162813640319717,
+        "pass_rate": 0.8,
+        "validated": true
+      },
+      "final_score": 0.2243488252461306
+    },
+    {
+      "id": "T2_FALLBACK_0004",
+      "sequence": "MTAILERRESESLWGRFCTWITGTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPAAGSLLYGNNIITGAVVPSSNAILVHFYPIWEAASLDEWLYNGGPYQLIIFHFLLGASCYMGREWELSFRLGMRPWICVAYSAPLASAFAVFLIYPIGQGSFSDGMPLGIATTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLLFSAMHGSLVTSSLIRETTENESANEGYRFGQEEETYNIVAHAGYGRLLFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVIGTWADIINRANLGMEVMHERNAHNFPLDLAAEG",
+      "mutations": [
+        "N19T",
+        "N315G",
+        "G178T",
+        "V67A",
+        "S68A",
+        "S177A"
+      ],
+      "method": "track1_guided",
+      "n_track1_muts": 4,
+      "n_synergistic": 2,
+      "based_on_track1": true,
+      "predicted_tm": 42.09617435091051,
+      "delta_tm": 0.09617435091050908,
+      "delta_dg_membrane": -1.0,
+      "helix_score": 0.94,
+      "min_distance_functional": 7,
+      "composite_score": 0.6116610228186782,
+      "track": "track2",
+      "refinement_score": 0.2219680472098071,
+      "validation": {
+        "delta_tm": 0.09617435091050908,
+        "predicted_tm": 42.09617435091051,
+        "composite_score": 0.6116610228186782,
+        "pass_rate": 0.8,
+        "validated": true
+      },
+      "final_score": 0.2219680472098071
+    }
+  ]
+}

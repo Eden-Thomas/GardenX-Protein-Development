@@ -68,6 +68,15 @@ class ComprehensiveValidator:
         except Exception as e:
             print(f"   ⚠️ Initialization warning: {str(e)}")
             print(f"   Using default WT Tm: {self.wt_tm}°C")
+    
+    async def initialize_wt_structure(self, wt_sequence: str = None):
+        """
+        Initialize wild-type structure for comparison
+        Alias for initialize() for backwards compatibility with master_pipeline_v3.py
+        """
+        # wt_sequence is passed but we already have it from __init__
+        # Just call initialize() which does the actual work
+        await self.initialize()
         
     async def validate_variant(self, variant: Dict) -> Dict:
         """
