@@ -1,6 +1,7 @@
 """
 track2_generative.py
 AI-guided optimization with multi-objective scoring and Track 1 seed integration
+UPDATED: Added iteratively_improve_variant() for true sequential pipeline
 """
 
 import asyncio
@@ -106,6 +107,178 @@ class Track2Generative:
             print(f"      Mean ΔTm: {np.mean([v.get('delta_tm', 0) for v in variants]):.1f}°C")
         
         return variants[:n_variants]
+    
+    async def iteratively_improve_variant(
+        self,
+        base_variant: Dict,
+        wt_sequence: str,
+        target_temp: int = 55,
+        improvement_rounds: int = 3,
+        aggressive_mode: bool = True
+    ) -> Dict:
+        """
+        NEW METHOD: Take an EXACT variant from Track 1 and iteratively improve it
+        This is the key method for true sequential processing
+        
+        Args:
+            base_variant: Variant from Track 1 to improve
+            wt_sequence: Wild-type sequence
+            target_temp: Target temperature
+            improvement_rounds: Number of iterative improvement rounds
+            aggressive_mode: Use aggressive thermostabilizing mutations
+        """
+        
+        print(f"      Iteratively improving {base_variant['id']} (target: {target_temp}°C)")
+        
+        current_variant = base_variant.copy()
+        current_tm = current_variant.get('predicted_tm', 28)
+        
+        for round_num in range(improvement_rounds):
+            print(f"        Round {round_num + 1}: Current Tm = {current_tm:.1f}°C")
+            
+            # Find positions near existing mutations for synergistic effects
+            existing_positions = set()
+            for mut in current_variant.get('mutations', []):
+                if len(mut) >= 3:
+                    try:
+                        pos = int(mut[1:-1])
+                        existing_positions.add(pos)
+                    except:
+                        continue
+            
+            # Generate candidate positions (within 3 residues of existing mutations)
+            candidate_positions = set()
+            for pos in existing_positions:
+                for offset in range(-3, 4):  # ±3 residues
+                    new_pos = pos + offset
+                    if 10 <= new_pos <= len(wt_sequence) - 10:  # Safe range
+                        candidate_positions.add(new_pos)
+            
+            # Add some random positions for diversity
+            for _ in range(5):
+                random_pos = np.random.randint(50, len(wt_sequence) - 50)
+                candidate_positions.add(random_pos)
+            
+            # Generate thermostabilizing mutations at these positions
+            improvement_mutations = []
+            for pos in list(candidate_positions)[:10]:  # Limit to 10 candidates
+                if pos in self.functional_exclusion:
+                    continue
+                
+                pos_idx = pos - 1
+                if pos_idx >= len(wt_sequence):
+                    continue
+                
+                wt_aa = wt_sequence[pos_idx]
+                
+                # Aggressive thermostabilizing substitutions
+                if aggressive_mode:
+                    thermostable_subs = {
+                        'G': ['A', 'V', 'I'],      # Remove flexibility
+                        'S': ['T', 'V', 'A'],      # Reduce polarity
+                        'N': ['D', 'Q', 'T'],      # Improve packing
+                        'Q': ['E', 'N', 'L'],      # Enhance stability
+                        'A': ['V', 'I', 'L'],      # Increase hydrophobicity
+                        'T': ['V', 'I', 'A'],      # Better packing
+                        'V': ['I', 'L'],           # Increase size
+                        'L': ['I', 'V'],           # Optimize packing
+                    }
+                else:
+                    # Conservative substitutions
+                    thermostable_subs = {
+                        'G': ['A'],
+                        'S': ['T'],
+                        'A': ['V']
+                    }
+                
+                if wt_aa in thermostable_subs:
+                    to_aa = np.random.choice(thermostable_subs[wt_aa])
+                    improvement_mutations.append(f'{wt_aa}{pos}{to_aa}')
+            
+            # Select 2-4 improvement mutations
+            if improvement_mutations:
+                n_improvements = np.random.randint(2, min(5, len(improvement_mutations) + 1))
+                selected_improvements = np.random.choice(
+                    improvement_mutations, 
+                    size=n_improvements, 
+                    replace=False
+                )
+                
+                # Apply improvements
+                new_mutations = current_variant['mutations'] + list(selected_improvements)
+                new_sequence = self._apply_mutations_to_sequence(wt_sequence, new_mutations)
+                
+                # Predict new Tm (use aggressive prediction)
+                if aggressive_mode:
+                    new_tm = self._aggressive_tm_prediction(new_sequence, wt_sequence)
+                else:
+                    new_tm = current_tm + len(selected_improvements) * 1.5  # Heuristic
+                
+                # Keep if improvement
+                if new_tm > current_tm:
+                    current_variant = {
+                        'id': f"{base_variant['id']}_R{round_num + 1}",
+                        'sequence': new_sequence,
+                        'mutations': new_mutations,
+                        'predicted_tm': new_tm,
+                        'track': 'track2',
+                        'method': 'iterative_improvement',
+                        'track1_parent': base_variant['id'],
+                        'improvement_round': round_num + 1,
+                        'improvements_added': list(selected_improvements)
+                    }
+                    current_tm = new_tm
+                    print(f"          Improved to {new_tm:.1f}°C (+{len(selected_improvements)} mutations)")
+                else:
+                    print(f"          No improvement in round {round_num + 1}")
+            else:
+                print(f"          No candidate improvements found")
+        
+        # Final variant
+        final_variant = current_variant.copy()
+        final_variant['id'] = f"{base_variant['id']}_IMPROVED"
+        
+        print(f"      Final: {base_variant['id']} → {final_variant['id']}")
+        print(f"      Tm: {base_variant.get('predicted_tm', 28):.1f}°C → {final_variant.get('predicted_tm', 28):.1f}°C")
+        print(f"      Mutations: {len(base_variant.get('mutations', []))} → {len(final_variant.get('mutations', []))}")
+        
+        return final_variant
+    
+    def _aggressive_tm_prediction(self, sequence: str, wt_sequence: str) -> float:
+        """
+        NEW METHOD: More aggressive Tm prediction targeting higher temperatures
+        """
+        
+        base_tm = 28.0  # WT baseline
+        
+        # Count different types of stabilizing changes
+        mutations = self._get_mutations(wt_sequence, sequence)
+        
+        tm_boost = 0.0
+        for mut in mutations:
+            if len(mut) < 3:
+                continue
+            
+            from_aa = mut[0]
+            to_aa = mut[-1]
+            
+            # Higher scoring for known thermostable substitutions
+            if from_aa == 'G' and to_aa in 'AVIL':
+                tm_boost += 3.0  # Large boost for Gly→hydrophobic
+            elif from_aa == 'S' and to_aa in 'TVA':
+                tm_boost += 2.5  # Good boost for Ser→less polar
+            elif from_aa in 'NQ' and to_aa in 'DETL':
+                tm_boost += 2.0  # Moderate boost for polar optimization
+            elif from_aa in 'AV' and to_aa in 'IL':
+                tm_boost += 1.5  # Small boost for size increase
+            else:
+                tm_boost += 1.0  # Generic boost
+        
+        # Diminishing returns
+        if tm_boost > 25:
+            tm_boost = 25 + (tm_boost - 25) * 0.5
+        
+        return base_tm + tm_boost
     
     async def _neurofold_with_constraints(
         self, wt_sequence: str, seed_mutations: List[str], n_variants: int

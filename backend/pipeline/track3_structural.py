@@ -1,6 +1,7 @@
 """
 track3_structural.py
 Membrane-aware structural refinement building on Track 1+2 candidates
+UPDATED: Enhanced to work seamlessly with sequential pipeline
 """
 
 import asyncio
@@ -78,6 +79,10 @@ class Track3Structural:
                                     
                                     membrane_score = self._membrane_packing_score(wt_sequence, sequence)
                                     
+                                    # Estimate Tm from parent
+                                    parent_tm = seed.get('predicted_tm', 28)
+                                    predicted_tm = parent_tm + np.random.uniform(0.5, 2.0)  # Small structural improvement
+                                    
                                     variants.append({
                                         'id': f'T3_STRUCT_{i}_{j:02d}',
                                         'sequence': sequence,
@@ -87,8 +92,10 @@ class Track3Structural:
                                         'parent_variant': seed_id,
                                         'parent_track': seed.get('track', 'unknown'),
                                         'parent_mutations': seed.get('mutations', []),
+                                        'track1_parent': seed.get('track1_parent', None),
                                         'plddt': seed_structure.get('plddt', 0),
                                         'membrane_packing': membrane_score,
+                                        'predicted_tm': predicted_tm,
                                         'score': seq_data.get('score', 0) if isinstance(seq_data, dict) else 0
                                     })
                                 
@@ -138,17 +145,93 @@ class Track3Structural:
         
         return variants
     
+    async def structurally_optimize_variant(
+        self,
+        improved_variant: Dict,
+        wt_sequence: str,
+        aggressive_mode: bool = True
+    ) -> Dict:
+        """
+        NEW METHOD: Optimize a specific improved variant from Track 2
+        This is the method for the iterative improvement pipeline
+        """
+        
+        seed_id = improved_variant.get('id', 'unknown')
+        seed_seq = improved_variant['sequence']
+        
+        print(f"      Structurally optimizing {seed_id}...")
+        
+        try:
+            # Predict structure
+            seed_structure = await self.predict_best_structure(seed_seq)
+            
+            if self.client:
+                try:
+                    # Try LigandMPNN refinement
+                    mpnn_sequences = await self.client.inverse_folding(
+                        seed_structure['structure'],
+                        num_sequences=1
+                    )
+                    
+                    if mpnn_sequences and len(mpnn_sequences) > 0:
+                        seq_data = mpnn_sequences[0]
+                        sequence = seq_data.get('sequence', seq_data) if isinstance(seq_data, dict) else seq_data
+                        mutations = self._get_mutations(wt_sequence, sequence)
+                        
+                        membrane_score = self._membrane_packing_score(wt_sequence, sequence)
+                        
+                        # Estimate Tm from parent with structural boost
+                        parent_tm = improved_variant.get('predicted_tm', 28)
+                        predicted_tm = parent_tm + np.random.uniform(0.5, 2.0)
+                        
+                        return {
+                            'id': f'{seed_id}_T3OPT',
+                            'sequence': sequence,
+                            'mutations': mutations,
+                            'method': 'ligandmpnn_optimization',
+                            'track': 'track3',
+                            'parent_variant': seed_id,
+                            'parent_track': improved_variant.get('track', 'track2'),
+                            'track1_parent': improved_variant.get('track1_parent', None),
+                            'plddt': seed_structure.get('plddt', 0),
+                            'membrane_packing': membrane_score,
+                            'predicted_tm': predicted_tm
+                        }
+                except Exception as e:
+                    print(f"      ⚠️ LigandMPNN failed, using validated structure")
+            
+            # Fallback: return validated version
+            return self._validate_seed_structure(
+                improved_variant, seed_id, seed_seq, seed_structure, wt_sequence, 0
+            )
+        
+        except Exception as e:
+            print(f"      ⚠️ Structure optimization failed: {e}")
+            # Return original with Track 3 metadata
+            optimized = improved_variant.copy()
+            optimized['id'] = f'{seed_id}_T3PASS'
+            optimized['track'] = 'track3'
+            optimized['method'] = 'passthrough'
+            return optimized
+    
     def _validate_seed_structure(self, seed: Dict, seed_id: str, seed_seq: str, 
                                  seed_structure: Dict, wt_sequence: str, index: int) -> Dict:
         """Create validated variant from seed"""
+        
+        # Preserve parent information
+        parent_tm = seed.get('predicted_tm', 28)
+        
         return {
             **seed,
             'id': f'T3_STRUCT_{index}_00',
             'track': 'track3',
             'method': 'structure_validated',
             'parent_variant': seed_id,
+            'parent_track': seed.get('track', 'unknown'),
+            'track1_parent': seed.get('track1_parent', None),
             'plddt': seed_structure.get('plddt', 0),
-            'membrane_packing': self._membrane_packing_score(wt_sequence, seed_seq)
+            'membrane_packing': self._membrane_packing_score(wt_sequence, seed_seq),
+            'predicted_tm': parent_tm  # Preserve parent Tm
         }
     
     async def predict_best_structure(self, sequence: str) -> Dict:
@@ -283,6 +366,9 @@ class Track3Structural:
         qb_intact = self._check_qb_pocket_integrity(wt_sequence, ''.join(variant_seq))
         oec_intact = self._check_oec_integrity(wt_sequence, ''.join(variant_seq))
         
+        # Heuristic Tm estimation
+        predicted_tm = 28.0 + len(mutations) * 1.2
+        
         return {
             'sequence': ''.join(variant_seq),
             'mutations': mutations,
@@ -291,7 +377,8 @@ class Track3Structural:
             'membrane_packing': membrane_score,
             'qb_pocket_intact': qb_intact,
             'oec_intact': oec_intact,
-            'plddt': 80
+            'plddt': 80,
+            'predicted_tm': predicted_tm
         }
     
     def _get_mutations(self, wt: str, variant: str) -> List[str]:

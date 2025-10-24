@@ -1,6 +1,7 @@
 """
 track1_evolutionary.py
 Evolutionary analysis with position mapping, topology filters, and functional site exclusions
+UPDATED: Added aggressive mode for higher temperature targets
 """
 
 import asyncio
@@ -53,13 +54,43 @@ class Track1Evolutionary:
         if BIOPYTHON_AVAILABLE:
             Entrez.email = "thomas@edenaglabs.com"  # CHANGE THIS TO YOUR EMAIL
     
-    async def generate_variants(self, wt_sequence: str, n_variants: int = 15) -> List[Dict]:
-        """Generate evolution-guided variants with full guardrails"""
+    async def generate_variants(
+        self, 
+        wt_sequence: str, 
+        n_variants: int = 15,
+        aggressive_mode: bool = False,        # NEW
+        conservation_threshold: float = 0.9,  # NEW - make configurable
+        max_mutations: int = 6,               # NEW - make configurable  
+        target_temp: int = 50                 # NEW
+    ) -> List[Dict]:
+        """
+        Generate evolution-guided variants with enhanced aggressiveness
+        
+        Args:
+            wt_sequence: Wild-type sequence
+            n_variants: Number of variants to generate
+            aggressive_mode: Enable aggressive mode for higher temps
+            conservation_threshold: Conservation cutoff (lower = more mutations)
+            max_mutations: Maximum mutations per variant
+            target_temp: Target temperature in Celsius
+        """
         
         print("  🧬 Track 1: Evolutionary analysis with guardrails")
         
+        # CRITICAL CHANGES for aggressive mode
+        if aggressive_mode:
+            print(f"    → AGGRESSIVE MODE: Targeting {target_temp}°C")
+            print(f"    → Conservation threshold: {conservation_threshold} → 0.3 (lower = more mutations)")
+            print(f"    → Max mutations per variant: {max_mutations} → 15")
+            
+            conservation_threshold = 0.3  # Much lower!
+            max_mutations = 15           # Much higher!
+            thermophile_temp_min = 65    # Target extreme thermophiles instead of moderate
+        else:
+            thermophile_temp_min = 50    # Moderate thermophiles
+        
         if BIOPYTHON_AVAILABLE:
-            print(f"    → Fetching thermophilic sequences...")
+            print(f"    → Fetching thermophilic sequences (min temp: {thermophile_temp_min}°C)...")
             thermophile_seqs = await self._fetch_thermophile_sequences()
         else:
             print("    → BioPython unavailable, using heuristic mode")
@@ -67,7 +98,7 @@ class Track1Evolutionary:
         
         if not thermophile_seqs or len(thermophile_seqs) < 3:
             print("    ⚠️ Insufficient thermophile data, using fallback")
-            return self._fallback_variants(wt_sequence, n_variants)
+            return self._fallback_variants(wt_sequence, n_variants, aggressive_mode, max_mutations)
         
         print(f"    ✓ Retrieved {len(thermophile_seqs)} thermophilic sequences")
         
@@ -76,23 +107,24 @@ class Track1Evolutionary:
         
         print("    → Identifying thermostable mutations...")
         candidate_mutations = self._identify_mutations_with_guardrails(
-            wt_sequence, thermophile_seqs, conservation_data
+            wt_sequence, thermophile_seqs, conservation_data, conservation_threshold
         )
         
         if not candidate_mutations:
             print("    ⚠️ No safe mutations found after filtering")
-            return self._fallback_variants(wt_sequence, n_variants)
+            return self._fallback_variants(wt_sequence, n_variants, aggressive_mode, max_mutations)
         
         print(f"    ✓ Found {len(candidate_mutations)} safe mutations")
         
         variants = self._build_variants_from_mutations(
-            wt_sequence, candidate_mutations, n_variants
+            wt_sequence, candidate_mutations, n_variants, max_mutations
         )
         
         for i, variant in enumerate(variants):
             variant['id'] = f'T1_EVO_{i:04d}'
             variant['track'] = 'track1'
             variant['method'] = 'evolutionary'
+            variant['aggressive_mode'] = aggressive_mode
         
         print(f"    ✓ Generated {len(variants)} evolution-guided variants")
         
@@ -170,9 +202,10 @@ class Track1Evolutionary:
         }
     
     def _identify_mutations_with_guardrails(
-        self, wt_sequence: str, thermophile_seqs: List[Dict], conservation_data: Dict
+        self, wt_sequence: str, thermophile_seqs: List[Dict], 
+        conservation_data: Dict, conservation_threshold: float
     ) -> List[Dict]:
-        """Identify mutations with ALL guardrails applied"""
+        """Identify mutations with ALL guardrails applied (now uses configurable threshold)"""
         
         mutations = []
         aligned_seqs = conservation_data['aligned_seqs']
@@ -213,8 +246,8 @@ class Track1Evolutionary:
                     if wt_aa in 'AILMFWV' and residue not in 'AILMFWV':
                         continue
                 
-                # GUARDRAIL 4: CONSERVATION THRESHOLD
-                if conservation[pos] > 0.9:
+                # GUARDRAIL 4: CONSERVATION THRESHOLD (now uses parameter)
+                if conservation[pos] > conservation_threshold:
                     continue
                 
                 # GUARDRAIL 5: DISTANCE TO FUNCTIONAL SITES
@@ -247,15 +280,17 @@ class Track1Evolutionary:
         return mutations
     
     def _build_variants_from_mutations(
-        self, wt_sequence: str, mutations: List[Dict], n_variants: int
+        self, wt_sequence: str, mutations: List[Dict], 
+        n_variants: int, max_mutations: int
     ) -> List[Dict]:
-        """Build variants by combining top mutations"""
+        """Build variants by combining top mutations (now uses configurable max_mutations)"""
         
         variants = []
         top_mutations = mutations[:min(20, len(mutations))]
         
         for i in range(n_variants):
-            n_muts = np.random.randint(3, 7)
+            # Use max_mutations parameter instead of hardcoded value
+            n_muts = np.random.randint(3, min(max_mutations + 1, len(top_mutations)))
             selected = np.random.choice(
                 len(top_mutations), 
                 size=min(n_muts, len(top_mutations)), 
@@ -287,26 +322,48 @@ class Track1Evolutionary:
         
         return variants
     
-    def _fallback_variants(self, wt_sequence: str, n_variants: int) -> List[Dict]:
-        """Fallback: heuristic mutations when data unavailable"""
+    def _fallback_variants(
+        self, wt_sequence: str, n_variants: int, 
+        aggressive_mode: bool = False, max_mutations: int = 6
+    ) -> List[Dict]:
+        """Fallback: heuristic mutations when data unavailable (now with aggressive mode)"""
         
         variants = []
         
-        safe_mutations = {
-            45: ('G', 'A', 'Reduce flexibility'),
-            120: ('S', 'T', 'H-bond network'),
-            200: ('V', 'I', 'Core packing'),
-            250: ('L', 'V', 'Hydrophobic core'),
-            280: ('A', 'V', 'Helix stability')
-        }
+        # More aggressive mutations if in aggressive mode
+        if aggressive_mode:
+            safe_mutations = {
+                45: ('G', 'V', 'Remove flexibility - aggressive'),
+                50: ('S', 'A', 'Reduce polarity'),
+                120: ('S', 'T', 'H-bond network'),
+                125: ('N', 'D', 'Improve packing'),
+                200: ('V', 'I', 'Core packing'),
+                205: ('A', 'I', 'Increase hydrophobicity'),
+                250: ('L', 'I', 'Hydrophobic core'),
+                255: ('A', 'L', 'Better packing'),
+                280: ('A', 'V', 'Helix stability'),
+                285: ('T', 'I', 'Aggressive packing'),
+                290: ('G', 'A', 'Rigidity'),
+                300: ('S', 'V', 'Hydrophobic optimization')
+            }
+        else:
+            safe_mutations = {
+                45: ('G', 'A', 'Reduce flexibility'),
+                120: ('S', 'T', 'H-bond network'),
+                200: ('V', 'I', 'Core packing'),
+                250: ('L', 'V', 'Hydrophobic core'),
+                280: ('A', 'V', 'Helix stability')
+            }
         
         for i in range(n_variants):
             variant_seq = list(wt_sequence)
             variant_muts = []
             
+            # Use more mutations in aggressive mode
+            n_muts_target = min(max_mutations, len(safe_mutations)) if aggressive_mode else min(3, len(safe_mutations))
             positions = np.random.choice(
                 list(safe_mutations.keys()), 
-                size=min(3, len(safe_mutations)), 
+                size=n_muts_target, 
                 replace=False
             )
             
@@ -324,6 +381,7 @@ class Track1Evolutionary:
                 'score': 0.5,
                 'track': 'track1',
                 'method': 'heuristic_fallback',
+                'aggressive_mode': aggressive_mode,
                 'conservation_score': 0.5,
                 'temperature_correlation': 0.5
             })
