@@ -54,7 +54,7 @@ class MasterPipelineV3Sequential:
     ) -> Dict:
         """
         Execute TRUE SEQUENTIAL pipeline with iterative improvement
-        Track 1 → Track 2 (improve same) → Track 3 (optimize same)
+        Track 1 → Track 2 (improve Track 1 variant) → Track 3 (optimize Track 2 output variant)
         """
         
         print("\n" + "="*70)

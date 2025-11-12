@@ -1,0 +1,414 @@
+[
+  {
+    "id": "wheat_window1_v1",
+    "sequence": "MTAILERRESESLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIITGAVVPSSNAILVHFYPIWEAARRVKLVRRVVVKAILIVKARLGASCYMGREWELSFRLGMRPWICVAYSAPLASAFAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLLFSAMHGSLVTSSLIRETTENESANEGYRFGQEEETYNIVAHAGYGRLLFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAAEG",
+    "mutations": [
+      "S101R",
+      "V102R",
+      "D103V",
+      "E104K",
+      "W105L",
+      "L106V",
+      "Y107R",
+      "N108R",
+      "G109V",
+      "G110V",
+      "P111V",
+      "Y112K",
+      "Q113A",
+      "L114I",
+      "I115L",
+      "F117V",
+      "H118K",
+      "F119A",
+      "L120R"
+    ],
+    "scores": {
+      "predicted_ddg": 0.9144833174550029,
+      "plddt_score": 83.6779305937948,
+      "design_score": 0.712995361885928,
+      "fitness_score": 0.6156340057636888,
+      "thermostability": 62.27665706051873,
+      "functional_score": 0.7,
+      "predicted_tm": 61.36887608069164,
+      "qb_binding_intact": true,
+      "electron_transport": 0.6156340057636888,
+      "overall_score": 1.0
+    },
+    "metadata": {
+      "window": "window1",
+      "method": "progen2",
+      "timestamp": "2025-11-02T22:48:40.362481"
+    }
+  },
+  {
+    "id": "wheat_window1_v2",
+    "sequence": "MTAILERRESESLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIITGAVVPSSNAILVHFYPIWEAAKVVRLAALRVKKVILKVKVRLGASCYMGREWELSFRLGMRPWICVAYSAPLASAFAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLLFSAMHGSLVTSSLIRETTENESANEGYRFGQEEETYNIVAHAGYGRLLFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAAEG",
+    "mutations": [
+      "S101K",
+      "D103V",
+      "E104R",
+      "W105L",
+      "L106A",
+      "Y107A",
+      "N108L",
+      "G109R",
+      "G110V",
+      "P111K",
+      "Y112K",
+      "Q113V",
+      "L114I",
+      "I115L",
+      "I116K",
+      "F117V",
+      "H118K",
+      "F119V",
+      "L120R"
+    ],
+    "scores": {
+      "predicted_ddg": -1.1784156463203022,
+      "plddt_score": 83.29792474137929,
+      "design_score": 0.7294130760445415,
+      "fitness_score": 0.6156340057636888,
+      "thermostability": 62.27665706051873,
+      "functional_score": 0.7,
+      "predicted_tm": 61.36887608069164,
+      "qb_binding_intact": true,
+      "electron_transport": 0.6156340057636888,
+      "overall_score": 1.0
+    },
+    "metadata": {
+      "window": "window1",
+      "method": "progen2",
+      "timestamp": "2025-11-02T22:48:40.362493"
+    }
+  },
+  {
+    "id": "wheat_window2_v1",
+    "sequence": "MTAILERRESESLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIITGAVVPSSNAILVHFYPIWEAASVDEWLYNGGPYQLIIFHFLLGASCYMGREWELSFRLGMRPWICVAYSAPLASAFAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLRVLKRVKVLLRVLVMVILVKTSSLIRETTENESANEGYRFGQEEETYNIVAHAGYGRLLFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAAEG",
+    "mutations": [
+      "G201R",
+      "A203L",
+      "G204K",
+      "V205R",
+      "F206V",
+      "G207K",
+      "G208V",
+      "S209L",
+      "L211R",
+      "F212V",
+      "S213L",
+      "A214V",
+      "H216V",
+      "G217I",
+      "S218L",
+      "L219V",
+      "V220K"
+    ],
+    "scores": {
+      "predicted_ddg": -0.1414177921342996,
+      "plddt_score": 87.4961470330457,
+      "design_score": 0.811772574375676,
+      "fitness_score": 0.620821325648415,
+      "thermostability": 62.79538904899135,
+      "functional_score": 0.7,
+      "predicted_tm": 62.06051873198847,
+      "qb_binding_intact": true,
+      "electron_transport": 0.620821325648415,
+      "overall_score": 1.0
+    },
+    "metadata": {
+      "window": "window2",
+      "method": "progen2",
+      "timestamp": "2025-11-02T22:48:40.868167"
+    }
+  },
+  {
+    "id": "wheat_window2_v2",
+    "sequence": "MTAILERRESESLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIITGAVVPSSNAILVHFYPIWEAASVDEWLYNGGPYQLIIFHFLLGASCYMGREWELSFRLGMRPWICVAYSAPLASAFAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLRLIVLLAALLVRLRMRLVLRTSSLIRETTENESANEGYRFGQEEETYNIVAHAGYGRLLFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAAEG",
+    "mutations": [
+      "G201R",
+      "V202L",
+      "A203I",
+      "G204V",
+      "V205L",
+      "F206L",
+      "G207A",
+      "G208A",
+      "S209L",
+      "L211V",
+      "F212R",
+      "S213L",
+      "A214R",
+      "H216R",
+      "G217L",
+      "S218V",
+      "V220R"
+    ],
+    "scores": {
+      "predicted_ddg": 1.0147897808241657,
+      "plddt_score": 83.34413791765033,
+      "design_score": 0.8735948828407849,
+      "fitness_score": 0.6213976945244957,
+      "thermostability": 62.70893371757925,
+      "functional_score": 0.7,
+      "predicted_tm": 61.945244956772335,
+      "qb_binding_intact": true,
+      "electron_transport": 0.6213976945244957,
+      "overall_score": 1.0
+    },
+    "metadata": {
+      "window": "window2",
+      "method": "progen2",
+      "timestamp": "2025-11-02T22:48:40.868181"
+    }
+  },
+  {
+    "id": "wheat_window3_v1",
+    "sequence": "MTAILERRESESLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIITGAVVPSSNAILVHFYPIWEAASVDEWLYNGGPYQLIIFHFLLGASCYMGREWELSFRLGMRPWICVAYSAPLASAFAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLLFSAMHGSLVTSSLIRETTENESANEGYRFGQEEETYNIVAHAGYGRLLFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFRLILVIAIVVAARLKLKIALINRANLGMEVMHERNAHNFPLDLAAEG",
+    "mutations": [
+      "N301R",
+      "F302L",
+      "N303I",
+      "Q304L",
+      "S305V",
+      "V306I",
+      "V307A",
+      "D308I",
+      "S309V",
+      "Q310V",
+      "G311A",
+      "R312A",
+      "V313R",
+      "I314L",
+      "N315K",
+      "T316L",
+      "W317K",
+      "A318I",
+      "D319A",
+      "I320L"
+    ],
+    "scores": {
+      "predicted_ddg": 0.43752997887767364,
+      "plddt_score": 87.69576478590093,
+      "design_score": 0.8682775170993573,
+      "fitness_score": 0.626585014409222,
+      "thermostability": 62.79538904899135,
+      "functional_score": 0.7,
+      "predicted_tm": 62.06051873198847,
+      "qb_binding_intact": true,
+      "electron_transport": 0.626585014409222,
+      "overall_score": 1.0
+    },
+    "metadata": {
+      "window": "window3",
+      "method": "progen2",
+      "timestamp": "2025-11-02T22:48:41.373964"
+    }
+  },
+  {
+    "id": "wheat_window3_v2",
+    "sequence": "MTAILERRESESLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIITGAVVPSSNAILVHFYPIWEAASVDEWLYNGGPYQLIIFHFLLGASCYMGREWELSFRLGMRPWICVAYSAPLASAFAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLLFSAMHGSLVTSSLIRETTENESANEGYRFGQEEETYNIVAHAGYGRLLFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFKKVILLAKRVKKKILAAVKVINRANLGMEVMHERNAHNFPLDLAAEG",
+    "mutations": [
+      "N301K",
+      "F302K",
+      "N303V",
+      "Q304I",
+      "S305L",
+      "V306L",
+      "V307A",
+      "D308K",
+      "S309R",
+      "Q310V",
+      "G311K",
+      "R312K",
+      "V313K",
+      "N315L",
+      "T316A",
+      "W317A",
+      "A318V",
+      "D319K",
+      "I320V"
+    ],
+    "scores": {
+      "predicted_ddg": -0.19742693217958918,
+      "plddt_score": 80.64273602435522,
+      "design_score": 0.8834828421804278,
+      "fitness_score": 0.6182276657060518,
+      "thermostability": 62.53602305475504,
+      "functional_score": 0.7,
+      "predicted_tm": 61.71469740634006,
+      "qb_binding_intact": true,
+      "electron_transport": 0.6182276657060518,
+      "overall_score": 1.0
+    },
+    "metadata": {
+      "window": "window3",
+      "method": "progen2",
+      "timestamp": "2025-11-02T22:48:41.373991"
+    }
+  },
+  {
+    "id": "wheat_window4_v1",
+    "sequence": "MTAILERRESESLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIITGAVVPSSNAILVHFYPIWEAASVDEWLYNGGPYQLIIFHFLLGASCYMGREWELSFRLGMRPWICVAYSAPIRVLAAVIVKYAILVARIVDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLLFSAMHGSLVTSSLIRETTENESANEGYRFGQEEETYNIVAHAGYGRLLFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAAEG",
+    "mutations": [
+      "L151I",
+      "A152R",
+      "S153V",
+      "A154L",
+      "F155A",
+      "F158I",
+      "L159V",
+      "I160K",
+      "P162A",
+      "G164L",
+      "Q165V",
+      "G166A",
+      "S167R",
+      "F168I",
+      "S169V"
+    ],
+    "scores": {
+      "predicted_ddg": -0.19018521575957337,
+      "plddt_score": 86.85265301477088,
+      "design_score": 0.758629194614234,
+      "fitness_score": 0.6219740634005764,
+      "thermostability": 62.622478386167145,
+      "functional_score": 0.7,
+      "predicted_tm": 61.829971181556196,
+      "qb_binding_intact": true,
+      "electron_transport": 0.6219740634005764,
+      "overall_score": 1.0
+    },
+    "metadata": {
+      "window": "window4",
+      "method": "progen2",
+      "timestamp": "2025-11-02T22:48:41.878083"
+    }
+  },
+  {
+    "id": "wheat_window4_v2",
+    "sequence": "MTAILERRESESLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIITGAVVPSSNAILVHFYPIWEAASVDEWLYNGGPYQLIIFHFLLGASCYMGREWELSFRLGMRPWICVAYSAPLVVIIIIRRVYRRKVRIARDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLLFSAMHGSLVTSSLIRETTENESANEGYRFGQEEETYNIVAHAGYGRLLFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAAEG",
+    "mutations": [
+      "A152V",
+      "S153V",
+      "A154I",
+      "F155I",
+      "A156I",
+      "V157I",
+      "F158R",
+      "L159R",
+      "I160V",
+      "P162R",
+      "I163R",
+      "G164K",
+      "Q165V",
+      "G166R",
+      "S167I",
+      "F168A",
+      "S169R"
+    ],
+    "scores": {
+      "predicted_ddg": -0.2586347401953142,
+      "plddt_score": 82.26685323874683,
+      "design_score": 0.7034885552253096,
+      "fitness_score": 0.6153458213256484,
+      "thermostability": 62.53602305475504,
+      "functional_score": 0.7,
+      "predicted_tm": 61.71469740634006,
+      "qb_binding_intact": true,
+      "electron_transport": 0.6153458213256484,
+      "overall_score": 1.0
+    },
+    "metadata": {
+      "window": "window4",
+      "method": "progen2",
+      "timestamp": "2025-11-02T22:48:41.878093"
+    }
+  },
+  {
+    "id": "wheat_window5_v1",
+    "sequence": "MTAILERRESESLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIITGAVVPSSNAILVHFYPIWEAASVDEWLYNGGPYQLIIFHFLLGASCYMGREWELSFRLGMRPWICVAYSAPLASAFAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLLFSAMHGSLVTSSLIRETTEIIAILIKIALVKIVIKIAIIAHAGYGRLLFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAAEG",
+    "mutations": [
+      "N231I",
+      "E232I",
+      "S233A",
+      "A234I",
+      "N235L",
+      "E236I",
+      "G237K",
+      "Y238I",
+      "R239A",
+      "F240L",
+      "G241V",
+      "Q242K",
+      "E243I",
+      "E244V",
+      "E245I",
+      "T246K",
+      "Y247I",
+      "N248A",
+      "V250I"
+    ],
+    "scores": {
+      "predicted_ddg": 0.9601092900615105,
+      "plddt_score": 82.99296492344799,
+      "design_score": 0.7625266474748994,
+      "fitness_score": 0.6270172910662823,
+      "thermostability": 63.14121037463977,
+      "functional_score": 0.7,
+      "predicted_tm": 62.52161383285303,
+      "qb_binding_intact": true,
+      "electron_transport": 0.6270172910662823,
+      "overall_score": 1.0
+    },
+    "metadata": {
+      "window": "window5",
+      "method": "progen2",
+      "timestamp": "2025-11-02T22:48:42.383368"
+    }
+  },
+  {
+    "id": "wheat_window5_v2",
+    "sequence": "MTAILERRESESLWGRFCNWITSTENRLYIGWFGVLMIPTLLTATSVFIIAFIAAPPVDIDGIREPVSGSLLYGNNIITGAVVPSSNAILVHFYPIWEAASVDEWLYNGGPYQLIIFHFLLGASCYMGREWELSFRLGMRPWICVAYSAPLASAFAVFLIYPIGQGSFSDGMPLGISGTFNFMIVFQAEHNILMHPFHMLGVAGVFGGSLLFSAMHGSLVTSSLIRETTELVKLLVKAKLKVKRVRRIAIAHAGYGRLLFQYASFNNSRSLHFFLAAWPVVGIWFTALGISTMAFNLNGFNFNQSVVDSQGRVINTWADIINRANLGMEVMHERNAHNFPLDLAAEG",
+    "mutations": [
+      "N231L",
+      "E232V",
+      "S233K",
+      "A234L",
+      "N235L",
+      "E236V",
+      "G237K",
+      "Y238A",
+      "R239K",
+      "F240L",
+      "G241K",
+      "Q242V",
+      "E243K",
+      "E244R",
+      "E245V",
+      "T246R",
+      "Y247R",
+      "N248I",
+      "I249A",
+      "V250I"
+    ],
+    "scores": {
+      "predicted_ddg": 1.1524062378399424,
+      "plddt_score": 79.95110371508036,
+      "design_score": 0.8574561636100417,
+      "fitness_score": 0.6251440922190202,
+      "thermostability": 62.79538904899135,
+      "functional_score": 0.7,
+      "predicted_tm": 62.06051873198847,
+      "qb_binding_intact": true,
+      "electron_transport": 0.6251440922190202,
+      "overall_score": 1.0
+    },
+    "metadata": {
+      "window": "window5",
+      "method": "progen2",
+      "timestamp": "2025-11-02T22:48:42.383380"
+    }
+  }
+]

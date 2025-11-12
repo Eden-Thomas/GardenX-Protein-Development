@@ -1,88 +1,115 @@
 """
-backend/config.py
-Production configuration for D1 Engineering Pipeline
+Configuration file for Eden Agriculture D1 Protein Engineering Pipeline
 """
 
 import os
 from pathlib import Path
-from dotenv import load_dotenv
+from typing import Dict, Any
 
-# Load environment variables
-load_dotenv()
+# Try to load .env file if it exists
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    # dotenv not installed, will use environment variables directly
+    pass
 
-class Config:
-    """Central configuration for the pipeline"""
-    
-    # API Keys
-    NEUROSNAP_API_KEY = os.getenv('NEUROSNAP_API_KEY')
-    NCBI_EMAIL = os.getenv('NCBI_EMAIL', 'thomas@edenaglabs.com')
-    NCBI_API_KEY = os.getenv('NCBI_API_KEY')  # Optional but recommended
-    
-    # Pipeline Configuration
-    TARGET_TEMPERATURE = int(os.getenv('TARGET_TEMPERATURE', 50))  # Target Tm in Celsius
-    INITIAL_VARIANT_COUNT = int(os.getenv('INITIAL_VARIANT_COUNT', 15))  # Start small
-    PRODUCTION_VARIANT_COUNT = int(os.getenv('PRODUCTION_VARIANT_COUNT', 1000))
-    
-    # Validation Thresholds
-    MIN_TM_IMPROVEMENT = float(os.getenv('MIN_TM_IMPROVEMENT', 10.0))  # Minimum ΔTm
-    MIN_PLDDT = float(os.getenv('MIN_PLDDT', 70.0))  # Minimum folding confidence
-    MIN_TM_SCORE = float(os.getenv('MIN_TM_SCORE', 0.85))  # Structural similarity
-    MAX_AGGREGATION_SCORE = float(os.getenv('MAX_AGGREGATION_SCORE', 0.5))
-    MIN_SOLUBILITY = float(os.getenv('MIN_SOLUBILITY', 0.4))
-    
-    # API Rate Limiting
-    MAX_API_CALLS_PER_RUN = int(os.getenv('MAX_API_CALLS_PER_RUN', 100))
-    MAX_CONCURRENT_JOBS = int(os.getenv('MAX_CONCURRENT_JOBS', 5))
-    
-    # Paths
-    BASE_DIR = Path(__file__).parent
-    RESULTS_DIR = BASE_DIR / 'results'
-    DATA_DIR = BASE_DIR / 'data'
-    CACHE_DIR = BASE_DIR / 'cache'
-    
-    # Create directories
-    RESULTS_DIR.mkdir(exist_ok=True)
-    DATA_DIR.mkdir(exist_ok=True)
-    CACHE_DIR.mkdir(exist_ok=True)
-    
-    # D1-specific Configuration
-    D1_SEQUENCE_LENGTH = 353  # Standard D1 protein length
-    
-    # Active site residues (1-indexed)
-    ACTIVE_SITE_RESIDUES = {
-        161: 'H',  # His161 - Mn ligand
-        170: 'D',  # Asp170 - critical for water splitting
-        189: 'E',  # Glu189 - proton transfer
-        215: 'R',  # Arg215 - stabilizes cluster
-        254: 'Y',  # Tyr254 - electron transfer
-        255: 'F',  # Phe255 - hydrophobic packing
-        264: 'H',  # His264 - Mn ligand
-        271: 'Y',  # Tyr271 - electron transfer
-        332: 'H',  # His332 - Mn ligand
-        333: 'E',  # Glu333 - proton transfer
-        342: 'D',  # Asp342 - Ca ligand
-        344: 'A'   # Ala344 - structural
+# API Configuration
+NEUROSNAP_API_CONFIG = {
+    "api_key": os.getenv("NEUROSNAP_API_KEY", "2ac33d9b432efc48bd2ba2aeaaaf260d990f7fe1b2f85d8fc36ab694574fde7975f056c5d76a6399717443ab09355984fcb607aa345e41b80c700ea710eb8c66"),
+    "base_url": "https://api.neurosnap.ai",
+    "fallback_mode": True,  # Set to False when API domain is allowed
+    "rate_limit_delay": 0.5,  # seconds between requests
+    "timeout": 300,  # request timeout in seconds
+}
+
+# Pipeline Configuration
+PIPELINE_CONFIG = {
+    "target_crops": ["wheat", "corn", "rice"],
+    "variants_per_window": 10,  # Number of variants to generate per design window
+    "max_variants_to_screen": 100,  # Maximum variants to screen in one batch
+    "conservation_threshold": 0.9,  # Minimum conservation ratio for cross-species transfer
+}
+
+# D1 Protein Engineering Parameters
+ENGINEERING_CONFIG = {
+    "min_plddt_score": 70,  # Minimum pLDDT score for structure confidence
+    "min_fitness_score": 0.6,  # Minimum fitness score to consider variant
+    "target_tm_increase": 10,  # Target melting temperature increase in Celsius
+    "max_mutations_per_variant": 5,  # Maximum mutations per variant
+    "preserve_functional_sites": True,  # Always preserve QB binding and other critical sites
+}
+
+# Thermostability Optimization Parameters
+THERMO_CONFIG = {
+    "target_operating_temp": 110,  # Target operating temperature in Fahrenheit
+    "min_tm_celsius": 55,  # Minimum melting temperature in Celsius
+    "hydrophobicity_range": [0.35, 0.55],  # Optimal hydrophobicity range
+    "charge_optimization": "slightly_positive",  # Charge distribution strategy
+    "avoid_aggregation_prone": True,  # Filter out aggregation-prone sequences
+}
+
+# Output Configuration
+OUTPUT_CONFIG = {
+    "results_dir": Path("./results"),
+    "save_intermediate": True,  # Save intermediate results during pipeline
+    "export_formats": ["fasta", "json", "csv"],  # Output file formats
+    "max_variants_export": 100,  # Maximum variants to export
+}
+
+# Model Selection
+MODEL_CONFIG = {
+    "fitness_model": "esm2_t33_650M",  # ESM model for fitness prediction
+    "structure_model": "esmfold",  # Structure prediction model
+    "generation_model": "progen2",  # Variant generation model
+    "thermostability_model": "thermonet",  # Thermostability prediction model
+}
+
+# Logging Configuration
+LOGGING_CONFIG = {
+    "level": "INFO",  # Set to DEBUG for detailed logging
+    "format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    "file": "d1_engineering.log",  # Log file path
+}
+
+# Validation Thresholds
+VALIDATION_CONFIG = {
+    "min_overall_score": 0.7,  # Minimum overall score for elite variants
+    "qb_binding_required": True,  # Require intact QB binding site
+    "electron_transport_min": 0.6,  # Minimum electron transport score
+    "functional_activity_min": 70,  # Minimum predicted activity percentage
+}
+
+def get_config():
+    """Return complete configuration dictionary"""
+    return {
+        "api": NEUROSNAP_API_CONFIG,
+        "pipeline": PIPELINE_CONFIG,
+        "engineering": ENGINEERING_CONFIG,
+        "thermo": THERMO_CONFIG,
+        "output": OUTPUT_CONFIG,
+        "models": MODEL_CONFIG,
+        "logging": LOGGING_CONFIG,
+        "validation": VALIDATION_CONFIG
     }
-    
-    # Transmembrane helices (1-indexed)
-    TM_HELICES = [
-        (20, 40),   # TM1
-        (70, 90),   # TM2
-        (160, 180), # TM3
-        (220, 240), # TM4
-        (290, 310)  # TM5
-    ]
-    
-    # Cost Management
-    ESTIMATED_COST_PER_CALL = 0.10  # Estimated $ per API call
-    MAX_BUDGET = float(os.getenv('MAX_BUDGET', 100.0))  # Maximum budget in $
-    
-    def validate(self):
-        """Validate configuration"""
-        if not self.NEUROSNAP_API_KEY:
-            raise ValueError("NEUROSNAP_API_KEY is required in .env file")
-        
-        if not self.NCBI_EMAIL:
-            print("Warning: NCBI_EMAIL not set, using default")
-        
-        return True
+
+def update_for_production():
+    """Update configuration for production use with real API"""
+    NEUROSNAP_API_CONFIG["fallback_mode"] = False
+    PIPELINE_CONFIG["variants_per_window"] = 50
+    PIPELINE_CONFIG["max_variants_to_screen"] = 500
+    print("Configuration updated for production mode with real API access")
+
+def update_for_testing():
+    """Update configuration for testing with reduced parameters"""
+    NEUROSNAP_API_CONFIG["fallback_mode"] = True
+    PIPELINE_CONFIG["variants_per_window"] = 2
+    PIPELINE_CONFIG["max_variants_to_screen"] = 10
+    PIPELINE_CONFIG["target_crops"] = ["wheat"]
+    print("Configuration updated for testing mode with reduced parameters")
+
+if __name__ == "__main__":
+    import json
+    config = get_config()
+    print("Current Configuration:")
+    print(json.dumps(config, indent=2))
